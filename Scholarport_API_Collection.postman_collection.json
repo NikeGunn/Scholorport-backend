@@ -1,0 +1,1258 @@
+{
+  "info": {
+    "_postman_id": "12345678-1234-1234-1234-123456789abc",
+    "name": "Scholarport Backend API",
+    "description": "Complete API collection for Scholarport - AI-powered university recommendation chatbot backend.\n\n## Base URL\n`http://127.0.0.1:8000/api/chat`\n\n## API Overview\nThis API provides:\n- AI-powered conversation management\n- University search and recommendations\n- Student profile creation\n- Admin dashboard analytics\n- Excel export functionality\n\n## How to Use\n1. Start with **Health Check** to verify API is running\n2. Use **Start Conversation** to create a new session\n3. Use **Send Message** to simulate the 5-question flow\n4. Check **Get Conversation History** to see the chat\n5. Explore **Universities** endpoints for data\n6. Use **Admin** endpoints for dashboard features",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12345678"
+  },
+  "item": [
+    {
+      "name": "🔥 Core Chat API",
+      "item": [
+        {
+          "name": "Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has success field\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.eql(true);",
+                  "});",
+                  "",
+                  "pm.test(\"API is running\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.message).to.include(\"running\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health",
+                ""
+              ]
+            },
+            "description": "Simple health check to verify the API is running and responsive."
+          },
+          "response": [
+            {
+              "name": "Health Check Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/health/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "health",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Scholarport Backend API is running\",\n    \"timestamp\": \"2025-09-22T11:27:16.725650\",\n    \"version\": \"1.0.0\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Start New Conversation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains session_id\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.session_id).to.not.be.undefined;",
+                  "    // Save session_id for use in other requests",
+                  "    pm.environment.set(\"session_id\", jsonData.session_id);",
+                  "});",
+                  "",
+                  "pm.test(\"Conversation starts at step 1\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.current_step).to.eql(1);",
+                  "});",
+                  "",
+                  "pm.test(\"Welcome message and question provided\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.message).to.not.be.undefined;",
+                  "    pm.expect(jsonData.question).to.not.be.undefined;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{base_url}}/start/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "start",
+                ""
+              ]
+            },
+            "description": "Starts a new conversation session with the AI chatbot. Returns a unique session_id that you'll use for all subsequent messages in this conversation.\n\n**Note:** The session_id is automatically saved to your environment variables for use in other requests."
+          },
+          "response": [
+            {
+              "name": "New Conversation Started",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{base_url}}/start/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "start",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"session_id\": \"b82e8c32-2f2b-4b6d-8628-01aa043808e4\",\n    \"current_step\": 1,\n    \"message\": \"Hello! Welcome to Scholarport - your personalized study abroad advisor. I'll help you find the perfect universities based on your preferences. Let's start with a few questions.\",\n    \"question\": \"Hi! I'm Scholarport AI, your study abroad assistant. What is your name?\",\n    \"total_steps\": 5\n}"
+            }
+          ]
+        },
+        {
+          "name": "Send Message - Step 1 (Name)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Bot response received\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.bot_response).to.not.be.undefined;",
+                  "});",
+                  "",
+                  "pm.test(\"Conversation not completed yet\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.completed).to.eql(false);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"My name is John Smith\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "send",
+                ""
+              ]
+            },
+            "description": "Send the student's name (Step 1 of 5). The AI will process this and ask the next question about education level."
+          },
+          "response": [
+            {
+              "name": "Name Response Processed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"My name is John Smith\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/send/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "send",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"session_id\": \"b82e8c32-2f2b-4b6d-8628-01aa043808e4\",\n    \"current_step\": 2,\n    \"bot_response\": \"Nice to meet you, John Smith! What is your education level?\",\n    \"completed\": false,\n    \"total_steps\": 5,\n    \"next_question\": \"What is your education level? (e.g., High School, Bachelor's, Master's, etc.)\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Send Message - Step 2 (Education)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"I have a Bachelor's degree in Computer Science\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "send",
+                ""
+              ]
+            },
+            "description": "Send education background (Step 2 of 5). The AI will process this and ask about test scores."
+          }
+        },
+        {
+          "name": "Send Message - Step 3 (Test Score)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"I have IELTS 7.0\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "send",
+                ""
+              ]
+            },
+            "description": "Send test score information (Step 3 of 5). Can be IELTS or TOEFL scores."
+          }
+        },
+        {
+          "name": "Send Message - Step 4 (Budget)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"My budget is $25,000 USD per year\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "send",
+                ""
+              ]
+            },
+            "description": "Send budget information (Step 4 of 5). Include currency and amount."
+          }
+        },
+        {
+          "name": "Send Message - Step 5 (Country) - FINAL",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Conversation completed\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.completed).to.eql(true);",
+                  "});",
+                  "",
+                  "pm.test(\"University recommendations provided\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.recommendations).to.not.be.undefined;",
+                  "    pm.expect(jsonData.recommendations.length).to.eql(3);",
+                  "});",
+                  "",
+                  "pm.test(\"Profile created\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.profile_created).to.eql(true);",
+                  "    pm.expect(jsonData.profile_id).to.not.be.undefined;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"I want to study in Canada\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "send",
+                ""
+              ]
+            },
+            "description": "Send country preference (Step 5 of 5 - FINAL). This completes the conversation and triggers university recommendations.\n\n**Expected Result:**\n- Conversation marked as completed\n- 3 university recommendations provided\n- Student profile created\n- AI insights generated"
+          },
+          "response": [
+            {
+              "name": "Conversation Completed with Recommendations",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"I want to study in Canada\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/send/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "send",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"session_id\": \"b82e8c32-2f2b-4b6d-8628-01aa043808e4\",\n    \"current_step\": 6,\n    \"bot_response\": \"Perfect! Based on your profile, I've found 3 excellent universities in Canada that match your preferences. Here are my recommendations:\",\n    \"completed\": true,\n    \"total_steps\": 5,\n    \"recommendations\": [\n        {\n            \"name\": \"University of Toronto\",\n            \"country\": \"Canada\",\n            \"city\": \"Toronto\",\n            \"tuition\": \"45000 CAD\",\n            \"programs\": [\"Computer Science\", \"Engineering\", \"Business\"],\n            \"ielts_requirement\": 6.5,\n            \"toefl_requirement\": 100,\n            \"ranking\": \"21\",\n            \"why_selected\": \"Your IELTS 7.0 exceeds requirements; Strong computer science programs\",\n            \"affordability\": \"Moderate\",\n            \"region\": \"Ontario\"\n        },\n        {\n            \"name\": \"University of British Columbia\",\n            \"country\": \"Canada\",\n            \"city\": \"Vancouver\",\n            \"tuition\": \"42000 CAD\",\n            \"programs\": [\"Computer Science\", \"Applied Science\", \"Commerce\"],\n            \"ielts_requirement\": 6.5,\n            \"toefl_requirement\": 90,\n            \"ranking\": \"34\",\n            \"why_selected\": \"Well within budget; Excellent computer science programs\",\n            \"affordability\": \"Moderate\",\n            \"region\": \"British Columbia\"\n        },\n        {\n            \"name\": \"McGill University\",\n            \"country\": \"Canada\",\n            \"city\": \"Montreal\",\n            \"tuition\": \"38000 CAD\",\n            \"programs\": [\"Engineering\", \"Science\", \"Management\"],\n            \"ielts_requirement\": 6.5,\n            \"toefl_requirement\": 90,\n            \"ranking\": \"31\",\n            \"why_selected\": \"Highly ranked university; Great value for money\",\n            \"affordability\": \"Affordable\",\n            \"region\": \"Quebec\"\n        }\n    ],\n    \"profile_created\": true,\n    \"profile_id\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Conversation History",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Messages array exists\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.messages).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test(\"Messages have proper structure\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.messages.length > 0) {",
+                  "        var message = jsonData.messages[0];",
+                  "        pm.expect(message.type).to.not.be.undefined;",
+                  "        pm.expect(message.content).to.not.be.undefined;",
+                  "        pm.expect(message.timestamp).to.not.be.undefined;",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/conversation/{{session_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "conversation",
+                "{{session_id}}",
+                ""
+              ]
+            },
+            "description": "Retrieve the complete chat history for a specific conversation session. Shows all messages exchanged between the user and the AI, with timestamps and step numbers."
+          },
+          "response": [
+            {
+              "name": "Conversation History Retrieved",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/conversation/{{session_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "conversation",
+                    "{{session_id}}",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"session_id\": \"b82e8c32-2f2b-4b6d-8628-01aa043808e4\",\n    \"messages\": [\n        {\n            \"type\": \"bot\",\n            \"content\": \"Hello! Welcome to Scholarport - your personalized study abroad advisor.\",\n            \"step_number\": 0,\n            \"timestamp\": \"2025-09-22T11:27:16.725650\"\n        },\n        {\n            \"type\": \"user\",\n            \"content\": \"My name is John Smith\",\n            \"step_number\": 1,\n            \"timestamp\": \"2025-09-22T11:28:20.123456\"\n        },\n        {\n            \"type\": \"bot\",\n            \"content\": \"Nice to meet you, John Smith! What is your education level?\",\n            \"step_number\": 1,\n            \"timestamp\": \"2025-09-22T11:28:21.654321\"\n        }\n    ],\n    \"current_step\": 6,\n    \"completed\": true,\n    \"created_at\": \"2025-09-22T11:27:16.725650\"\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Core conversation endpoints for the AI chatbot. Use these to simulate the complete 5-question flow that students go through."
+    },
+    {
+      "name": "🏫 University Data API",
+      "item": [
+        {
+          "name": "Get All Universities",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Universities array exists\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.universities).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test(\"Total count provided\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.total_count).to.be.a('number');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/universities/?limit=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "universities",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of universities to return (default 50)"
+                }
+              ]
+            },
+            "description": "Get a list of all universities in the database. Supports filtering and pagination."
+          },
+          "response": [
+            {
+              "name": "Universities List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/universities/?limit=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "universities",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"universities\": [\n        {\n            \"id\": 1,\n            \"name\": \"Harvard University\",\n            \"country\": \"USA\",\n            \"city\": \"Cambridge\",\n            \"tuition\": \"55000 USD\",\n            \"programs\": [\"Business\", \"Law\", \"Medicine\", \"Engineering\", \"Computer Science\"],\n            \"ranking\": \"1\",\n            \"ielts_requirement\": 7.0,\n            \"toefl_requirement\": 100,\n            \"affordability\": \"Very Expensive\",\n            \"region\": \"Massachusetts\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"University of Toronto\",\n            \"country\": \"Canada\",\n            \"city\": \"Toronto\",\n            \"tuition\": \"45000 CAD\",\n            \"programs\": [\"Computer Science\", \"Engineering\", \"Business\"],\n            \"ranking\": \"21\",\n            \"ielts_requirement\": 6.5,\n            \"toefl_requirement\": 100,\n            \"affordability\": \"Moderate\",\n            \"region\": \"Ontario\"\n        }\n    ],\n    \"total_count\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Search Universities by Country",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/universities/?country=Canada&limit=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "universities",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "Canada",
+                  "description": "Filter by country name"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Search for universities in a specific country."
+          }
+        },
+        {
+          "name": "Search Universities by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/universities/?search=harvard&limit=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "universities",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "harvard",
+                  "description": "Search in university names"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Search for universities by name (case-insensitive partial matching)."
+          }
+        },
+        {
+          "name": "Get University Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"University object exists\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.university).to.be.an('object');",
+                  "});",
+                  "",
+                  "pm.test(\"University has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    var uni = jsonData.university;",
+                  "    pm.expect(uni.name).to.not.be.undefined;",
+                  "    pm.expect(uni.country).to.not.be.undefined;",
+                  "    pm.expect(uni.city).to.not.be.undefined;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/universities/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "universities",
+                "1",
+                ""
+              ]
+            },
+            "description": "Get detailed information about a specific university by its ID."
+          },
+          "response": [
+            {
+              "name": "University Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/universities/1/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "universities",
+                    "1",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"university\": {\n        \"id\": 1,\n        \"name\": \"Harvard University\",\n        \"country\": \"USA\",\n        \"city\": \"Cambridge\",\n        \"tuition\": \"55000 USD\",\n        \"programs\": [\"Business Administration\", \"Law\", \"Medicine\", \"Engineering\", \"Computer Science\", \"Psychology\", \"Economics\"],\n        \"ranking\": \"1\",\n        \"ielts_requirement\": 7.0,\n        \"toefl_requirement\": 100,\n        \"affordability\": \"Very Expensive\",\n        \"region\": \"Massachusetts\",\n        \"notes\": \"World's leading university with exceptional programs across all disciplines. Highly competitive admission process.\"\n    }\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Endpoints for accessing university data, searching, and filtering the 243-university database."
+    },
+    {
+      "name": "📊 Admin Dashboard API",
+      "item": [
+        {
+          "name": "Get Dashboard Statistics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Stats object exists\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.stats).to.be.an('object');",
+                  "});",
+                  "",
+                  "pm.test(\"Key metrics present\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    var stats = jsonData.stats;",
+                  "    pm.expect(stats.total_conversations).to.be.a('number');",
+                  "    pm.expect(stats.completed_conversations).to.be.a('number');",
+                  "    pm.expect(stats.completion_rate).to.be.a('number');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/stats/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "stats",
+                ""
+              ]
+            },
+            "description": "Get comprehensive dashboard statistics for counselors and administrators.\n\n**Metrics Included:**\n- Total conversations started\n- Completion rates\n- Popular destination countries\n- Recent activity\n- Student profile statistics"
+          },
+          "response": [
+            {
+              "name": "Dashboard Statistics",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/stats/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "stats",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"stats\": {\n        \"total_conversations\": 25,\n        \"completed_conversations\": 18,\n        \"total_profiles\": 18,\n        \"completion_rate\": 72.0,\n        \"popular_countries\": [\"Canada\", \"USA\", \"UK\", \"Australia\", \"Germany\"],\n        \"recent_activity\": 5,\n        \"profile_stats\": {\n            \"total_profiles\": 18,\n            \"completed_conversations\": 18,\n            \"avg_budget\": 28500.50,\n            \"top_countries\": [\"Canada\", \"USA\", \"UK\"],\n            \"test_type_distribution\": {\n                \"IELTS\": 12,\n                \"TOEFL\": 6\n            },\n            \"recent_profiles\": 3\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Student Profiles",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Profiles array exists\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.profiles).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test(\"Pagination info present\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.pagination).to.be.an('object');",
+                  "    pm.expect(jsonData.pagination.total_count).to.be.a('number');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/profiles/?limit=10&offset=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "profiles",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of profiles to return (default 50)"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination (default 0)"
+                }
+              ]
+            },
+            "description": "Get paginated list of all student profiles for the admin dashboard. Each profile includes conversation data and university recommendations."
+          },
+          "response": [
+            {
+              "name": "Student Profiles List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/profiles/?limit=10&offset=0",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "profiles",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"profiles\": [\n        {\n            \"id\": 1,\n            \"session_id\": \"b82e8c32-2f2b-4b6d-8628-01aa043808e4\",\n            \"student_name\": \"John Smith\",\n            \"education_background\": \"Bachelor's degree in Computer Science\",\n            \"budget\": \"USD 25,000\",\n            \"test_score\": \"IELTS 7.0\",\n            \"preferred_country\": \"Canada\",\n            \"recommended_universities\": [\"University of Toronto\", \"University of British Columbia\", \"McGill University\"],\n            \"ai_insights\": \"Strong test scores provide good university options; Diverse geographic options across 1 countries\",\n            \"created_at\": \"2025-09-22T11:27:16.725650\",\n            \"conversation_completed\": true\n        }\n    ],\n    \"pagination\": {\n        \"total_count\": 1,\n        \"limit\": 10,\n        \"offset\": 0,\n        \"has_more\": false\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Filter Profiles by Country",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/profiles/?country=Canada&completed_only=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "profiles",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "Canada",
+                  "description": "Filter by preferred country"
+                },
+                {
+                  "key": "completed_only",
+                  "value": "true",
+                  "description": "Show only completed conversations"
+                }
+              ]
+            },
+            "description": "Filter student profiles by preferred country and completion status."
+          }
+        },
+        {
+          "name": "Export Profiles to Excel",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is Excel file\", function () {",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.include('spreadsheetml');",
+                  "});",
+                  "",
+                  "pm.test(\"File download header present\", function () {",
+                  "    pm.expect(pm.response.headers.get('Content-Disposition')).to.include('attachment');",
+                  "    pm.expect(pm.response.headers.get('Content-Disposition')).to.include('.xlsx');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/export/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "export",
+                ""
+              ]
+            },
+            "description": "Export all completed student profiles to an Excel file for download.\n\n**Excel Columns Include:**\n- Session ID\n- Student Name\n- Education Background\n- Budget Amount & Currency\n- Test Type & Score\n- Preferred Country\n- 3 Recommended Universities\n- AI Insights\n- Date Created\n- Conversation Status\n\n**Note:** This endpoint returns a file download, not JSON."
+          },
+          "response": [
+            {
+              "name": "Excel File Download",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/export/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "export",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "raw",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                },
+                {
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=student_profiles_20250922_112716.xlsx"
+                }
+              ],
+              "cookie": [],
+              "body": "[Binary Excel File Content]"
+            }
+          ]
+        }
+      ],
+      "description": "Admin endpoints for counselors to view analytics, manage student data, and export information."
+    },
+    {
+      "name": "🔧 Error Handling Examples",
+      "item": [
+        {
+          "name": "Invalid Session ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"invalid-session-id\",\n    \"message\": \"Test message\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "send",
+                ""
+              ]
+            },
+            "description": "Example of error response when using invalid session ID."
+          },
+          "response": [
+            {
+              "name": "Invalid Session Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"session_id\": \"invalid-session-id\",\n    \"message\": \"Test message\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/send/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "send",
+                    ""
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": \"Invalid session_id\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Missing Required Fields",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "send",
+                ""
+              ]
+            },
+            "description": "Example of error response when required fields are missing."
+          },
+          "response": [
+            {
+              "name": "Missing Fields Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"session_id\": \"{{session_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/send/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "send",
+                    ""
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": \"session_id and message are required\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "University Not Found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/universities/99999/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "universities",
+                "99999",
+                ""
+              ]
+            },
+            "description": "Example of error response when university ID doesn't exist."
+          },
+          "response": [
+            {
+              "name": "University Not Found Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/universities/99999/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "universities",
+                    "99999",
+                    ""
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": \"Failed to get university details: No University matches the given query.\"\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Examples of common error responses and how the API handles invalid requests."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api/chat",
+      "type": "string"
+    },
+    {
+      "key": "session_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

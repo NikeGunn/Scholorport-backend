@@ -1,0 +1,308 @@
+# Scholarport Backend - .gitignore
+
+# ========================================
+# Python
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ========================================
+# Virtual Environment
+# ========================================
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.env/
+
+# ========================================
+# Django
+# ========================================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static/
+
+# Django migrations (uncomment if you want to exclude them)
+# */migrations/*.py
+# */migrations/*.pyc
+# !*/migrations/__init__.py
+
+# ========================================
+# Environment Variables & Secrets
+# ========================================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.pem
+*.key
+
+# Firebase credentials
+*firebase-adminsdk*.json
+firebase-config.json
+google-credentials.json
+
+# OpenAI API keys and other secrets
+*.secret
+secrets.json
+
+# ========================================
+# Database Files
+# ========================================
+*.sqlite3
+*.db
+*.sqlite
+pgdata/
+postgres-data/
+
+# ========================================
+# IDE & Editor Files
+# ========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ========================================
+# Testing & Coverage
+# ========================================
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+htmlcov/
+.coverage.*
+coverage/
+nosetests.xml
+test-results/
+
+# ========================================
+# Documentation
+# ========================================
+docs/_build/
+docs/build/
+site/
+
+# ========================================
+# Logs & Temporary Files
+# ========================================
+*.log
+*.tmp
+*.temp
+logs/
+tmp/
+temp/
+
+# ========================================
+# Excel & Data Export Files
+# ========================================
+*.xlsx
+*.xls
+*.csv
+*_export_*.xlsx
+student_profiles_*.xlsx
+firebase_data_*.xlsx
+firebase_data_*.json
+
+# But keep example/template files
+!*example*.xlsx
+!*template*.xlsx
+!*sample*.xlsx
+
+# ========================================
+# Backup Files
+# ========================================
+*.bak
+*.backup
+*.old
+*~
+
+# ========================================
+# OS Generated Files
+# ========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ========================================
+# Node.js (for any frontend assets)
+# ========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ========================================
+# Redis & Cache
+# ========================================
+dump.rdb
+redis.conf
+
+# ========================================
+# Celery
+# ========================================
+celerybeat-schedule
+celerybeat.pid
+
+# ========================================
+# Docker
+# ========================================
+.dockerignore
+docker-compose.override.yml
+
+# ========================================
+# CI/CD & Deployment
+# ========================================
+.github/
+.gitlab-ci.yml
+Jenkinsfile.local
+.deployment/
+deployment/
+
+# ========================================
+# Monitoring & Analytics
+# ========================================
+.prometheus/
+grafana-data/
+elasticsearch-data/
+
+# ========================================
+# Project Specific Files
+# ========================================
+# Test files (keep these for now, uncomment to ignore)
+# test_*.py
+# *_test.py
+# debug_*.py
+
+# Generated API documentation
+api-docs/
+swagger-ui/
+
+# University data exports
+universities_export_*.json
+
+# Profile exports
+profiles_export_*
+
+# Conversation exports
+conversations_export_*
+
+# ========================================
+# Temporary Development Files
+# ========================================
+scratch.py
+temp.py
+debug.py
+test.py
+playground.py
+
+# ========================================
+# Performance & Profiling
+# ========================================
+.prof
+*.prof
+profile_results/
+
+# ========================================
+# Security Scan Results
+# ========================================
+security-report.json
+bandit-report.json
+safety-report.txt
+
+# ========================================
+# Local Configuration Overrides
+# ========================================
+local_config.py
+local_settings.py
+development_settings.py
+
+# ========================================
+# Third-party Service Credentials
+# ========================================
+aws-credentials
+gcp-credentials.json
+azure-credentials
+twilio-config.json
+
+# ========================================
+# Large Data Files
+# ========================================
+*.dump
+large_dataset.json
+bulk_*.json
+
+# ========================================
+# Jupyter Notebooks (if used for analysis)
+# ========================================
+.ipynb_checkpoints
+*.ipynb
+
+# ========================================
+# End of .gitignore
+# ========================================

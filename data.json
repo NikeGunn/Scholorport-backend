@@ -1,0 +1,5735 @@
+[
+  {
+    "university_name": "Coventry University",
+    "country": "United Kingdom",
+    "city": "Coventry",
+    "tuition": "18000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "601-650",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Affordable tuition",
+    "searchable_text": "University: Coventry University | Location: Coventry, United Kingdom | Programs: Business, Engineering | Tuition: 18000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 601-650 | Notes: Affordable tuition",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Bedfordshire",
+    "country": "United Kingdom",
+    "city": "Luton",
+    "tuition": "14500 GBP",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "801-1000",
+    "programs": [
+      "Business",
+      "IT"
+    ],
+    "notes": "Budget-friendly",
+    "searchable_text": "University: University of Bedfordshire | Location: Luton, United Kingdom | Programs: Business, IT | Tuition: 14500 GBP | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 801-1000 | Notes: Budget-friendly",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Bedfordshire"
+    ],
+    "program_categories": [
+      "Business",
+      "Technology"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Massachusetts Institute of Technology (MIT)",
+    "country": "United States",
+    "city": "Cambridge",
+    "tuition": "60000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "1",
+    "programs": [
+      "Computer Science",
+      "Engineering"
+    ],
+    "notes": "World-leading in tech",
+    "searchable_text": "University: Massachusetts Institute of Technology (MIT) | Location: Cambridge, United States | Programs: Computer Science, Engineering | Tuition: 60000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 1 | Notes: World-leading in tech",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "MIT"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Cambridge",
+    "country": "United Kingdom",
+    "city": "Cambridge",
+    "tuition": "25000 GBP",
+    "ielts": 7.5,
+    "toefl": 100,
+    "ranking": "2",
+    "programs": [
+      "Humanities",
+      "Sciences"
+    ],
+    "notes": "Historic excellence",
+    "searchable_text": "University: University of Cambridge | Location: Cambridge, United Kingdom | Programs: Humanities, Sciences | Tuition: 25000 GBP | IELTS requirement: 7.5 | TOEFL requirement: 100 | Ranking: 2 | Notes: Historic excellence",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Cambridge"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Oxford",
+    "country": "United Kingdom",
+    "city": "Oxford",
+    "tuition": "26000 GBP",
+    "ielts": 7.0,
+    "toefl": 94,
+    "ranking": "3",
+    "programs": [
+      "Law",
+      "Medicine"
+    ],
+    "notes": "Prestigious tradition",
+    "searchable_text": "University: University of Oxford | Location: Oxford, United Kingdom | Programs: Law, Medicine | Tuition: 26000 GBP | IELTS requirement: 7.0 | TOEFL requirement: 94 | Ranking: 3 | Notes: Prestigious tradition",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Oxford"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Harvard University",
+    "country": "United States",
+    "city": "Cambridge",
+    "tuition": "55000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "4",
+    "programs": [
+      "Business",
+      "Law"
+    ],
+    "notes": "Ivy League leader",
+    "searchable_text": "University: Harvard University | Location: Cambridge, United States | Programs: Business, Law | Tuition: 55000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 4 | Notes: Ivy League leader",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Stanford University",
+    "country": "United States",
+    "city": "Stanford",
+    "tuition": "58000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "5",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Innovation hub",
+    "searchable_text": "University: Stanford University | Location: Stanford, United States | Programs: Business, Engineering | Tuition: 58000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 5 | Notes: Innovation hub",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Imperial College London",
+    "country": "United Kingdom",
+    "city": "London",
+    "tuition": "30000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "6",
+    "programs": [
+      "Medicine",
+      "Science"
+    ],
+    "notes": "STEM focus",
+    "searchable_text": "University: Imperial College London | Location: London, United Kingdom | Programs: Medicine, Science | Tuition: 30000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 6 | Notes: STEM focus",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Sciences",
+      "Healthcare"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "ETH Zurich",
+    "country": "Switzerland",
+    "city": "Zurich",
+    "tuition": "1500 CHF",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "7",
+    "programs": [
+      "Engineering",
+      "Physics"
+    ],
+    "notes": "Low tuition in Europe",
+    "searchable_text": "University: ETH Zurich | Location: Zurich, Switzerland | Programs: Engineering, Physics | Tuition: 1500 CHF | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 7 | Notes: Low tuition in Europe",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "National University of Singapore (NUS)",
+    "country": "Singapore",
+    "city": "Singapore",
+    "tuition": "40000 SGD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "8",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Asia's top",
+    "searchable_text": "University: National University of Singapore (NUS) | Location: Singapore, Singapore | Programs: Business, Engineering | Tuition: 40000 SGD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 8 | Notes: Asia's top",
+    "affordability": "Expensive",
+    "name_variations": [
+      "NUS",
+      "National Singapore (NUS)"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "UCL",
+    "country": "United Kingdom",
+    "city": "London",
+    "tuition": "28000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "9",
+    "programs": [
+      "Arts",
+      "Social Sciences"
+    ],
+    "notes": "Diverse programs",
+    "searchable_text": "University: UCL | Location: London, United Kingdom | Programs: Arts, Social Sciences | Tuition: 28000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 9 | Notes: Diverse programs",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Sciences",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of California, Berkeley (UCB)",
+    "country": "United States",
+    "city": "Berkeley",
+    "tuition": "45000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "10",
+    "programs": [
+      "Computer Science",
+      "Economics"
+    ],
+    "notes": "Public Ivy",
+    "searchable_text": "University: University of California, Berkeley (UCB) | Location: Berkeley, United States | Programs: Computer Science, Economics | Tuition: 45000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 10 | Notes: Public Ivy",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UCB",
+      "California, Berkeley (UCB)"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Chicago",
+    "country": "United States",
+    "city": "Chicago",
+    "tuition": "65000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "11",
+    "programs": [
+      "Economics",
+      "Law"
+    ],
+    "notes": "Nobel laureates",
+    "searchable_text": "University: University of Chicago | Location: Chicago, United States | Programs: Economics, Law | Tuition: 65000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 11 | Notes: Nobel laureates",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Chicago"
+    ],
+    "program_categories": [
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Pennsylvania",
+    "country": "United States",
+    "city": "Philadelphia",
+    "tuition": "60000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "12",
+    "programs": [
+      "Business",
+      "Medicine"
+    ],
+    "notes": "Ivy League",
+    "searchable_text": "University: University of Pennsylvania | Location: Philadelphia, United States | Programs: Business, Medicine | Tuition: 60000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 12 | Notes: Ivy League",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Pennsylvania"
+    ],
+    "program_categories": [
+      "Business",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Cornell University",
+    "country": "United States",
+    "city": "Ithaca",
+    "tuition": "63000 USD",
+    "ielts": 7.5,
+    "toefl": 100,
+    "ranking": "13",
+    "programs": [
+      "Engineering",
+      "Hotel Management"
+    ],
+    "notes": "Ivy League",
+    "searchable_text": "University: Cornell University | Location: Ithaca, United States | Programs: Engineering, Hotel Management | Tuition: 63000 USD | IELTS requirement: 7.5 | TOEFL requirement: 100 | Ranking: 13 | Notes: Ivy League",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "The University of Melbourne",
+    "country": "Australia",
+    "city": "Melbourne",
+    "tuition": "45000 AUD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "14",
+    "programs": [
+      "Arts",
+      "Science"
+    ],
+    "notes": "Australian leader",
+    "searchable_text": "University: The University of Melbourne | Location: Melbourne, Australia | Programs: Arts, Science | Tuition: 45000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 14 | Notes: Australian leader",
+    "affordability": "Expensive",
+    "name_variations": [
+      "The Melbourne"
+    ],
+    "program_categories": [
+      "Sciences",
+      "Arts"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "California Institute of Technology (Caltech)",
+    "country": "United States",
+    "city": "Pasadena",
+    "tuition": "63000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "15",
+    "programs": [
+      "Astronomy",
+      "Physics"
+    ],
+    "notes": "Science focus",
+    "searchable_text": "University: California Institute of Technology (Caltech) | Location: Pasadena, United States | Programs: Astronomy, Physics | Tuition: 63000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 15 | Notes: Science focus",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Caltech"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Yale University",
+    "country": "United States",
+    "city": "New Haven",
+    "tuition": "64000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "16",
+    "programs": [
+      "Drama",
+      "Law"
+    ],
+    "notes": "Ivy League",
+    "searchable_text": "University: Yale University | Location: New Haven, United States | Programs: Drama, Law | Tuition: 64000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 16 | Notes: Ivy League",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Peking University",
+    "country": "China",
+    "city": "Beijing",
+    "tuition": "5000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "17",
+    "programs": [
+      "Chinese Studies",
+      "Engineering"
+    ],
+    "notes": "Affordable in Asia",
+    "searchable_text": "University: Peking University | Location: Beijing, China | Programs: Chinese Studies, Engineering | Tuition: 5000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 17 | Notes: Affordable in Asia",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "Princeton University",
+    "country": "United States",
+    "city": "Princeton",
+    "tuition": "59000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "17",
+    "programs": [
+      "Engineering",
+      "Public Policy"
+    ],
+    "notes": "Ivy League",
+    "searchable_text": "University: Princeton University | Location: Princeton, United States | Programs: Engineering, Public Policy | Tuition: 59000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 17 | Notes: Ivy League",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Sydney",
+    "country": "Australia",
+    "city": "Sydney",
+    "tuition": "46000 AUD",
+    "ielts": 6.5,
+    "toefl": 85,
+    "ranking": "19",
+    "programs": [
+      "Law",
+      "Medicine"
+    ],
+    "notes": "Strong global reputation",
+    "searchable_text": "University: University of Sydney | Location: Sydney, Australia | Programs: Law, Medicine | Tuition: 46000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 85 | Ranking: 19 | Notes: Strong global reputation",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Sydney"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Toronto",
+    "country": "Canada",
+    "city": "Toronto",
+    "tuition": "60000 CAD",
+    "ielts": 6.5,
+    "toefl": 89,
+    "ranking": "21",
+    "programs": [
+      "Business",
+      "Computer Science"
+    ],
+    "notes": "Leading Canadian university",
+    "searchable_text": "University: University of Toronto | Location: Toronto, Canada | Programs: Business, Computer Science | Tuition: 60000 CAD | IELTS requirement: 6.5 | TOEFL requirement: 89 | Ranking: 21 | Notes: Leading Canadian university",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Toronto"
+    ],
+    "program_categories": [
+      "Business",
+      "Sciences",
+      "Technology"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "McGill University",
+    "country": "Canada",
+    "city": "Montreal",
+    "tuition": "45000 CAD",
+    "ielts": 6.5,
+    "toefl": 86,
+    "ranking": "30",
+    "programs": [
+      "Arts",
+      "Medicine"
+    ],
+    "notes": "Bilingual environment",
+    "searchable_text": "University: McGill University | Location: Montreal, Canada | Programs: Arts, Medicine | Tuition: 45000 CAD | IELTS requirement: 6.5 | TOEFL requirement: 86 | Ranking: 30 | Notes: Bilingual environment",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Australian National University (ANU)",
+    "country": "Australia",
+    "city": "Canberra",
+    "tuition": "43000 AUD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "34",
+    "programs": [
+      "International Relations",
+      "Science"
+    ],
+    "notes": "Research-focused",
+    "searchable_text": "University: Australian National University (ANU) | Location: Canberra, Australia | Programs: International Relations, Science | Tuition: 43000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 34 | Notes: Research-focused",
+    "affordability": "Expensive",
+    "name_variations": [
+      "ANU"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Manchester",
+    "country": "United Kingdom",
+    "city": "Manchester",
+    "tuition": "24000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "41",
+    "programs": [
+      "Engineering",
+      "Social Sciences"
+    ],
+    "notes": "Vibrant student city",
+    "searchable_text": "University: University of Manchester | Location: Manchester, United Kingdom | Programs: Engineering, Social Sciences | Tuition: 24000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 41 | Notes: Vibrant student city",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Manchester"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Amsterdam",
+    "country": "Netherlands",
+    "city": "Amsterdam",
+    "tuition": "12000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "55",
+    "programs": [
+      "Business",
+      "Social Sciences"
+    ],
+    "notes": "Affordable in Europe",
+    "searchable_text": "University: University of Amsterdam | Location: Amsterdam, Netherlands | Programs: Business, Social Sciences | Tuition: 12000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 55 | Notes: Affordable in Europe",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Amsterdam"
+    ],
+    "program_categories": [
+      "Business",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of British Columbia (UBC)",
+    "country": "Canada",
+    "city": "Vancouver",
+    "tuition": "42000 CAD",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "38",
+    "programs": [
+      "Computer Science",
+      "Forestry"
+    ],
+    "notes": "Scenic campus",
+    "searchable_text": "University: University of British Columbia (UBC) | Location: Vancouver, Canada | Programs: Computer Science, Forestry | Tuition: 42000 CAD | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 38 | Notes: Scenic campus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UBC",
+      "British Columbia (UBC)"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Tokyo",
+    "country": "Japan",
+    "city": "Tokyo",
+    "tuition": "535800 JPY",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "28",
+    "programs": [
+      "Engineering",
+      "Humanities"
+    ],
+    "notes": "Top in Japan",
+    "searchable_text": "University: University of Tokyo | Location: Tokyo, Japan | Programs: Engineering, Humanities | Tuition: 535800 JPY | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 28 | Notes: Top in Japan",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Tokyo"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "Seoul National University",
+    "country": "South Korea",
+    "city": "Seoul",
+    "tuition": "6000 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "31",
+    "programs": [
+      "Engineering",
+      "Social Sciences"
+    ],
+    "notes": "Affordable in Asia",
+    "searchable_text": "University: Seoul National University | Location: Seoul, South Korea | Programs: Engineering, Social Sciences | Tuition: 6000 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 31 | Notes: Affordable in Asia",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "Monash University",
+    "country": "Australia",
+    "city": "Melbourne",
+    "tuition": "41000 AUD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "54",
+    "programs": [
+      "Business",
+      "Pharmacy"
+    ],
+    "notes": "Strong industry links",
+    "searchable_text": "University: Monash University | Location: Melbourne, Australia | Programs: Business, Pharmacy | Tuition: 41000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 54 | Notes: Strong industry links",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Edinburgh",
+    "country": "United Kingdom",
+    "city": "Edinburgh",
+    "tuition": "23000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "22",
+    "programs": [
+      "History",
+      "Medicine"
+    ],
+    "notes": "Historic and vibrant",
+    "searchable_text": "University: University of Edinburgh | Location: Edinburgh, United Kingdom | Programs: History, Medicine | Tuition: 23000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 22 | Notes: Historic and vibrant",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Edinburgh"
+    ],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Ludwig Maximilian University of Munich",
+    "country": "Germany",
+    "city": "Munich",
+    "tuition": "300 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "59",
+    "programs": [
+      "Law",
+      "Physics"
+    ],
+    "notes": "Near-free tuition",
+    "searchable_text": "University: Ludwig Maximilian University of Munich | Location: Munich, Germany | Programs: Law, Physics | Tuition: 300 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 59 | Notes: Near-free tuition",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Ludwig Maximilian Munich"
+    ],
+    "program_categories": [
+      "Sciences",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Copenhagen",
+    "country": "Denmark",
+    "city": "Copenhagen",
+    "tuition": "10000 EUR",
+    "ielts": 6.5,
+    "toefl": 83,
+    "ranking": "81",
+    "programs": [
+      "Health Sciences",
+      "Humanities"
+    ],
+    "notes": "Nordic excellence",
+    "searchable_text": "University: University of Copenhagen | Location: Copenhagen, Denmark | Programs: Health Sciences, Humanities | Tuition: 10000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 83 | Ranking: 81 | Notes: Nordic excellence",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Copenhagen"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences",
+      "Healthcare"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Auckland",
+    "country": "New Zealand",
+    "city": "Auckland",
+    "tuition": "35000 NZD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "65",
+    "programs": [
+      "Arts",
+      "Engineering"
+    ],
+    "notes": "Top in Oceania",
+    "searchable_text": "University: University of Auckland | Location: Auckland, New Zealand | Programs: Arts, Engineering | Tuition: 35000 NZD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 65 | Notes: Top in Oceania",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Auckland"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Arts"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Warwick",
+    "country": "United Kingdom",
+    "city": "Coventry",
+    "tuition": "22000 GBP",
+    "ielts": 6.5,
+    "toefl": 87,
+    "ranking": "67",
+    "programs": [
+      "Business",
+      "Mathematics"
+    ],
+    "notes": "Strong employability",
+    "searchable_text": "University: University of Warwick | Location: Coventry, United Kingdom | Programs: Business, Mathematics | Tuition: 22000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 87 | Ranking: 67 | Notes: Strong employability",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Warwick"
+    ],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Bristol",
+    "country": "United Kingdom",
+    "city": "Bristol",
+    "tuition": "21000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "61",
+    "programs": [
+      "Engineering",
+      "Social Sciences"
+    ],
+    "notes": "Research-intensive",
+    "searchable_text": "University: University of Bristol | Location: Bristol, United Kingdom | Programs: Engineering, Social Sciences | Tuition: 21000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 61 | Notes: Research-intensive",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Bristol"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Wisconsin-Madison",
+    "country": "United States",
+    "city": "Madison",
+    "tuition": "40000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "75",
+    "programs": [
+      "Agriculture",
+      "Engineering"
+    ],
+    "notes": "Public research hub",
+    "searchable_text": "University: University of Wisconsin-Madison | Location: Madison, United States | Programs: Agriculture, Engineering | Tuition: 40000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 75 | Notes: Public research hub",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Wisconsin-Madison"
+    ],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "KU Leuven",
+    "country": "Belgium",
+    "city": "Leuven",
+    "tuition": "7000 EUR",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "80",
+    "programs": [
+      "Engineering",
+      "Theology"
+    ],
+    "notes": "Historic European university",
+    "searchable_text": "University: KU Leuven | Location: Leuven, Belgium | Programs: Engineering, Theology | Tuition: 7000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 80 | Notes: Historic European university",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Hong Kong (HKU)",
+    "country": "Hong Kong",
+    "city": "Hong Kong",
+    "tuition": "182000 HKD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "26",
+    "programs": [
+      "Business",
+      "Medicine"
+    ],
+    "notes": "Global outlook",
+    "searchable_text": "University: University of Hong Kong (HKU) | Location: Hong Kong, Hong Kong | Programs: Business, Medicine | Tuition: 182000 HKD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 26 | Notes: Global outlook",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "HKU",
+      "Hong Kong (HKU)"
+    ],
+    "program_categories": [
+      "Business",
+      "Healthcare"
+    ],
+    "region": "Other"
+  },
+  {
+    "university_name": "University of Helsinki",
+    "country": "Finland",
+    "city": "Helsinki",
+    "tuition": "13000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "106",
+    "programs": [
+      "Education",
+      "Environmental Science"
+    ],
+    "notes": "Nordic affordability",
+    "searchable_text": "University: University of Helsinki | Location: Helsinki, Finland | Programs: Education, Environmental Science | Tuition: 13000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 106 | Notes: Nordic affordability",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Helsinki"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of São Paulo",
+    "country": "Brazil",
+    "city": "São Paulo",
+    "tuition": "1000 USD",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "85",
+    "programs": [
+      "Engineering",
+      "Social Sciences"
+    ],
+    "notes": "Top in Latin America",
+    "searchable_text": "University: University of São Paulo | Location: São Paulo, Brazil | Programs: Engineering, Social Sciences | Tuition: 1000 USD | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 85 | Notes: Top in Latin America",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "São Paulo"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Latin America"
+  },
+  {
+    "university_name": "University of Glasgow",
+    "country": "United Kingdom",
+    "city": "Glasgow",
+    "tuition": "20000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "76",
+    "programs": [
+      "History",
+      "Veterinary Medicine"
+    ],
+    "notes": "Scottish heritage",
+    "searchable_text": "University: University of Glasgow | Location: Glasgow, United Kingdom | Programs: History, Veterinary Medicine | Tuition: 20000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 76 | Notes: Scottish heritage",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Glasgow"
+    ],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Oslo",
+    "country": "Norway",
+    "city": "Oslo",
+    "tuition": "0 NOK",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "101",
+    "programs": [
+      "Natural Sciences",
+      "Social Sciences"
+    ],
+    "notes": "Free tuition for all",
+    "searchable_text": "University: University of Oslo | Location: Oslo, Norway | Programs: Natural Sciences, Social Sciences | Tuition: 0 NOK | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 101 | Notes: Free tuition for all",
+    "affordability": "Free",
+    "name_variations": [
+      "Oslo"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Cape Town",
+    "country": "South Africa",
+    "city": "Cape Town",
+    "tuition": "60000 ZAR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "171",
+    "programs": [
+      "Medicine",
+      "Social Sciences"
+    ],
+    "notes": "Africa's top university",
+    "searchable_text": "University: University of Cape Town | Location: Cape Town, South Africa | Programs: Medicine, Social Sciences | Tuition: 60000 ZAR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 171 | Notes: Africa's top university",
+    "affordability": "Variable",
+    "name_variations": [
+      "Cape Town"
+    ],
+    "program_categories": [
+      "Sciences",
+      "Healthcare"
+    ],
+    "region": "Africa"
+  },
+  {
+    "university_name": "University of Malaya",
+    "country": "Malaysia",
+    "city": "Kuala Lumpur",
+    "tuition": "8000 USD",
+    "ielts": 6.0,
+    "toefl": 73,
+    "ranking": "65",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Affordable in Southeast Asia",
+    "searchable_text": "University: University of Malaya | Location: Kuala Lumpur, Malaysia | Programs: Business, Engineering | Tuition: 8000 USD | IELTS requirement: 6.0 | TOEFL requirement: 73 | Ranking: 65 | Notes: Affordable in Southeast Asia",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Malaya"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "University of Leeds",
+    "country": "United Kingdom",
+    "city": "Leeds",
+    "tuition": "22000 GBP",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "82",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Vibrant student life",
+    "searchable_text": "University: University of Leeds | Location: Leeds, United Kingdom | Programs: Business, Engineering | Tuition: 22000 GBP | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 82 | Notes: Vibrant student life",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Leeds"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Barcelona",
+    "country": "Spain",
+    "city": "Barcelona",
+    "tuition": "3000 EUR",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "149",
+    "programs": [
+      "Humanities",
+      "Medicine"
+    ],
+    "notes": "Affordable European option",
+    "searchable_text": "University: University of Barcelona | Location: Barcelona, Spain | Programs: Humanities, Medicine | Tuition: 3000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 149 | Notes: Affordable European option",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Barcelona"
+    ],
+    "program_categories": [
+      "Technology",
+      "Healthcare"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Queensland",
+    "country": "Australia",
+    "city": "Brisbane",
+    "tuition": "42000 AUD",
+    "ielts": 6.5,
+    "toefl": 87,
+    "ranking": "43",
+    "programs": [
+      "Business",
+      "Marine Science"
+    ],
+    "notes": "Strong research focus",
+    "searchable_text": "University: University of Queensland | Location: Brisbane, Australia | Programs: Business, Marine Science | Tuition: 42000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 87 | Ranking: 43 | Notes: Strong research focus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Queensland"
+    ],
+    "program_categories": [
+      "Business",
+      "Sciences"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Vienna",
+    "country": "Austria",
+    "city": "Vienna",
+    "tuition": "1500 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "130",
+    "programs": [
+      "Humanities",
+      "Social Sciences"
+    ],
+    "notes": "Historic and affordable",
+    "searchable_text": "University: University of Vienna | Location: Vienna, Austria | Programs: Humanities, Social Sciences | Tuition: 1500 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 130 | Notes: Historic and affordable",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Vienna"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Alberta",
+    "country": "Canada",
+    "city": "Edmonton",
+    "tuition": "35000 CAD",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "96",
+    "programs": [
+      "Engineering",
+      "Nursing"
+    ],
+    "notes": "Strong in health sciences",
+    "searchable_text": "University: University of Alberta | Location: Edmonton, Canada | Programs: Engineering, Nursing | Tuition: 35000 CAD | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 96 | Notes: Strong in health sciences",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Alberta"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of New South Wales (UNSW)",
+    "country": "Australia",
+    "city": "Sydney",
+    "tuition": "45000 AUD",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "45",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Innovation-driven",
+    "searchable_text": "University: University of New South Wales (UNSW) | Location: Sydney, Australia | Programs: Engineering, Business | Tuition: 45000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 45 | Notes: Innovation-driven",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UNSW",
+      "New South Wales (UNSW)"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Zurich",
+    "country": "Switzerland",
+    "city": "Zurich",
+    "tuition": "1500 CHF",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "95",
+    "programs": [
+      "Medicine",
+      "Law"
+    ],
+    "notes": "Affordable and prestigious",
+    "searchable_text": "University: University of Zurich | Location: Zurich, Switzerland | Programs: Medicine, Law | Tuition: 1500 CHF | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 95 | Notes: Affordable and prestigious",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Zurich"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Delhi",
+    "country": "India",
+    "city": "New Delhi",
+    "tuition": "2000 USD",
+    "ielts": 6.0,
+    "toefl": 70,
+    "ranking": "301-350",
+    "programs": [
+      "Humanities",
+      "Commerce"
+    ],
+    "notes": "Top in India",
+    "searchable_text": "University: University of Delhi | Location: New Delhi, India | Programs: Humanities, Commerce | Tuition: 2000 USD | IELTS requirement: 6.0 | TOEFL requirement: 70 | Ranking: 301-350 | Notes: Top in India",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Delhi"
+    ],
+    "program_categories": [
+      "Technology"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "University of Nottingham",
+    "country": "United Kingdom",
+    "city": "Nottingham",
+    "tuition": "21000 GBP",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "108",
+    "programs": [
+      "Pharmacy",
+      "Engineering"
+    ],
+    "notes": "Global campuses",
+    "searchable_text": "University: University of Nottingham | Location: Nottingham, United Kingdom | Programs: Pharmacy, Engineering | Tuition: 21000 GBP | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 108 | Notes: Global campuses",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Nottingham"
+    ],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Sheffield",
+    "country": "United Kingdom",
+    "city": "Sheffield",
+    "tuition": "20000 GBP",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "104",
+    "programs": [
+      "Engineering",
+      "Social Sciences"
+    ],
+    "notes": "Student-friendly city",
+    "searchable_text": "University: University of Sheffield | Location: Sheffield, United Kingdom | Programs: Engineering, Social Sciences | Tuition: 20000 GBP | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 104 | Notes: Student-friendly city",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Sheffield"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Texas at Austin",
+    "country": "United States",
+    "city": "Austin",
+    "tuition": "40000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "66",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Vibrant tech hub",
+    "searchable_text": "University: University of Texas at Austin | Location: Austin, United States | Programs: Engineering, Business | Tuition: 40000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 66 | Notes: Vibrant tech hub",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Texas at Austin"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Montreal",
+    "country": "Canada",
+    "city": "Montreal",
+    "tuition": "25000 CAD",
+    "ielts": 6.5,
+    "toefl": 85,
+    "ranking": "141",
+    "programs": [
+      "Medicine",
+      "Arts"
+    ],
+    "notes": "French-speaking programs",
+    "searchable_text": "University: University of Montreal | Location: Montreal, Canada | Programs: Medicine, Arts | Tuition: 25000 CAD | IELTS requirement: 6.5 | TOEFL requirement: 85 | Ranking: 141 | Notes: French-speaking programs",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Montreal"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Buenos Aires",
+    "country": "Argentina",
+    "city": "Buenos Aires",
+    "tuition": "0 USD",
+    "ielts": 6.0,
+    "toefl": 70,
+    "ranking": "71",
+    "programs": [
+      "Law",
+      "Medicine"
+    ],
+    "notes": "Free tuition",
+    "searchable_text": "University: University of Buenos Aires | Location: Buenos Aires, Argentina | Programs: Law, Medicine | Tuition: 0 USD | IELTS requirement: 6.0 | TOEFL requirement: 70 | Ranking: 71 | Notes: Free tuition",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Buenos Aires"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Latin America"
+  },
+  {
+    "university_name": "University of Birmingham",
+    "country": "United Kingdom",
+    "city": "Birmingham",
+    "tuition": "21000 GBP",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "84",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Research excellence",
+    "searchable_text": "University: University of Birmingham | Location: Birmingham, United Kingdom | Programs: Engineering, Business | Tuition: 21000 GBP | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 84 | Notes: Research excellence",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Birmingham"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of St Andrews",
+    "country": "United Kingdom",
+    "city": "St Andrews",
+    "tuition": "23000 GBP",
+    "ielts": 6.5,
+    "toefl": 87,
+    "ranking": "100",
+    "programs": [
+      "International Relations",
+      "History"
+    ],
+    "notes": "Historic and prestigious",
+    "searchable_text": "University: University of St Andrews | Location: St Andrews, United Kingdom | Programs: International Relations, History | Tuition: 23000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 87 | Ranking: 100 | Notes: Historic and prestigious",
+    "affordability": "Expensive",
+    "name_variations": [
+      "St Andrews"
+    ],
+    "program_categories": [],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Technology Sydney (UTS)",
+    "country": "Australia",
+    "city": "Sydney",
+    "tuition": "40000 AUD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "88",
+    "programs": [
+      "Engineering",
+      "Design"
+    ],
+    "notes": "Modern and innovative",
+    "searchable_text": "University: University of Technology Sydney (UTS) | Location: Sydney, Australia | Programs: Engineering, Design | Tuition: 40000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 88 | Notes: Modern and innovative",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UTS",
+      "Technology Sydney (UTS)"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Arts"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Dublin (Trinity College)",
+    "country": "Ireland",
+    "city": "Dublin",
+    "tuition": "20000 EUR",
+    "ielts": 6.5,
+    "toefl": 88,
+    "ranking": "87",
+    "programs": [
+      "Literature",
+      "History"
+    ],
+    "notes": "Ireland's top university",
+    "searchable_text": "University: University of Dublin (Trinity College) | Location: Dublin, Ireland | Programs: Literature, History | Tuition: 20000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 88 | Ranking: 87 | Notes: Ireland's top university",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Trinity College",
+      "Dublin (Trinity College)"
+    ],
+    "program_categories": [
+      "Technology"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Warsaw",
+    "country": "Poland",
+    "city": "Warsaw",
+    "tuition": "4000 EUR",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "251-300",
+    "programs": [
+      "Social Sciences",
+      "Mathematics"
+    ],
+    "notes": "Affordable in Europe",
+    "searchable_text": "University: University of Warsaw | Location: Warsaw, Poland | Programs: Social Sciences, Mathematics | Tuition: 4000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 251-300 | Notes: Affordable in Europe",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Warsaw"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Chile",
+    "country": "Chile",
+    "city": "Santiago",
+    "tuition": "5000 USD",
+    "ielts": 6.0,
+    "toefl": 70,
+    "ranking": "159",
+    "programs": [
+      "Engineering",
+      "Social Sciences"
+    ],
+    "notes": "Leading in Latin America",
+    "searchable_text": "University: University of Chile | Location: Santiago, Chile | Programs: Engineering, Social Sciences | Tuition: 5000 USD | IELTS requirement: 6.0 | TOEFL requirement: 70 | Ranking: 159 | Notes: Leading in Latin America",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Chile"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Latin America"
+  },
+  {
+    "university_name": "University of Lisbon",
+    "country": "Portugal",
+    "city": "Lisbon",
+    "tuition": "3000 EUR",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "251-300",
+    "programs": [
+      "Engineering",
+      "Humanities"
+    ],
+    "notes": "Affordable European option",
+    "searchable_text": "University: University of Lisbon | Location: Lisbon, Portugal | Programs: Engineering, Humanities | Tuition: 3000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 251-300 | Notes: Affordable European option",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Lisbon"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Pretoria",
+    "country": "South Africa",
+    "city": "Pretoria",
+    "tuition": "50000 ZAR",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "301-350",
+    "programs": [
+      "Veterinary Science",
+      "Engineering"
+    ],
+    "notes": "Strong in African context",
+    "searchable_text": "University: University of Pretoria | Location: Pretoria, South Africa | Programs: Veterinary Science, Engineering | Tuition: 50000 ZAR | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 301-350 | Notes: Strong in African context",
+    "affordability": "Variable",
+    "name_variations": [
+      "Pretoria"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Africa"
+  },
+  {
+    "university_name": "University of York",
+    "country": "United Kingdom",
+    "city": "York",
+    "tuition": "20000 GBP",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "171",
+    "programs": [
+      "Archaeology",
+      "History"
+    ],
+    "notes": "Historic campus",
+    "searchable_text": "University: University of York | Location: York, United Kingdom | Programs: Archaeology, History | Tuition: 20000 GBP | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 171 | Notes: Historic campus",
+    "affordability": "Moderate",
+    "name_variations": [
+      "York"
+    ],
+    "program_categories": [],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Adelaide",
+    "country": "Australia",
+    "city": "Adelaide",
+    "tuition": "40000 AUD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "89",
+    "programs": [
+      "Engineering",
+      "Health Sciences"
+    ],
+    "notes": "Research-intensive",
+    "searchable_text": "University: University of Adelaide | Location: Adelaide, Australia | Programs: Engineering, Health Sciences | Tuition: 40000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 89 | Notes: Research-intensive",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Adelaide"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences",
+      "Healthcare"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Bergen",
+    "country": "Norway",
+    "city": "Bergen",
+    "tuition": "0 NOK",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "201-250",
+    "programs": [
+      "Marine Science",
+      "Humanities"
+    ],
+    "notes": "Free tuition",
+    "searchable_text": "University: University of Bergen | Location: Bergen, Norway | Programs: Marine Science, Humanities | Tuition: 0 NOK | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 201-250 | Notes: Free tuition",
+    "affordability": "Free",
+    "name_variations": [
+      "Bergen"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Bologna",
+    "country": "Italy",
+    "city": "Bologna",
+    "tuition": "3000 EUR",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "131",
+    "programs": [
+      "Law",
+      "Humanities"
+    ],
+    "notes": "Oldest university in Europe",
+    "searchable_text": "University: University of Bologna | Location: Bologna, Italy | Programs: Law, Humanities | Tuition: 3000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 131 | Notes: Oldest university in Europe",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Bologna"
+    ],
+    "program_categories": [
+      "Technology",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Lausanne",
+    "country": "Switzerland",
+    "city": "Lausanne",
+    "tuition": "1500 CHF",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "211",
+    "programs": [
+      "Business",
+      "Life Sciences"
+    ],
+    "notes": "Scenic and affordable",
+    "searchable_text": "University: University of Lausanne | Location: Lausanne, Switzerland | Programs: Business, Life Sciences | Tuition: 1500 CHF | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 211 | Notes: Scenic and affordable",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Lausanne"
+    ],
+    "program_categories": [
+      "Business",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Granada",
+    "country": "Spain",
+    "city": "Granada",
+    "tuition": "2500 EUR",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "251-300",
+    "programs": [
+      "Translation",
+      "Humanities"
+    ],
+    "notes": "Cultural hub",
+    "searchable_text": "University: University of Granada | Location: Granada, Spain | Programs: Translation, Humanities | Tuition: 2500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 251-300 | Notes: Cultural hub",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Granada"
+    ],
+    "program_categories": [
+      "Technology"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Ottawa",
+    "country": "Canada",
+    "city": "Ottawa",
+    "tuition": "35000 CAD",
+    "ielts": 6.5,
+    "toefl": 86,
+    "ranking": "189",
+    "programs": [
+      "Law",
+      "Social Sciences"
+    ],
+    "notes": "Bilingual programs",
+    "searchable_text": "University: University of Ottawa | Location: Ottawa, Canada | Programs: Law, Social Sciences | Tuition: 35000 CAD | IELTS requirement: 6.5 | TOEFL requirement: 86 | Ranking: 189 | Notes: Bilingual programs",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Ottawa"
+    ],
+    "program_categories": [
+      "Sciences",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Western Australia (UWA)",
+    "country": "Australia",
+    "city": "Perth",
+    "tuition": "41000 AUD",
+    "ielts": 6.5,
+    "toefl": 82,
+    "ranking": "72",
+    "programs": [
+      "Mining Engineering",
+      "Agriculture"
+    ],
+    "notes": "Strong industry ties",
+    "searchable_text": "University: University of Western Australia (UWA) | Location: Perth, Australia | Programs: Mining Engineering, Agriculture | Tuition: 41000 AUD | IELTS requirement: 6.5 | TOEFL requirement: 82 | Ranking: 72 | Notes: Strong industry ties",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UWA",
+      "Western Australia (UWA)"
+    ],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "Oceania"
+  },
+  {
+    "university_name": "University of Gothenburg",
+    "country": "Sweden",
+    "city": "Gothenburg",
+    "tuition": "14000 SEK",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "201-250",
+    "programs": [
+      "Environmental Science",
+      "Social Sciences"
+    ],
+    "notes": "Nordic affordability",
+    "searchable_text": "University: University of Gothenburg | Location: Gothenburg, Sweden | Programs: Environmental Science, Social Sciences | Tuition: 14000 SEK | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 201-250 | Notes: Nordic affordability",
+    "affordability": "Variable",
+    "name_variations": [
+      "Gothenburg"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Nairobi",
+    "country": "Kenya",
+    "city": "Nairobi",
+    "tuition": "3000 USD",
+    "ielts": 6.0,
+    "toefl": 70,
+    "ranking": "701-750",
+    "programs": [
+      "Medicine",
+      "Law"
+    ],
+    "notes": "Leading in East Africa",
+    "searchable_text": "University: University of Nairobi | Location: Nairobi, Kenya | Programs: Medicine, Law | Tuition: 3000 USD | IELTS requirement: 6.0 | TOEFL requirement: 70 | Ranking: 701-750 | Notes: Leading in East Africa",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Nairobi"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Africa"
+  },
+  {
+    "university_name": "New York University (NYU)",
+    "country": "United States",
+    "city": "New York",
+    "tuition": "58000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "42",
+    "programs": [
+      "Film",
+      "Business"
+    ],
+    "notes": "Urban campus in NYC",
+    "searchable_text": "University: New York University (NYU) | Location: New York, United States | Programs: Film, Business | Tuition: 58000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 42 | Notes: Urban campus in NYC",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "NYU"
+    ],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Columbia University",
+    "country": "United States",
+    "city": "New York",
+    "tuition": "66000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "23",
+    "programs": [
+      "Journalism",
+      "Law"
+    ],
+    "notes": "Ivy League in Manhattan",
+    "searchable_text": "University: Columbia University | Location: New York, United States | Programs: Journalism, Law | Tuition: 66000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 23 | Notes: Ivy League in Manhattan",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of California, Los Angeles (UCLA)",
+    "country": "United States",
+    "city": "Los Angeles",
+    "tuition": "45000 USD",
+    "ielts": 7.0,
+    "toefl": 87,
+    "ranking": "27",
+    "programs": [
+      "Film",
+      "Engineering"
+    ],
+    "notes": "Public research powerhouse",
+    "searchable_text": "University: University of California, Los Angeles (UCLA) | Location: Los Angeles, United States | Programs: Film, Engineering | Tuition: 45000 USD | IELTS requirement: 7.0 | TOEFL requirement: 87 | Ranking: 27 | Notes: Public research powerhouse",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UCLA",
+      "California, Los Angeles (UCLA)"
+    ],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Duke University",
+    "country": "United States",
+    "city": "Durham",
+    "tuition": "62000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "52",
+    "programs": [
+      "Medicine",
+      "Public Policy"
+    ],
+    "notes": "Private research university",
+    "searchable_text": "University: Duke University | Location: Durham, United States | Programs: Medicine, Public Policy | Tuition: 62000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 52 | Notes: Private research university",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Michigan-Ann Arbor",
+    "country": "United States",
+    "city": "Ann Arbor",
+    "tuition": "55000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "33",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Large public university",
+    "searchable_text": "University: University of Michigan-Ann Arbor | Location: Ann Arbor, United States | Programs: Engineering, Business | Tuition: 55000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 33 | Notes: Large public university",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Michigan-Ann Arbor"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "King's College London",
+    "country": "United Kingdom",
+    "city": "London",
+    "tuition": "28000 GBP",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "40",
+    "programs": [
+      "Law",
+      "Medicine"
+    ],
+    "notes": "Central London location",
+    "searchable_text": "University: King's College London | Location: London, United Kingdom | Programs: Law, Medicine | Tuition: 28000 GBP | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 40 | Notes: Central London location",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Nanyang Technological University (NTU)",
+    "country": "Singapore",
+    "city": "Singapore",
+    "tuition": "35000 SGD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "20",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Young and dynamic",
+    "searchable_text": "University: Nanyang Technological University (NTU) | Location: Singapore, Singapore | Programs: Engineering, Business | Tuition: 35000 SGD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 20 | Notes: Young and dynamic",
+    "affordability": "Expensive",
+    "name_variations": [
+      "NTU"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "University of Washington",
+    "country": "United States",
+    "city": "Seattle",
+    "tuition": "40000 USD",
+    "ielts": 6.5,
+    "toefl": 76,
+    "ranking": "76",
+    "programs": [
+      "Computer Science",
+      "Medicine"
+    ],
+    "notes": "Tech industry connections",
+    "searchable_text": "University: University of Washington | Location: Seattle, United States | Programs: Computer Science, Medicine | Tuition: 40000 USD | IELTS requirement: 6.5 | TOEFL requirement: 76 | Ranking: 76 | Notes: Tech industry connections",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Washington"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Johns Hopkins University",
+    "country": "United States",
+    "city": "Baltimore",
+    "tuition": "60000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "32",
+    "programs": [
+      "Medicine",
+      "Public Health"
+    ],
+    "notes": "Renowned for research",
+    "searchable_text": "University: Johns Hopkins University | Location: Baltimore, United States | Programs: Medicine, Public Health | Tuition: 60000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 32 | Notes: Renowned for research",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Illinois at Urbana-Champaign",
+    "country": "United States",
+    "city": "Urbana",
+    "tuition": "36000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "64",
+    "programs": [
+      "Engineering",
+      "Computer Science"
+    ],
+    "notes": "Strong STEM programs",
+    "searchable_text": "University: University of Illinois at Urbana-Champaign | Location: Urbana, United States | Programs: Engineering, Computer Science | Tuition: 36000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 64 | Notes: Strong STEM programs",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Illinois at Urbana-Champaign"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Sorbonne University",
+    "country": "France",
+    "city": "Paris",
+    "tuition": "4000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "63",
+    "programs": [
+      "Humanities",
+      "Sciences"
+    ],
+    "notes": "Historic French institution",
+    "searchable_text": "University: Sorbonne University | Location: Paris, France | Programs: Humanities, Sciences | Tuition: 4000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 63 | Notes: Historic French institution",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Tsinghua University",
+    "country": "China",
+    "city": "Beijing",
+    "tuition": "6000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "24",
+    "programs": [
+      "Engineering",
+      "Architecture"
+    ],
+    "notes": "China's top tech university",
+    "searchable_text": "University: Tsinghua University | Location: Beijing, China | Programs: Engineering, Architecture | Tuition: 6000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 24 | Notes: China's top tech university",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Technology"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "Kyoto University",
+    "country": "Japan",
+    "city": "Kyoto",
+    "tuition": "535800 JPY",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "46",
+    "programs": [
+      "Physics",
+      "Humanities"
+    ],
+    "notes": "Nobel prize legacy",
+    "searchable_text": "University: Kyoto University | Location: Kyoto, Japan | Programs: Physics, Humanities | Tuition: 535800 JPY | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 46 | Notes: Nobel prize legacy",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "University of California, San Diego (UCSD)",
+    "country": "United States",
+    "city": "San Diego",
+    "tuition": "45000 USD",
+    "ielts": 7.0,
+    "toefl": 80,
+    "ranking": "53",
+    "programs": [
+      "Biology",
+      "Engineering"
+    ],
+    "notes": "Oceanography expertise",
+    "searchable_text": "University: University of California, San Diego (UCSD) | Location: San Diego, United States | Programs: Biology, Engineering | Tuition: 45000 USD | IELTS requirement: 7.0 | TOEFL requirement: 80 | Ranking: 53 | Notes: Oceanography expertise",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UCSD",
+      "California, San Diego (UCSD)"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Fudan University",
+    "country": "China",
+    "city": "Shanghai",
+    "tuition": "5000 USD",
+    "ielts": 6.0,
+    "toefl": 72,
+    "ranking": "39",
+    "programs": [
+      "Business",
+      "Medicine"
+    ],
+    "notes": "International focus",
+    "searchable_text": "University: Fudan University | Location: Shanghai, China | Programs: Business, Medicine | Tuition: 5000 USD | IELTS requirement: 6.0 | TOEFL requirement: 72 | Ranking: 39 | Notes: International focus",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Healthcare"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "University of North Carolina at Chapel Hill",
+    "country": "United States",
+    "city": "Chapel Hill",
+    "tuition": "38000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "79",
+    "programs": [
+      "Medicine",
+      "Journalism"
+    ],
+    "notes": "Public Ivy",
+    "searchable_text": "University: University of North Carolina at Chapel Hill | Location: Chapel Hill, United States | Programs: Medicine, Journalism | Tuition: 38000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 79 | Notes: Public Ivy",
+    "affordability": "Expensive",
+    "name_variations": [
+      "North Carolina at Chapel Hill"
+    ],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Southern California (USC)",
+    "country": "United States",
+    "city": "Los Angeles",
+    "tuition": "65000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "74",
+    "programs": [
+      "Film",
+      "Business"
+    ],
+    "notes": "Hollywood connections",
+    "searchable_text": "University: University of Southern California (USC) | Location: Los Angeles, United States | Programs: Film, Business | Tuition: 65000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 74 | Notes: Hollywood connections",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "USC",
+      "Southern California (USC)"
+    ],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Dartmouth College",
+    "country": "United States",
+    "city": "Hanover",
+    "tuition": "62000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "237",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Ivy League small town",
+    "searchable_text": "University: Dartmouth College | Location: Hanover, United States | Programs: Business, Engineering | Tuition: 62000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 237 | Notes: Ivy League small town",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of California, Davis (UCD)",
+    "country": "United States",
+    "city": "Davis",
+    "tuition": "45000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "118",
+    "programs": [
+      "Agriculture",
+      "Veterinary"
+    ],
+    "notes": "Sustainability focus",
+    "searchable_text": "University: University of California, Davis (UCD) | Location: Davis, United States | Programs: Agriculture, Veterinary | Tuition: 45000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 118 | Notes: Sustainability focus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UCD",
+      "California, Davis (UCD)"
+    ],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "Brown University",
+    "country": "United States",
+    "city": "Providence",
+    "tuition": "65000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "73",
+    "programs": [
+      "Liberal Arts",
+      "Medicine"
+    ],
+    "notes": "Ivy League flexibility",
+    "searchable_text": "University: Brown University | Location: Providence, United States | Programs: Liberal Arts, Medicine | Tuition: 65000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 73 | Notes: Ivy League flexibility",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Florida",
+    "country": "United States",
+    "city": "Gainesville",
+    "tuition": "30000 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "168",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Affordable public option",
+    "searchable_text": "University: University of Florida | Location: Gainesville, United States | Programs: Engineering, Business | Tuition: 30000 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 168 | Notes: Affordable public option",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Florida"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Maryland, College Park",
+    "country": "United States",
+    "city": "College Park",
+    "tuition": "38000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "158",
+    "programs": [
+      "Computer Science",
+      "Public Policy"
+    ],
+    "notes": "Near Washington DC",
+    "searchable_text": "University: University of Maryland, College Park | Location: College Park, United States | Programs: Computer Science, Public Policy | Tuition: 38000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 158 | Notes: Near Washington DC",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Maryland, College Park"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Boston University",
+    "country": "United States",
+    "city": "Boston",
+    "tuition": "62000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "108",
+    "programs": [
+      "Communication",
+      "Medicine"
+    ],
+    "notes": "Urban research university",
+    "searchable_text": "University: Boston University | Location: Boston, United States | Programs: Communication, Medicine | Tuition: 62000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 108 | Notes: Urban research university",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Ohio State University",
+    "country": "United States",
+    "city": "Columbus",
+    "tuition": "36000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "140",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Large campus life",
+    "searchable_text": "University: Ohio State University | Location: Columbus, United States | Programs: Engineering, Business | Tuition: 36000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 140 | Notes: Large campus life",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Pennsylvania State University",
+    "country": "United States",
+    "city": "University Park",
+    "tuition": "38000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "93",
+    "programs": [
+      "Engineering",
+      "Earth Sciences"
+    ],
+    "notes": "Strong alumni network",
+    "searchable_text": "University: Pennsylvania State University | Location: University Park, United States | Programs: Engineering, Earth Sciences | Tuition: 38000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 93 | Notes: Strong alumni network",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Minnesota Twin Cities",
+    "country": "United States",
+    "city": "Minneapolis",
+    "tuition": "35000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "195",
+    "programs": [
+      "Medicine",
+      "Engineering"
+    ],
+    "notes": "Urban twin cities",
+    "searchable_text": "University: University of Minnesota Twin Cities | Location: Minneapolis, United States | Programs: Medicine, Engineering | Tuition: 35000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 195 | Notes: Urban twin cities",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Minnesota Twin Cities"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Purdue University",
+    "country": "United States",
+    "city": "West Lafayette",
+    "tuition": "30000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "86",
+    "programs": [
+      "Engineering",
+      "Aviation"
+    ],
+    "notes": "Engineering excellence",
+    "searchable_text": "University: Purdue University | Location: West Lafayette, United States | Programs: Engineering, Aviation | Tuition: 30000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 86 | Notes: Engineering excellence",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of California, Santa Barbara (UCSB)",
+    "country": "United States",
+    "city": "Santa Barbara",
+    "tuition": "45000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "178",
+    "programs": [
+      "Physics",
+      "Environmental Science"
+    ],
+    "notes": "Beachside campus",
+    "searchable_text": "University: University of California, Santa Barbara (UCSB) | Location: Santa Barbara, United States | Programs: Physics, Environmental Science | Tuition: 45000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 178 | Notes: Beachside campus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UCSB",
+      "California, Santa Barbara (UCSB)"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Pittsburgh",
+    "country": "United States",
+    "city": "Pittsburgh",
+    "tuition": "34000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "222",
+    "programs": [
+      "Medicine",
+      "Philosophy"
+    ],
+    "notes": "Urban research",
+    "searchable_text": "University: University of Pittsburgh | Location: Pittsburgh, United States | Programs: Medicine, Philosophy | Tuition: 34000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 222 | Notes: Urban research",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Pittsburgh"
+    ],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Michigan State University",
+    "country": "United States",
+    "city": "East Lansing",
+    "tuition": "42000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "152",
+    "programs": [
+      "Agriculture",
+      "Communication"
+    ],
+    "notes": "Big Ten conference",
+    "searchable_text": "University: Michigan State University | Location: East Lansing, United States | Programs: Agriculture, Communication | Tuition: 42000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 152 | Notes: Big Ten conference",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "Texas A&M University",
+    "country": "United States",
+    "city": "College Station",
+    "tuition": "40000 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "154",
+    "programs": [
+      "Engineering",
+      "Agriculture"
+    ],
+    "notes": "Large student body",
+    "searchable_text": "University: Texas A&M University | Location: College Station, United States | Programs: Engineering, Agriculture | Tuition: 40000 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 154 | Notes: Large student body",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Virginia",
+    "country": "United States",
+    "city": "Charlottesville",
+    "tuition": "50000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "260",
+    "programs": [
+      "Law",
+      "Business"
+    ],
+    "notes": "Public Ivy",
+    "searchable_text": "University: University of Virginia | Location: Charlottesville, United States | Programs: Law, Business | Tuition: 50000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 260 | Notes: Public Ivy",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Virginia"
+    ],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Colorado Boulder",
+    "country": "United States",
+    "city": "Boulder",
+    "tuition": "40000 USD",
+    "ielts": 6.5,
+    "toefl": 75,
+    "ranking": "264",
+    "programs": [
+      "Aerospace Engineering",
+      "Environmental Science"
+    ],
+    "notes": "Mountain views",
+    "searchable_text": "University: University of Colorado Boulder | Location: Boulder, United States | Programs: Aerospace Engineering, Environmental Science | Tuition: 40000 USD | IELTS requirement: 6.5 | TOEFL requirement: 75 | Ranking: 264 | Notes: Mountain views",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Colorado Boulder"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Vanderbilt University",
+    "country": "United States",
+    "city": "Nashville",
+    "tuition": "57000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "248",
+    "programs": [
+      "Medicine",
+      "Education"
+    ],
+    "notes": "Private research",
+    "searchable_text": "University: Vanderbilt University | Location: Nashville, United States | Programs: Medicine, Education | Tuition: 57000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 248 | Notes: Private research",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Emory University",
+    "country": "United States",
+    "city": "Atlanta",
+    "tuition": "58000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "199",
+    "programs": [
+      "Medicine",
+      "Law"
+    ],
+    "notes": "Health sciences strong",
+    "searchable_text": "University: Emory University | Location: Atlanta, United States | Programs: Medicine, Law | Tuition: 58000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 199 | Notes: Health sciences strong",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Rochester",
+    "country": "United States",
+    "city": "Rochester",
+    "tuition": "61000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "236",
+    "programs": [
+      "Optics",
+      "Music"
+    ],
+    "notes": "Research-focused",
+    "searchable_text": "University: University of Rochester | Location: Rochester, United States | Programs: Optics, Music | Tuition: 61000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 236 | Notes: Research-focused",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Rochester"
+    ],
+    "program_categories": [
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Case Western Reserve University",
+    "country": "United States",
+    "city": "Cleveland",
+    "tuition": "61000 USD",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "259",
+    "programs": [
+      "Engineering",
+      "Medicine"
+    ],
+    "notes": "Innovation in Ohio",
+    "searchable_text": "University: Case Western Reserve University | Location: Cleveland, United States | Programs: Engineering, Medicine | Tuition: 61000 USD | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 259 | Notes: Innovation in Ohio",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of California, Irvine (UCI)",
+    "country": "United States",
+    "city": "Irvine",
+    "tuition": "45000 USD",
+    "ielts": 7.0,
+    "toefl": 80,
+    "ranking": "307",
+    "programs": [
+      "Criminology",
+      "Business"
+    ],
+    "notes": "Young campus",
+    "searchable_text": "University: University of California, Irvine (UCI) | Location: Irvine, United States | Programs: Criminology, Business | Tuition: 45000 USD | IELTS requirement: 7.0 | TOEFL requirement: 80 | Ranking: 307 | Notes: Young campus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UCI",
+      "California, Irvine (UCI)"
+    ],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Miami",
+    "country": "United States",
+    "city": "Miami",
+    "tuition": "57000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "278",
+    "programs": [
+      "Marine Science",
+      "Medicine"
+    ],
+    "notes": "Tropical location",
+    "searchable_text": "University: University of Miami | Location: Miami, United States | Programs: Marine Science, Medicine | Tuition: 57000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 278 | Notes: Tropical location",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Miami"
+    ],
+    "program_categories": [
+      "Sciences",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Georgetown University",
+    "country": "United States",
+    "city": "Washington DC",
+    "tuition": "62000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "297",
+    "programs": [
+      "International Relations",
+      "Law"
+    ],
+    "notes": "Political hub",
+    "searchable_text": "University: Georgetown University | Location: Washington DC, United States | Programs: International Relations, Law | Tuition: 62000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 297 | Notes: Political hub",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Rice University",
+    "country": "United States",
+    "city": "Houston",
+    "tuition": "52000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "145",
+    "programs": [
+      "Engineering",
+      "Architecture"
+    ],
+    "notes": "Small private university",
+    "searchable_text": "University: Rice University | Location: Houston, United States | Programs: Engineering, Architecture | Tuition: 52000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 145 | Notes: Small private university",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Technology"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Notre Dame",
+    "country": "United States",
+    "city": "Notre Dame",
+    "tuition": "60000 USD",
+    "ielts": 7.5,
+    "toefl": 100,
+    "ranking": "292",
+    "programs": [
+      "Business",
+      "Law"
+    ],
+    "notes": "Catholic tradition",
+    "searchable_text": "University: University of Notre Dame | Location: Notre Dame, United States | Programs: Business, Law | Tuition: 60000 USD | IELTS requirement: 7.5 | TOEFL requirement: 100 | Ranking: 292 | Notes: Catholic tradition",
+    "affordability": "Very Expensive",
+    "name_variations": [
+      "Notre Dame"
+    ],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Washington University in St. Louis",
+    "country": "United States",
+    "city": "St. Louis",
+    "tuition": "60000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "176",
+    "programs": [
+      "Medicine",
+      "Architecture"
+    ],
+    "notes": "Midwest excellence",
+    "searchable_text": "University: Washington University in St. Louis | Location: St. Louis, United States | Programs: Medicine, Architecture | Tuition: 60000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 176 | Notes: Midwest excellence",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Technology",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Carnegie Mellon University",
+    "country": "United States",
+    "city": "Pittsburgh",
+    "tuition": "61000 USD",
+    "ielts": 7.5,
+    "toefl": 102,
+    "ranking": "58",
+    "programs": [
+      "Computer Science",
+      "Drama"
+    ],
+    "notes": "Tech and arts blend",
+    "searchable_text": "University: Carnegie Mellon University | Location: Pittsburgh, United States | Programs: Computer Science, Drama | Tuition: 61000 USD | IELTS requirement: 7.5 | TOEFL requirement: 102 | Ranking: 58 | Notes: Tech and arts blend",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of California, Riverside (UCR)",
+    "country": "United States",
+    "city": "Riverside",
+    "tuition": "45000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "404",
+    "programs": [
+      "Entomology",
+      "Business"
+    ],
+    "notes": "Diverse student body",
+    "searchable_text": "University: University of California, Riverside (UCR) | Location: Riverside, United States | Programs: Entomology, Business | Tuition: 45000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 404 | Notes: Diverse student body",
+    "affordability": "Expensive",
+    "name_variations": [
+      "UCR",
+      "California, Riverside (UCR)"
+    ],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Tufts University",
+    "country": "United States",
+    "city": "Medford",
+    "tuition": "65000 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "342",
+    "programs": [
+      "International Relations",
+      "Veterinary"
+    ],
+    "notes": "Near Boston",
+    "searchable_text": "University: Tufts University | Location: Medford, United States | Programs: International Relations, Veterinary | Tuition: 65000 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 342 | Notes: Near Boston",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "Northeastern University",
+    "country": "United States",
+    "city": "Boston",
+    "tuition": "59000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "396",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Co-op programs",
+    "searchable_text": "University: Northeastern University | Location: Boston, United States | Programs: Engineering, Business | Tuition: 59000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 396 | Notes: Co-op programs",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "George Washington University",
+    "country": "United States",
+    "city": "Washington DC",
+    "tuition": "62000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "371",
+    "programs": [
+      "Political Science",
+      "Law"
+    ],
+    "notes": "DC location advantages",
+    "searchable_text": "University: George Washington University | Location: Washington DC, United States | Programs: Political Science, Law | Tuition: 62000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 371 | Notes: DC location advantages",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Technology",
+      "Sciences",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Arizona",
+    "country": "United States",
+    "city": "Tucson",
+    "tuition": "37000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "293",
+    "programs": [
+      "Astronomy",
+      "Optical Sciences"
+    ],
+    "notes": "Desert campus",
+    "searchable_text": "University: University of Arizona | Location: Tucson, United States | Programs: Astronomy, Optical Sciences | Tuition: 37000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 293 | Notes: Desert campus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Arizona"
+    ],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Rutgers University–New Brunswick",
+    "country": "United States",
+    "city": "New Brunswick",
+    "tuition": "34000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "328",
+    "programs": [
+      "Engineering",
+      "Social Sciences"
+    ],
+    "notes": "Public research",
+    "searchable_text": "University: Rutgers University–New Brunswick | Location: New Brunswick, United States | Programs: Engineering, Social Sciences | Tuition: 34000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 328 | Notes: Public research",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Indiana University Bloomington",
+    "country": "United States",
+    "city": "Bloomington",
+    "tuition": "39000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "313",
+    "programs": [
+      "Business",
+      "Music"
+    ],
+    "notes": "Beautiful campus",
+    "searchable_text": "University: Indiana University Bloomington | Location: Bloomington, United States | Programs: Business, Music | Tuition: 39000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 313 | Notes: Beautiful campus",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Virginia Tech",
+    "country": "United States",
+    "city": "Blacksburg",
+    "tuition": "34000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "389",
+    "programs": [
+      "Engineering",
+      "Agriculture"
+    ],
+    "notes": "Tech-focused public",
+    "searchable_text": "University: Virginia Tech | Location: Blacksburg, United States | Programs: Engineering, Agriculture | Tuition: 34000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 389 | Notes: Tech-focused public",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Massachusetts Amherst",
+    "country": "United States",
+    "city": "Amherst",
+    "tuition": "38000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "245",
+    "programs": [
+      "Computer Science",
+      "Hospitality"
+    ],
+    "notes": "Public flagship",
+    "searchable_text": "University: University of Massachusetts Amherst | Location: Amherst, United States | Programs: Computer Science, Hospitality | Tuition: 38000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 245 | Notes: Public flagship",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Massachusetts Amherst"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Iowa",
+    "country": "United States",
+    "city": "Iowa City",
+    "tuition": "32000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "491",
+    "programs": [
+      "Writing",
+      "Medicine"
+    ],
+    "notes": "Creative writing hub",
+    "searchable_text": "University: University of Iowa | Location: Iowa City, United States | Programs: Writing, Medicine | Tuition: 32000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 491 | Notes: Creative writing hub",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Iowa"
+    ],
+    "program_categories": [
+      "Technology",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Arizona State University",
+    "country": "United States",
+    "city": "Tempe",
+    "tuition": "32000 USD",
+    "ielts": 6.0,
+    "toefl": 61,
+    "ranking": "216",
+    "programs": [
+      "Innovation",
+      "Business"
+    ],
+    "notes": "Large and innovative",
+    "searchable_text": "University: Arizona State University | Location: Tempe, United States | Programs: Innovation, Business | Tuition: 32000 USD | IELTS requirement: 6.0 | TOEFL requirement: 61 | Ranking: 216 | Notes: Large and innovative",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Florida State University",
+    "country": "United States",
+    "city": "Tallahassee",
+    "tuition": "22000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "461",
+    "programs": [
+      "Film",
+      "Criminology"
+    ],
+    "notes": "Affordable public",
+    "searchable_text": "University: Florida State University | Location: Tallahassee, United States | Programs: Film, Criminology | Tuition: 22000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 461 | Notes: Affordable public",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "North Carolina State University",
+    "country": "United States",
+    "city": "Raleigh",
+    "tuition": "30000 USD",
+    "ielts": 6.5,
+    "toefl": 85,
+    "ranking": "274",
+    "programs": [
+      "Engineering",
+      "Textiles"
+    ],
+    "notes": "Research triangle",
+    "searchable_text": "University: North Carolina State University | Location: Raleigh, United States | Programs: Engineering, Textiles | Tuition: 30000 USD | IELTS requirement: 6.5 | TOEFL requirement: 85 | Ranking: 274 | Notes: Research triangle",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Oregon",
+    "country": "United States",
+    "city": "Eugene",
+    "tuition": "40000 USD",
+    "ielts": 6.5,
+    "toefl": 88,
+    "ranking": "546",
+    "programs": [
+      "Journalism",
+      "Architecture"
+    ],
+    "notes": "Pacific Northwest",
+    "searchable_text": "University: University of Oregon | Location: Eugene, United States | Programs: Journalism, Architecture | Tuition: 40000 USD | IELTS requirement: 6.5 | TOEFL requirement: 88 | Ranking: 546 | Notes: Pacific Northwest",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Oregon"
+    ],
+    "program_categories": [
+      "Technology"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Kansas",
+    "country": "United States",
+    "city": "Lawrence",
+    "tuition": "28000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "410",
+    "programs": [
+      "Pharmacy",
+      "Journalism"
+    ],
+    "notes": "Midwest affordability",
+    "searchable_text": "University: University of Kansas | Location: Lawrence, United States | Programs: Pharmacy, Journalism | Tuition: 28000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 410 | Notes: Midwest affordability",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Kansas"
+    ],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Utah",
+    "country": "United States",
+    "city": "Salt Lake City",
+    "tuition": "31000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "392",
+    "programs": [
+      "Engineering",
+      "Medicine"
+    ],
+    "notes": "Mountain surroundings",
+    "searchable_text": "University: University of Utah | Location: Salt Lake City, United States | Programs: Engineering, Medicine | Tuition: 31000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 392 | Notes: Mountain surroundings",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Utah"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Iowa State University",
+    "country": "United States",
+    "city": "Ames",
+    "tuition": "27000 USD",
+    "ielts": 6.0,
+    "toefl": 71,
+    "ranking": "304",
+    "programs": [
+      "Agriculture",
+      "Engineering"
+    ],
+    "notes": "Land-grant institution",
+    "searchable_text": "University: Iowa State University | Location: Ames, United States | Programs: Agriculture, Engineering | Tuition: 27000 USD | IELTS requirement: 6.0 | TOEFL requirement: 71 | Ranking: 304 | Notes: Land-grant institution",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Oregon State University",
+    "country": "United States",
+    "city": "Corvallis",
+    "tuition": "34000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "505",
+    "programs": [
+      "Forestry",
+      "Oceanography"
+    ],
+    "notes": "Eco-friendly",
+    "searchable_text": "University: Oregon State University | Location: Corvallis, United States | Programs: Forestry, Oceanography | Tuition: 34000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 505 | Notes: Eco-friendly",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Nebraska-Lincoln",
+    "country": "United States",
+    "city": "Lincoln",
+    "tuition": "27000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "551-600",
+    "programs": [
+      "Agriculture",
+      "Business"
+    ],
+    "notes": "Great Plains",
+    "searchable_text": "University: University of Nebraska-Lincoln | Location: Lincoln, United States | Programs: Agriculture, Business | Tuition: 27000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 551-600 | Notes: Great Plains",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Nebraska-Lincoln"
+    ],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Kansas State University",
+    "country": "United States",
+    "city": "Manhattan",
+    "tuition": "27000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "801-1000",
+    "programs": [
+      "Veterinary",
+      "Engineering"
+    ],
+    "notes": "Affordable Midwest",
+    "searchable_text": "University: Kansas State University | Location: Manhattan, United States | Programs: Veterinary, Engineering | Tuition: 27000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 801-1000 | Notes: Affordable Midwest",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Oklahoma",
+    "country": "United States",
+    "city": "Norman",
+    "tuition": "29000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "601-650",
+    "programs": [
+      "Meteorology",
+      "Petroleum Engineering"
+    ],
+    "notes": "Weather research",
+    "searchable_text": "University: University of Oklahoma | Location: Norman, United States | Programs: Meteorology, Petroleum Engineering | Tuition: 29000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 601-650 | Notes: Weather research",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Oklahoma"
+    ],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Oklahoma State University",
+    "country": "United States",
+    "city": "Stillwater",
+    "tuition": "29000 USD",
+    "ielts": 6.0,
+    "toefl": 61,
+    "ranking": "801-1000",
+    "programs": [
+      "Agriculture",
+      "Business"
+    ],
+    "notes": "Cowboy culture",
+    "searchable_text": "University: Oklahoma State University | Location: Stillwater, United States | Programs: Agriculture, Business | Tuition: 29000 USD | IELTS requirement: 6.0 | TOEFL requirement: 61 | Ranking: 801-1000 | Notes: Cowboy culture",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Missouri",
+    "country": "United States",
+    "city": "Columbia",
+    "tuition": "30000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "501-550",
+    "programs": [
+      "Journalism",
+      "Medicine"
+    ],
+    "notes": "First journalism school",
+    "searchable_text": "University: University of Missouri | Location: Columbia, United States | Programs: Journalism, Medicine | Tuition: 30000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 501-550 | Notes: First journalism school",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Missouri"
+    ],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Kentucky",
+    "country": "United States",
+    "city": "Lexington",
+    "tuition": "32000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "701-750",
+    "programs": [
+      "Agriculture",
+      "Law"
+    ],
+    "notes": "Horse country",
+    "searchable_text": "University: University of Kentucky | Location: Lexington, United States | Programs: Agriculture, Law | Tuition: 32000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 701-750 | Notes: Horse country",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Kentucky"
+    ],
+    "program_categories": [
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Tennessee, Knoxville",
+    "country": "United States",
+    "city": "Knoxville",
+    "tuition": "32000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "472",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Volunteer spirit",
+    "searchable_text": "University: University of Tennessee, Knoxville | Location: Knoxville, United States | Programs: Engineering, Business | Tuition: 32000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 472 | Notes: Volunteer spirit",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Tennessee, Knoxville"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "West Virginia University",
+    "country": "United States",
+    "city": "Morgantown",
+    "tuition": "27000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "1001-1200",
+    "programs": [
+      "Forensic Science",
+      "Engineering"
+    ],
+    "notes": "Appalachian setting",
+    "searchable_text": "University: West Virginia University | Location: Morgantown, United States | Programs: Forensic Science, Engineering | Tuition: 27000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 1001-1200 | Notes: Appalachian setting",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Alabama",
+    "country": "United States",
+    "city": "Tuscaloosa",
+    "tuition": "32000 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "901-950",
+    "programs": [
+      "Law",
+      "Business"
+    ],
+    "notes": "Southern hospitality",
+    "searchable_text": "University: University of Alabama | Location: Tuscaloosa, United States | Programs: Law, Business | Tuition: 32000 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 901-950 | Notes: Southern hospitality",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Alabama"
+    ],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Auburn University",
+    "country": "United States",
+    "city": "Auburn",
+    "tuition": "32000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "801-1000",
+    "programs": [
+      "Engineering",
+      "Architecture"
+    ],
+    "notes": "Tiger pride",
+    "searchable_text": "University: Auburn University | Location: Auburn, United States | Programs: Engineering, Architecture | Tuition: 32000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 801-1000 | Notes: Tiger pride",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Technology"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of South Carolina",
+    "country": "United States",
+    "city": "Columbia",
+    "tuition": "34000 USD",
+    "ielts": 6.5,
+    "toefl": 77,
+    "ranking": "575",
+    "programs": [
+      "International Business",
+      "Hospitality"
+    ],
+    "notes": "Gamecock nation",
+    "searchable_text": "University: University of South Carolina | Location: Columbia, United States | Programs: International Business, Hospitality | Tuition: 34000 USD | IELTS requirement: 6.5 | TOEFL requirement: 77 | Ranking: 575 | Notes: Gamecock nation",
+    "affordability": "Expensive",
+    "name_variations": [
+      "South Carolina"
+    ],
+    "program_categories": [
+      "Business",
+      "Technology"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Clemson University",
+    "country": "United States",
+    "city": "Clemson",
+    "tuition": "39000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "861",
+    "programs": [
+      "Engineering",
+      "Agriculture"
+    ],
+    "notes": "Lakefront campus",
+    "searchable_text": "University: Clemson University | Location: Clemson, United States | Programs: Engineering, Agriculture | Tuition: 39000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 861 | Notes: Lakefront campus",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Georgia",
+    "country": "United States",
+    "city": "Athens",
+    "tuition": "31000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "358",
+    "programs": [
+      "Journalism",
+      "Veterinary"
+    ],
+    "notes": "Bulldog spirit",
+    "searchable_text": "University: University of Georgia | Location: Athens, United States | Programs: Journalism, Veterinary | Tuition: 31000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 358 | Notes: Bulldog spirit",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Georgia"
+    ],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "Louisiana State University",
+    "country": "United States",
+    "city": "Baton Rouge",
+    "tuition": "29000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "901-950",
+    "programs": [
+      "Engineering",
+      "Agriculture"
+    ],
+    "notes": "Cajun culture",
+    "searchable_text": "University: Louisiana State University | Location: Baton Rouge, United States | Programs: Engineering, Agriculture | Tuition: 29000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 901-950 | Notes: Cajun culture",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Mississippi",
+    "country": "United States",
+    "city": "Oxford",
+    "tuition": "27000 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "801-1000",
+    "programs": [
+      "Law",
+      "Pharmacy"
+    ],
+    "notes": "Southern charm",
+    "searchable_text": "University: University of Mississippi | Location: Oxford, United States | Programs: Law, Pharmacy | Tuition: 27000 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 801-1000 | Notes: Southern charm",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Mississippi"
+    ],
+    "program_categories": [
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Arkansas",
+    "country": "United States",
+    "city": "Fayetteville",
+    "tuition": "27000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "1001-1200",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Razorback pride",
+    "searchable_text": "University: University of Arkansas | Location: Fayetteville, United States | Programs: Business, Engineering | Tuition: 27000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 1001-1200 | Notes: Razorback pride",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Arkansas"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Mississippi State University",
+    "country": "United States",
+    "city": "Starkville",
+    "tuition": "26000 USD",
+    "ielts": 6.0,
+    "toefl": 71,
+    "ranking": "1001-1200",
+    "programs": [
+      "Agriculture",
+      "Engineering"
+    ],
+    "notes": "Affordable option",
+    "searchable_text": "University: Mississippi State University | Location: Starkville, United States | Programs: Agriculture, Engineering | Tuition: 26000 USD | IELTS requirement: 6.0 | TOEFL requirement: 71 | Ranking: 1001-1200 | Notes: Affordable option",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Texas at Dallas",
+    "country": "United States",
+    "city": "Richardson",
+    "tuition": "40000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "498",
+    "programs": [
+      "Computer Science",
+      "Business"
+    ],
+    "notes": "Tech-focused",
+    "searchable_text": "University: University of Texas at Dallas | Location: Richardson, United States | Programs: Computer Science, Business | Tuition: 40000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 498 | Notes: Tech-focused",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Texas at Dallas"
+    ],
+    "program_categories": [
+      "Technology",
+      "Sciences",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Baylor University",
+    "country": "United States",
+    "city": "Waco",
+    "tuition": "51000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "1001-1200",
+    "programs": [
+      "Medicine",
+      "Law"
+    ],
+    "notes": "Christian university",
+    "searchable_text": "University: Baylor University | Location: Waco, United States | Programs: Medicine, Law | Tuition: 51000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 1001-1200 | Notes: Christian university",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Texas Tech University",
+    "country": "United States",
+    "city": "Lubbock",
+    "tuition": "24000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "781-790",
+    "programs": [
+      "Engineering",
+      "Agriculture"
+    ],
+    "notes": "West Texas",
+    "searchable_text": "University: Texas Tech University | Location: Lubbock, United States | Programs: Engineering, Agriculture | Tuition: 24000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 781-790 | Notes: West Texas",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Houston",
+    "country": "United States",
+    "city": "Houston",
+    "tuition": "27000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "641-650",
+    "programs": [
+      "Engineering",
+      "Business"
+    ],
+    "notes": "Energy industry ties",
+    "searchable_text": "University: University of Houston | Location: Houston, United States | Programs: Engineering, Business | Tuition: 27000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 641-650 | Notes: Energy industry ties",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Houston"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Southern Methodist University",
+    "country": "United States",
+    "city": "Dallas",
+    "tuition": "61000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "1001-1200",
+    "programs": [
+      "Business",
+      "Law"
+    ],
+    "notes": "Private in Dallas",
+    "searchable_text": "University: Southern Methodist University | Location: Dallas, United States | Programs: Business, Law | Tuition: 61000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 1001-1200 | Notes: Private in Dallas",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Central Florida",
+    "country": "United States",
+    "city": "Orlando",
+    "tuition": "23000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "593",
+    "programs": [
+      "Hospitality",
+      "Engineering"
+    ],
+    "notes": "Large enrollment",
+    "searchable_text": "University: University of Central Florida | Location: Orlando, United States | Programs: Hospitality, Engineering | Tuition: 23000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 593 | Notes: Large enrollment",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Central Florida"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Florida International University",
+    "country": "United States",
+    "city": "Miami",
+    "tuition": "19000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "751-760",
+    "programs": [
+      "Business",
+      "Law"
+    ],
+    "notes": "Diverse in Miami",
+    "searchable_text": "University: Florida International University | Location: Miami, United States | Programs: Business, Law | Tuition: 19000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 751-760 | Notes: Diverse in Miami",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of South Florida",
+    "country": "United States",
+    "city": "Tampa",
+    "tuition": "18000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "563",
+    "programs": [
+      "Medicine",
+      "Engineering"
+    ],
+    "notes": "Affordable Florida",
+    "searchable_text": "University: University of South Florida | Location: Tampa, United States | Programs: Medicine, Engineering | Tuition: 18000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 563 | Notes: Affordable Florida",
+    "affordability": "Moderate",
+    "name_variations": [
+      "South Florida"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Georgia Institute of Technology",
+    "country": "United States",
+    "city": "Atlanta",
+    "tuition": "34000 USD",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "114",
+    "programs": [
+      "Engineering",
+      "Computer Science"
+    ],
+    "notes": "Tech powerhouse",
+    "searchable_text": "University: Georgia Institute of Technology | Location: Atlanta, United States | Programs: Engineering, Computer Science | Tuition: 34000 USD | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 114 | Notes: Tech powerhouse",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Cincinnati",
+    "country": "United States",
+    "city": "Cincinnati",
+    "tuition": "28000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "761-770",
+    "programs": [
+      "Design",
+      "Engineering"
+    ],
+    "notes": "Co-op pioneer",
+    "searchable_text": "University: University of Cincinnati | Location: Cincinnati, United States | Programs: Design, Engineering | Tuition: 28000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 761-770 | Notes: Co-op pioneer",
+    "affordability": "Moderate",
+    "name_variations": [
+      "Cincinnati"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Temple University",
+    "country": "United States",
+    "city": "Philadelphia",
+    "tuition": "30000 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "681-690",
+    "programs": [
+      "Business",
+      "Law"
+    ],
+    "notes": "Urban Philadelphia",
+    "searchable_text": "University: Temple University | Location: Philadelphia, United States | Programs: Business, Law | Tuition: 30000 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 681-690 | Notes: Urban Philadelphia",
+    "affordability": "Moderate",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Drexel University",
+    "country": "United States",
+    "city": "Philadelphia",
+    "tuition": "58000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "601-650",
+    "programs": [
+      "Engineering",
+      "Medicine"
+    ],
+    "notes": "Co-op programs",
+    "searchable_text": "University: Drexel University | Location: Philadelphia, United States | Programs: Engineering, Medicine | Tuition: 58000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 601-650 | Notes: Co-op programs",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Connecticut",
+    "country": "United States",
+    "city": "Storrs",
+    "tuition": "42000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "444",
+    "programs": [
+      "Business",
+      "Engineering"
+    ],
+    "notes": "New England public",
+    "searchable_text": "University: University of Connecticut | Location: Storrs, United States | Programs: Business, Engineering | Tuition: 42000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 444 | Notes: New England public",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Connecticut"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Delaware",
+    "country": "United States",
+    "city": "Newark",
+    "tuition": "37000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "531-540",
+    "programs": [
+      "Chemical Engineering",
+      "Business"
+    ],
+    "notes": "Historic campus",
+    "searchable_text": "University: University of Delaware | Location: Newark, United States | Programs: Chemical Engineering, Business | Tuition: 37000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 531-540 | Notes: Historic campus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Delaware"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of New Hampshire",
+    "country": "United States",
+    "city": "Durham",
+    "tuition": "37000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "1001-1200",
+    "programs": [
+      "Earth Sciences",
+      "Business"
+    ],
+    "notes": "Coastal location",
+    "searchable_text": "University: University of New Hampshire | Location: Durham, United States | Programs: Earth Sciences, Business | Tuition: 37000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 1001-1200 | Notes: Coastal location",
+    "affordability": "Expensive",
+    "name_variations": [
+      "New Hampshire"
+    ],
+    "program_categories": [
+      "Business",
+      "Sciences",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Vermont",
+    "country": "United States",
+    "city": "Burlington",
+    "tuition": "44000 USD",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "901-950",
+    "programs": [
+      "Environmental Studies",
+      "Medicine"
+    ],
+    "notes": "Green campus",
+    "searchable_text": "University: University of Vermont | Location: Burlington, United States | Programs: Environmental Studies, Medicine | Tuition: 44000 USD | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 901-950 | Notes: Green campus",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Vermont"
+    ],
+    "program_categories": [
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Maine",
+    "country": "United States",
+    "city": "Orono",
+    "tuition": "34000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "701-750",
+    "programs": [
+      "Forestry",
+      "Engineering"
+    ],
+    "notes": "Northern New England",
+    "searchable_text": "University: University of Maine | Location: Orono, United States | Programs: Forestry, Engineering | Tuition: 34000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 701-750 | Notes: Northern New England",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Maine"
+    ],
+    "program_categories": [
+      "Engineering"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Rhode Island",
+    "country": "United States",
+    "city": "Kingston",
+    "tuition": "35000 USD",
+    "ielts": 6.5,
+    "toefl": 79,
+    "ranking": "801-1000",
+    "programs": [
+      "Oceanography",
+      "Pharmacy"
+    ],
+    "notes": "Coastal research",
+    "searchable_text": "University: University of Rhode Island | Location: Kingston, United States | Programs: Oceanography, Pharmacy | Tuition: 35000 USD | IELTS requirement: 6.5 | TOEFL requirement: 79 | Ranking: 801-1000 | Notes: Coastal research",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Rhode Island"
+    ],
+    "program_categories": [],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Massachusetts Boston",
+    "country": "United States",
+    "city": "Boston",
+    "tuition": "36000 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "1001-1200",
+    "programs": [
+      "Nursing",
+      "Business"
+    ],
+    "notes": "Urban public",
+    "searchable_text": "University: University of Massachusetts Boston | Location: Boston, United States | Programs: Nursing, Business | Tuition: 36000 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 1001-1200 | Notes: Urban public",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Massachusetts Boston"
+    ],
+    "program_categories": [
+      "Business",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Technical University of Munich (TUM)",
+    "country": "Germany",
+    "city": "Munich",
+    "tuition": "500 EUR",
+    "ielts": 6.5,
+    "toefl": 88,
+    "ranking": "50",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Natural Sciences"
+    ],
+    "notes": "Top technical university in Germany",
+    "searchable_text": "University: Technical University of Munich (TUM) | Location: Munich, Germany | Programs: Engineering, Computer Science, Natural Sciences | Tuition: 500 EUR | IELTS requirement: 6.5 | TOEFL requirement: 88 | Ranking: 50 | Notes: Top technical university in Germany",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "TUM"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Heidelberg",
+    "country": "Germany",
+    "city": "Heidelberg",
+    "tuition": "350 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "64",
+    "programs": [
+      "Medicine",
+      "Natural Sciences",
+      "Humanities"
+    ],
+    "notes": "Oldest university in Germany",
+    "searchable_text": "University: University of Heidelberg | Location: Heidelberg, Germany | Programs: Medicine, Natural Sciences, Humanities | Tuition: 350 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 64 | Notes: Oldest university in Germany",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Heidelberg"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Humboldt University of Berlin",
+    "country": "Germany",
+    "city": "Berlin",
+    "tuition": "300 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "87",
+    "programs": [
+      "Social Sciences",
+      "Humanities",
+      "Natural Sciences"
+    ],
+    "notes": "Historic research university",
+    "searchable_text": "University: Humboldt University of Berlin | Location: Berlin, Germany | Programs: Social Sciences, Humanities, Natural Sciences | Tuition: 300 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 87 | Notes: Historic research university",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Humanities",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Bonn",
+    "country": "Germany",
+    "city": "Bonn",
+    "tuition": "350 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "91",
+    "programs": [
+      "Economics",
+      "Law",
+      "Medicine"
+    ],
+    "notes": "Strong in economics and politics",
+    "searchable_text": "University: University of Bonn | Location: Bonn, Germany | Programs: Economics, Law, Medicine | Tuition: 350 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 91 | Notes: Strong in economics and politics",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Bonn"
+    ],
+    "program_categories": [
+      "Business",
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Freiburg",
+    "country": "Germany",
+    "city": "Freiburg",
+    "tuition": "300 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "96",
+    "programs": [
+      "Environmental Science",
+      "Medicine",
+      "Humanities"
+    ],
+    "notes": "Beautiful Black Forest location",
+    "searchable_text": "University: University of Freiburg | Location: Freiburg, Germany | Programs: Environmental Science, Medicine, Humanities | Tuition: 300 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 96 | Notes: Beautiful Black Forest location",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Freiburg"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "RWTH Aachen University",
+    "country": "Germany",
+    "city": "Aachen",
+    "tuition": "350 EUR",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "106",
+    "programs": [
+      "Engineering",
+      "Technology",
+      "Natural Sciences"
+    ],
+    "notes": "Leading technical university",
+    "searchable_text": "University: RWTH Aachen University | Location: Aachen, Germany | Programs: Engineering, Technology, Natural Sciences | Tuition: 350 EUR | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 106 | Notes: Leading technical university",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Göttingen",
+    "country": "Germany",
+    "city": "Göttingen",
+    "tuition": "300 EUR",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "114",
+    "programs": [
+      "Physics",
+      "Mathematics",
+      "Humanities"
+    ],
+    "notes": "Nobel Prize legacy",
+    "searchable_text": "University: University of Göttingen | Location: Göttingen, Germany | Programs: Physics, Mathematics, Humanities | Tuition: 300 EUR | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 114 | Notes: Nobel Prize legacy",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Göttingen"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Hamburg",
+    "country": "Germany",
+    "city": "Hamburg",
+    "tuition": "350 EUR",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "157",
+    "programs": [
+      "Business",
+      "Social Sciences",
+      "Natural Sciences"
+    ],
+    "notes": "Major port city university",
+    "searchable_text": "University: University of Hamburg | Location: Hamburg, Germany | Programs: Business, Social Sciences, Natural Sciences | Tuition: 350 EUR | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 157 | Notes: Major port city university",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Hamburg"
+    ],
+    "program_categories": [
+      "Business",
+      "Humanities",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Stuttgart",
+    "country": "Germany",
+    "city": "Stuttgart",
+    "tuition": "350 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "163",
+    "programs": [
+      "Engineering",
+      "Architecture",
+      "Computer Science"
+    ],
+    "notes": "Automotive engineering excellence",
+    "searchable_text": "University: University of Stuttgart | Location: Stuttgart, Germany | Programs: Engineering, Architecture, Computer Science | Tuition: 350 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 163 | Notes: Automotive engineering excellence",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "Stuttgart"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Technical University of Berlin",
+    "country": "Germany",
+    "city": "Berlin",
+    "tuition": "350 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "154",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Architecture"
+    ],
+    "notes": "Top engineering in capital",
+    "searchable_text": "University: Technical University of Berlin | Location: Berlin, Germany | Programs: Engineering, Computer Science, Architecture | Tuition: 350 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 154 | Notes: Top engineering in capital",
+    "affordability": "Very Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "École Polytechnique",
+    "country": "France",
+    "city": "Palaiseau",
+    "tuition": "3000 EUR",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "61",
+    "programs": [
+      "Engineering",
+      "Mathematics",
+      "Physics"
+    ],
+    "notes": "Elite French engineering school",
+    "searchable_text": "University: École Polytechnique | Location: Palaiseau, France | Programs: Engineering, Mathematics, Physics | Tuition: 3000 EUR | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 61 | Notes: Elite French engineering school",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "École Normale Supérieure",
+    "country": "France",
+    "city": "Paris",
+    "tuition": "2500 EUR",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "45",
+    "programs": [
+      "Sciences",
+      "Humanities",
+      "Social Sciences"
+    ],
+    "notes": "France's most prestigious university",
+    "searchable_text": "University: École Normale Supérieure | Location: Paris, France | Programs: Sciences, Humanities, Social Sciences | Tuition: 2500 EUR | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 45 | Notes: France's most prestigious university",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Humanities",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Paris-Saclay",
+    "country": "France",
+    "city": "Saclay",
+    "tuition": "2500 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "69",
+    "programs": [
+      "Sciences",
+      "Engineering",
+      "Agriculture"
+    ],
+    "notes": "Major research cluster",
+    "searchable_text": "University: University of Paris-Saclay | Location: Saclay, France | Programs: Sciences, Engineering, Agriculture | Tuition: 2500 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 69 | Notes: Major research cluster",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Paris-Saclay"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Sciences Po",
+    "country": "France",
+    "city": "Paris",
+    "tuition": "4000 EUR",
+    "ielts": 7.0,
+    "toefl": 90,
+    "ranking": "221",
+    "programs": [
+      "Political Science",
+      "International Relations",
+      "Economics"
+    ],
+    "notes": "Top for political sciences",
+    "searchable_text": "University: Sciences Po | Location: Paris, France | Programs: Political Science, International Relations, Economics | Tuition: 4000 EUR | IELTS requirement: 7.0 | TOEFL requirement: 90 | Ranking: 221 | Notes: Top for political sciences",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Strasbourg",
+    "country": "France",
+    "city": "Strasbourg",
+    "tuition": "2500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "201-250",
+    "programs": [
+      "Medicine",
+      "Law",
+      "Humanities"
+    ],
+    "notes": "European capital location",
+    "searchable_text": "University: University of Strasbourg | Location: Strasbourg, France | Programs: Medicine, Law, Humanities | Tuition: 2500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 201-250 | Notes: European capital location",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Strasbourg"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "École Centrale Paris",
+    "country": "France",
+    "city": "Châtenay-Malabry",
+    "tuition": "3500 EUR",
+    "ielts": 6.5,
+    "toefl": 85,
+    "ranking": "301-350",
+    "programs": [
+      "Engineering",
+      "Applied Sciences"
+    ],
+    "notes": "Elite engineering education",
+    "searchable_text": "University: École Centrale Paris | Location: Châtenay-Malabry, France | Programs: Engineering, Applied Sciences | Tuition: 3500 EUR | IELTS requirement: 6.5 | TOEFL requirement: 85 | Ranking: 301-350 | Notes: Elite engineering education",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Lyon",
+    "country": "France",
+    "city": "Lyon",
+    "tuition": "2200 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "301-350",
+    "programs": [
+      "Medicine",
+      "Sciences",
+      "Business"
+    ],
+    "notes": "Major regional center",
+    "searchable_text": "University: University of Lyon | Location: Lyon, France | Programs: Medicine, Sciences, Business | Tuition: 2200 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 301-350 | Notes: Major regional center",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Lyon"
+    ],
+    "program_categories": [
+      "Business",
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Aix-Marseille University",
+    "country": "France",
+    "city": "Marseille",
+    "tuition": "2200 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "301-350",
+    "programs": [
+      "Medicine",
+      "Sciences",
+      "Humanities"
+    ],
+    "notes": "Mediterranean coast location",
+    "searchable_text": "University: Aix-Marseille University | Location: Marseille, France | Programs: Medicine, Sciences, Humanities | Tuition: 2200 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 301-350 | Notes: Mediterranean coast location",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Toulouse",
+    "country": "France",
+    "city": "Toulouse",
+    "tuition": "2200 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "401-450",
+    "programs": [
+      "Aerospace",
+      "Engineering",
+      "Sciences"
+    ],
+    "notes": "Aerospace industry hub",
+    "searchable_text": "University: University of Toulouse | Location: Toulouse, France | Programs: Aerospace, Engineering, Sciences | Tuition: 2200 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 401-450 | Notes: Aerospace industry hub",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Toulouse"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Bordeaux",
+    "country": "France",
+    "city": "Bordeaux",
+    "tuition": "2200 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "401-450",
+    "programs": [
+      "Wine Studies",
+      "Medicine",
+      "Business"
+    ],
+    "notes": "Wine capital of world",
+    "searchable_text": "University: University of Bordeaux | Location: Bordeaux, France | Programs: Wine Studies, Medicine, Business | Tuition: 2200 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 401-450 | Notes: Wine capital of world",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Bordeaux"
+    ],
+    "program_categories": [
+      "Business",
+      "Healthcare"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Delft University of Technology",
+    "country": "Netherlands",
+    "city": "Delft",
+    "tuition": "15000 EUR",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "57",
+    "programs": [
+      "Engineering",
+      "Architecture",
+      "Applied Sciences"
+    ],
+    "notes": "Top engineering in Europe",
+    "searchable_text": "University: Delft University of Technology | Location: Delft, Netherlands | Programs: Engineering, Architecture, Applied Sciences | Tuition: 15000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 57 | Notes: Top engineering in Europe",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Sciences",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Utrecht",
+    "country": "Netherlands",
+    "city": "Utrecht",
+    "tuition": "12000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "104",
+    "programs": [
+      "Veterinary Medicine",
+      "Sciences",
+      "Humanities"
+    ],
+    "notes": "Historic university city",
+    "searchable_text": "University: University of Utrecht | Location: Utrecht, Netherlands | Programs: Veterinary Medicine, Sciences, Humanities | Tuition: 12000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 104 | Notes: Historic university city",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Utrecht"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Leiden University",
+    "country": "Netherlands",
+    "city": "Leiden",
+    "tuition": "12000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "112",
+    "programs": [
+      "Law",
+      "Medicine",
+      "International Studies"
+    ],
+    "notes": "Oldest university in Netherlands",
+    "searchable_text": "University: Leiden University | Location: Leiden, Netherlands | Programs: Law, Medicine, International Studies | Tuition: 12000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 112 | Notes: Oldest university in Netherlands",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Groningen",
+    "country": "Netherlands",
+    "city": "Groningen",
+    "tuition": "12000 EUR",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "128",
+    "programs": [
+      "Psychology",
+      "Business",
+      "Sciences"
+    ],
+    "notes": "Vibrant student city",
+    "searchable_text": "University: University of Groningen | Location: Groningen, Netherlands | Programs: Psychology, Business, Sciences | Tuition: 12000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 128 | Notes: Vibrant student city",
+    "affordability": "Expensive",
+    "name_variations": [
+      "Groningen"
+    ],
+    "program_categories": [
+      "Business",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Erasmus University Rotterdam",
+    "country": "Netherlands",
+    "city": "Rotterdam",
+    "tuition": "13000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "145",
+    "programs": [
+      "Business",
+      "Economics",
+      "Medicine"
+    ],
+    "notes": "Business and economics focus",
+    "searchable_text": "University: Erasmus University Rotterdam | Location: Rotterdam, Netherlands | Programs: Business, Economics, Medicine | Tuition: 13000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 145 | Notes: Business and economics focus",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Healthcare"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Eindhoven University of Technology",
+    "country": "Netherlands",
+    "city": "Eindhoven",
+    "tuition": "15000 EUR",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "187",
+    "programs": [
+      "Technology",
+      "Engineering",
+      "Design"
+    ],
+    "notes": "Innovation and technology hub",
+    "searchable_text": "University: Eindhoven University of Technology | Location: Eindhoven, Netherlands | Programs: Technology, Engineering, Design | Tuition: 15000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 187 | Notes: Innovation and technology hub",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "VU Amsterdam",
+    "country": "Netherlands",
+    "city": "Amsterdam",
+    "tuition": "12500 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "236",
+    "programs": [
+      "Social Sciences",
+      "Business",
+      "Medicine"
+    ],
+    "notes": "Research-intensive university",
+    "searchable_text": "University: VU Amsterdam | Location: Amsterdam, Netherlands | Programs: Social Sciences, Business, Medicine | Tuition: 12500 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 236 | Notes: Research-intensive university",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Sciences",
+      "Business"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Tilburg University",
+    "country": "Netherlands",
+    "city": "Tilburg",
+    "tuition": "12000 EUR",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "301-350",
+    "programs": [
+      "Economics",
+      "Business",
+      "Law"
+    ],
+    "notes": "Strong in social sciences",
+    "searchable_text": "University: Tilburg University | Location: Tilburg, Netherlands | Programs: Economics, Business, Law | Tuition: 12000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 301-350 | Notes: Strong in social sciences",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Wageningen University",
+    "country": "Netherlands",
+    "city": "Wageningen",
+    "tuition": "14000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "64",
+    "programs": [
+      "Agriculture",
+      "Environmental Science",
+      "Life Sciences"
+    ],
+    "notes": "World leader in agriculture",
+    "searchable_text": "University: Wageningen University | Location: Wageningen, Netherlands | Programs: Agriculture, Environmental Science, Life Sciences | Tuition: 14000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 64 | Notes: World leader in agriculture",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Maastricht University",
+    "country": "Netherlands",
+    "city": "Maastricht",
+    "tuition": "13000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "234",
+    "programs": [
+      "Medicine",
+      "Business",
+      "Law"
+    ],
+    "notes": "International problem-based learning",
+    "searchable_text": "University: Maastricht University | Location: Maastricht, Netherlands | Programs: Medicine, Business, Law | Tuition: 13000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 234 | Notes: International problem-based learning",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Healthcare",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Bocconi University",
+    "country": "Italy",
+    "city": "Milan",
+    "tuition": "12000 EUR",
+    "ielts": 6.5,
+    "toefl": 88,
+    "ranking": "149",
+    "programs": [
+      "Business",
+      "Economics",
+      "Finance"
+    ],
+    "notes": "Premier business school",
+    "searchable_text": "University: Bocconi University | Location: Milan, Italy | Programs: Business, Economics, Finance | Tuition: 12000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 88 | Ranking: 149 | Notes: Premier business school",
+    "affordability": "Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Milan",
+    "country": "Italy",
+    "city": "Milan",
+    "tuition": "4000 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "301-350",
+    "programs": [
+      "Medicine",
+      "Sciences",
+      "Agriculture"
+    ],
+    "notes": "Major research university",
+    "searchable_text": "University: University of Milan | Location: Milan, Italy | Programs: Medicine, Sciences, Agriculture | Tuition: 4000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 301-350 | Notes: Major research university",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Milan"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Sapienza University of Rome",
+    "country": "Italy",
+    "city": "Rome",
+    "tuition": "3500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "171",
+    "programs": [
+      "Architecture",
+      "Engineering",
+      "Humanities"
+    ],
+    "notes": "One of Europe's largest universities",
+    "searchable_text": "University: Sapienza University of Rome | Location: Rome, Italy | Programs: Architecture, Engineering, Humanities | Tuition: 3500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 171 | Notes: One of Europe's largest universities",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Humanities",
+      "Engineering",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Padua",
+    "country": "Italy",
+    "city": "Padua",
+    "tuition": "3000 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "234",
+    "programs": [
+      "Medicine",
+      "Sciences",
+      "Agriculture"
+    ],
+    "notes": "Second oldest university in Italy",
+    "searchable_text": "University: University of Padua | Location: Padua, Italy | Programs: Medicine, Sciences, Agriculture | Tuition: 3000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 234 | Notes: Second oldest university in Italy",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Padua"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Politecnico di Milano",
+    "country": "Italy",
+    "city": "Milan",
+    "tuition": "5000 EUR",
+    "ielts": 6.5,
+    "toefl": 85,
+    "ranking": "139",
+    "programs": [
+      "Engineering",
+      "Architecture",
+      "Design"
+    ],
+    "notes": "Top technical university",
+    "searchable_text": "University: Politecnico di Milano | Location: Milan, Italy | Programs: Engineering, Architecture, Design | Tuition: 5000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 85 | Ranking: 139 | Notes: Top technical university",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Engineering",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Florence",
+    "country": "Italy",
+    "city": "Florence",
+    "tuition": "3000 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "401-450",
+    "programs": [
+      "Art",
+      "Architecture",
+      "Humanities"
+    ],
+    "notes": "Renaissance city location",
+    "searchable_text": "University: University of Florence | Location: Florence, Italy | Programs: Art, Architecture, Humanities | Tuition: 3000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 401-450 | Notes: Renaissance city location",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Florence"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Naples Federico II",
+    "country": "Italy",
+    "city": "Naples",
+    "tuition": "2500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "401-450",
+    "programs": [
+      "Medicine",
+      "Engineering",
+      "Agriculture"
+    ],
+    "notes": "Southern Italy's top university",
+    "searchable_text": "University: University of Naples Federico II | Location: Naples, Italy | Programs: Medicine, Engineering, Agriculture | Tuition: 2500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 401-450 | Notes: Southern Italy's top university",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Naples Federico II"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Pisa",
+    "country": "Italy",
+    "city": "Pisa",
+    "tuition": "3000 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "401-450",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Physics"
+    ],
+    "notes": "Historic city with leaning tower",
+    "searchable_text": "University: University of Pisa | Location: Pisa, Italy | Programs: Engineering, Computer Science, Physics | Tuition: 3000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 401-450 | Notes: Historic city with leaning tower",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Pisa"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Turin",
+    "country": "Italy",
+    "city": "Turin",
+    "tuition": "3000 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "501-600",
+    "programs": [
+      "Medicine",
+      "Law",
+      "Sciences"
+    ],
+    "notes": "Industrial city in northern Italy",
+    "searchable_text": "University: University of Turin | Location: Turin, Italy | Programs: Medicine, Law, Sciences | Tuition: 3000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 501-600 | Notes: Industrial city in northern Italy",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Turin"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Law",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Ca' Foscari University of Venice",
+    "country": "Italy",
+    "city": "Venice",
+    "tuition": "3500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "701-750",
+    "programs": [
+      "Economics",
+      "Languages",
+      "Humanities"
+    ],
+    "notes": "Unique Venice location",
+    "searchable_text": "University: Ca' Foscari University of Venice | Location: Venice, Italy | Programs: Economics, Languages, Humanities | Tuition: 3500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 701-750 | Notes: Unique Venice location",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Humanities"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Autonomous University of Madrid",
+    "country": "Spain",
+    "city": "Madrid",
+    "tuition": "4000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "200",
+    "programs": [
+      "Medicine",
+      "Sciences",
+      "Humanities"
+    ],
+    "notes": "Top Spanish university",
+    "searchable_text": "University: Autonomous University of Madrid | Location: Madrid, Spain | Programs: Medicine, Sciences, Humanities | Tuition: 4000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 200 | Notes: Top Spanish university",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Salamanca",
+    "country": "Spain",
+    "city": "Salamanca",
+    "tuition": "2800 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "601-650",
+    "programs": [
+      "Spanish Language",
+      "Humanities",
+      "Law"
+    ],
+    "notes": "Oldest university in Spain",
+    "searchable_text": "University: University of Salamanca | Location: Salamanca, Spain | Programs: Spanish Language, Humanities, Law | Tuition: 2800 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 601-650 | Notes: Oldest university in Spain",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Salamanca"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Complutense University of Madrid",
+    "country": "Spain",
+    "city": "Madrid",
+    "tuition": "3500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "206",
+    "programs": [
+      "Medicine",
+      "Business",
+      "Humanities"
+    ],
+    "notes": "Large public university",
+    "searchable_text": "University: Complutense University of Madrid | Location: Madrid, Spain | Programs: Medicine, Business, Humanities | Tuition: 3500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 206 | Notes: Large public university",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Healthcare",
+      "Humanities"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Valencia",
+    "country": "Spain",
+    "city": "Valencia",
+    "tuition": "2500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "501-550",
+    "programs": [
+      "Medicine",
+      "Sciences",
+      "Engineering"
+    ],
+    "notes": "Mediterranean coastal location",
+    "searchable_text": "University: University of Valencia | Location: Valencia, Spain | Programs: Medicine, Sciences, Engineering | Tuition: 2500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 501-550 | Notes: Mediterranean coastal location",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Valencia"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Pompeu Fabra University",
+    "country": "Spain",
+    "city": "Barcelona",
+    "tuition": "3000 EUR",
+    "ielts": 6.5,
+    "toefl": 80,
+    "ranking": "287",
+    "programs": [
+      "Economics",
+      "Communication",
+      "Translation"
+    ],
+    "notes": "Young, innovative university",
+    "searchable_text": "University: Pompeu Fabra University | Location: Barcelona, Spain | Programs: Economics, Communication, Translation | Tuition: 3000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 80 | Ranking: 287 | Notes: Young, innovative university",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Business"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Seville",
+    "country": "Spain",
+    "city": "Seville",
+    "tuition": "2500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "601-650",
+    "programs": [
+      "Engineering",
+      "Architecture",
+      "Humanities"
+    ],
+    "notes": "Historic Andalusian city",
+    "searchable_text": "University: University of Seville | Location: Seville, Spain | Programs: Engineering, Architecture, Humanities | Tuition: 2500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 601-650 | Notes: Historic Andalusian city",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Seville"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Engineering",
+      "Arts"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Universidad Carlos III de Madrid",
+    "country": "Spain",
+    "city": "Madrid",
+    "tuition": "3500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "301-350",
+    "programs": [
+      "Engineering",
+      "Social Sciences",
+      "Law"
+    ],
+    "notes": "Modern research university",
+    "searchable_text": "University: Universidad Carlos III de Madrid | Location: Madrid, Spain | Programs: Engineering, Social Sciences, Law | Tuition: 3500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 301-350 | Notes: Modern research university",
+    "affordability": "Affordable",
+    "name_variations": [],
+    "program_categories": [
+      "Humanities",
+      "Engineering",
+      "Law",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of the Basque Country",
+    "country": "Spain",
+    "city": "Bilbao",
+    "tuition": "2500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "501-550",
+    "programs": [
+      "Engineering",
+      "Medicine",
+      "Sciences"
+    ],
+    "notes": "Bilingual education environment",
+    "searchable_text": "University: University of the Basque Country | Location: Bilbao, Spain | Programs: Engineering, Medicine, Sciences | Tuition: 2500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 501-550 | Notes: Bilingual education environment",
+    "affordability": "Affordable",
+    "name_variations": [
+      "the Basque Country"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "IE University",
+    "country": "Spain",
+    "city": "Madrid",
+    "tuition": "18000 EUR",
+    "ielts": 6.5,
+    "toefl": 85,
+    "ranking": "451-500",
+    "programs": [
+      "Business",
+      "Law",
+      "International Relations"
+    ],
+    "notes": "Private international university",
+    "searchable_text": "University: IE University | Location: Madrid, Spain | Programs: Business, Law, International Relations | Tuition: 18000 EUR | IELTS requirement: 6.5 | TOEFL requirement: 85 | Ranking: 451-500 | Notes: Private international university",
+    "affordability": "Very Expensive",
+    "name_variations": [],
+    "program_categories": [
+      "Business",
+      "Law"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of Santiago de Compostela",
+    "country": "Spain",
+    "city": "Santiago de Compostela",
+    "tuition": "2200 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "601-650",
+    "programs": [
+      "Humanities",
+      "Medicine",
+      "Sciences"
+    ],
+    "notes": "UNESCO World Heritage city",
+    "searchable_text": "University: University of Santiago de Compostela | Location: Santiago de Compostela, Spain | Programs: Humanities, Medicine, Sciences | Tuition: 2200 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 601-650 | Notes: UNESCO World Heritage city",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Santiago de Compostela"
+    ],
+    "program_categories": [
+      "Humanities",
+      "Healthcare",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "University of the People",
+    "country": "United States",
+    "city": "Pasadena",
+    "tuition": "0 USD",
+    "ielts": 5.5,
+    "toefl": 61,
+    "ranking": "Online Accredited",
+    "programs": [
+      "Computer Science",
+      "Business Administration",
+      "Health Science",
+      "Education"
+    ],
+    "notes": "Tuition-free online university, only assessment fees (~$5000 total)",
+    "searchable_text": "University: University of the People | Location: Pasadena, United States | Programs: Computer Science, Business Administration, Health Science, Education | Tuition: 0 USD | IELTS requirement: 5.5 | TOEFL requirement: 61 | Ranking: Online Accredited | Notes: Tuition-free online university, only assessment fees (~$5000 total)",
+    "affordability": "Free",
+    "name_variations": [
+      "UoPeople"
+    ],
+    "program_categories": [
+      "Technology",
+      "Business",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Cooper Union",
+    "country": "United States",
+    "city": "New York",
+    "tuition": "0 USD",
+    "ielts": 7.0,
+    "toefl": 100,
+    "ranking": "150",
+    "programs": [
+      "Engineering",
+      "Architecture",
+      "Art"
+    ],
+    "notes": "Full-tuition scholarships for all admitted students",
+    "searchable_text": "University: Cooper Union | Location: New York, United States | Programs: Engineering, Architecture, Art | Tuition: 0 USD | IELTS requirement: 7.0 | TOEFL requirement: 100 | Ranking: 150 | Notes: Full-tuition scholarships for all admitted students",
+    "affordability": "Free",
+    "name_variations": [
+      "Cooper Union for the Advancement of Science and Art"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Berea College",
+    "country": "United States",
+    "city": "Berea",
+    "tuition": "0 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "Liberal Arts College",
+    "programs": [
+      "Liberal Arts",
+      "Agriculture",
+      "Technology",
+      "Business"
+    ],
+    "notes": "No tuition for any student, work-study program, serves low-income students exclusively",
+    "searchable_text": "University: Berea College | Location: Berea, United States | Programs: Liberal Arts, Agriculture, Technology, Business | Tuition: 0 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: Liberal Arts College | Notes: No tuition for any student, work-study program, serves low-income students exclusively",
+    "affordability": "Free",
+    "name_variations": [
+      "Berea"
+    ],
+    "program_categories": [
+      "Arts",
+      "Technology",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Alice Lloyd College",
+    "country": "United States",
+    "city": "Pippa Passes",
+    "tuition": "0 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "Regional College",
+    "programs": [
+      "Education",
+      "Business",
+      "Liberal Arts"
+    ],
+    "notes": "Tuition guarantee for Appalachian students, work-study program",
+    "searchable_text": "University: Alice Lloyd College | Location: Pippa Passes, United States | Programs: Education, Business, Liberal Arts | Tuition: 0 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: Regional College | Notes: Tuition guarantee for Appalachian students, work-study program",
+    "affordability": "Free",
+    "name_variations": [
+      "ALC"
+    ],
+    "program_categories": [
+      "Business",
+      "Arts"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Indian Institute of Technology (IIT) Delhi",
+    "country": "India",
+    "city": "New Delhi",
+    "tuition": "300 USD",
+    "ielts": 6.5,
+    "toefl": 90,
+    "ranking": "172",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Applied Sciences"
+    ],
+    "notes": "World-class engineering education at fraction of cost, scholarships available",
+    "searchable_text": "University: Indian Institute of Technology (IIT) Delhi | Location: New Delhi, India | Programs: Engineering, Computer Science, Applied Sciences | Tuition: 300 USD | IELTS requirement: 6.5 | TOEFL requirement: 90 | Ranking: 172 | Notes: World-class engineering education at fraction of cost, scholarships available",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "IIT Delhi",
+      "IITD"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Technology"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "University of Dhaka",
+    "country": "Bangladesh",
+    "city": "Dhaka",
+    "tuition": "200 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "801-1000",
+    "programs": [
+      "Sciences",
+      "Arts",
+      "Social Sciences",
+      "Business"
+    ],
+    "notes": "Extremely affordable education in South Asia",
+    "searchable_text": "University: University of Dhaka | Location: Dhaka, Bangladesh | Programs: Sciences, Arts, Social Sciences, Business | Tuition: 200 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 801-1000 | Notes: Extremely affordable education in South Asia",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "DU",
+      "Dhaka University"
+    ],
+    "program_categories": [
+      "Sciences",
+      "Arts",
+      "Business"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "Makerere University",
+    "country": "Uganda",
+    "city": "Kampala",
+    "tuition": "500 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "1001-1200",
+    "programs": [
+      "Medicine",
+      "Agriculture",
+      "Engineering",
+      "Arts"
+    ],
+    "notes": "Premier East African university, very affordable tuition",
+    "searchable_text": "University: Makerere University | Location: Kampala, Uganda | Programs: Medicine, Agriculture, Engineering, Arts | Tuition: 500 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 1001-1200 | Notes: Premier East African university, very affordable tuition",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "MAK"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering",
+      "Arts"
+    ],
+    "region": "Africa"
+  },
+  {
+    "university_name": "Universidad Nacional Autónoma de México (UNAM)",
+    "country": "Mexico",
+    "city": "Mexico City",
+    "tuition": "400 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "103",
+    "programs": [
+      "Medicine",
+      "Engineering",
+      "Arts",
+      "Sciences"
+    ],
+    "notes": "Top Latin American university with minimal tuition",
+    "searchable_text": "University: Universidad Nacional Autónoma de México (UNAM) | Location: Mexico City, Mexico | Programs: Medicine, Engineering, Arts, Sciences | Tuition: 400 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 103 | Notes: Top Latin American university with minimal tuition",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "UNAM"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering",
+      "Arts",
+      "Sciences"
+    ],
+    "region": "Latin America"
+  },
+  {
+    "university_name": "Santa Monica College",
+    "country": "United States",
+    "city": "Santa Monica",
+    "tuition": "1200 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "Community College",
+    "programs": [
+      "Transfer Programs",
+      "Business",
+      "Arts",
+      "Sciences"
+    ],
+    "notes": "Top community college, transfers to UCLA/USC, very affordable",
+    "searchable_text": "University: Santa Monica College | Location: Santa Monica, United States | Programs: Transfer Programs, Business, Arts, Sciences | Tuition: 1200 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: Community College | Notes: Top community college, transfers to UCLA/USC, very affordable",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "SMC"
+    ],
+    "program_categories": [
+      "Business",
+      "Arts",
+      "Sciences"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Pasadena City College",
+    "country": "United States",
+    "city": "Pasadena",
+    "tuition": "1400 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "Community College",
+    "programs": [
+      "Engineering Transfer",
+      "Business",
+      "Liberal Arts",
+      "Health Sciences"
+    ],
+    "notes": "Excellent transfer rates to top universities, very affordable",
+    "searchable_text": "University: Pasadena City College | Location: Pasadena, United States | Programs: Engineering Transfer, Business, Liberal Arts, Health Sciences | Tuition: 1400 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: Community College | Notes: Excellent transfer rates to top universities, very affordable",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "PCC"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business",
+      "Arts",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "Northern Virginia Community College",
+    "country": "United States",
+    "city": "Annandale",
+    "tuition": "1800 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "Community College",
+    "programs": [
+      "Computer Science",
+      "Business",
+      "Engineering Transfer",
+      "Healthcare"
+    ],
+    "notes": "Near Washington DC, excellent job opportunities, affordable",
+    "searchable_text": "University: Northern Virginia Community College | Location: Annandale, United States | Programs: Computer Science, Business, Engineering Transfer, Healthcare | Tuition: 1800 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: Community College | Notes: Near Washington DC, excellent job opportunities, affordable",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "NOVA",
+      "NVCC"
+    ],
+    "program_categories": [
+      "Technology",
+      "Business",
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Texas Rio Grande Valley",
+    "country": "United States",
+    "city": "Edinburg",
+    "tuition": "3200 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "Regional University",
+    "programs": [
+      "Medicine",
+      "Engineering",
+      "Business",
+      "Education"
+    ],
+    "notes": "Serves high Hispanic population, very affordable, growing reputation",
+    "searchable_text": "University: University of Texas Rio Grande Valley | Location: Edinburg, United States | Programs: Medicine, Engineering, Business, Education | Tuition: 3200 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: Regional University | Notes: Serves high Hispanic population, very affordable, growing reputation",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "UTRGV"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering",
+      "Business"
+    ],
+    "region": "North America"
+  },
+  {
+    "university_name": "University of Central Punjab",
+    "country": "Pakistan",
+    "city": "Lahore",
+    "tuition": "2500 USD",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "Regional University",
+    "programs": [
+      "Computer Science",
+      "Business",
+      "Engineering",
+      "Medicine"
+    ],
+    "notes": "Quality education at very affordable cost in South Asia",
+    "searchable_text": "University: University of Central Punjab | Location: Lahore, Pakistan | Programs: Computer Science, Business, Engineering, Medicine | Tuition: 2500 USD | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: Regional University | Notes: Quality education at very affordable cost in South Asia",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "UCP"
+    ],
+    "program_categories": [
+      "Technology",
+      "Business",
+      "Engineering",
+      "Healthcare"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "Universiti Malaya",
+    "country": "Malaysia",
+    "city": "Kuala Lumpur",
+    "tuition": "2800 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "65",
+    "programs": [
+      "Medicine",
+      "Engineering",
+      "Arts",
+      "Sciences"
+    ],
+    "notes": "Top Malaysian university, affordable for international students",
+    "searchable_text": "University: Universiti Malaya | Location: Kuala Lumpur, Malaysia | Programs: Medicine, Engineering, Arts, Sciences | Tuition: 2800 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 65 | Notes: Top Malaysian university, affordable for international students",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "UM"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering",
+      "Arts",
+      "Sciences"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "University of Ghana",
+    "country": "Ghana",
+    "city": "Accra",
+    "tuition": "3500 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "801-1000",
+    "programs": [
+      "Medicine",
+      "Business",
+      "Agriculture",
+      "Engineering"
+    ],
+    "notes": "Premier West African university, affordable tuition, English instruction",
+    "searchable_text": "University: University of Ghana | Location: Accra, Ghana | Programs: Medicine, Business, Agriculture, Engineering | Tuition: 3500 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 801-1000 | Notes: Premier West African university, affordable tuition, English instruction",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "UG"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Business",
+      "Engineering"
+    ],
+    "region": "Africa"
+  },
+  {
+    "university_name": "University of Belgrade",
+    "country": "Serbia",
+    "city": "Belgrade",
+    "tuition": "1500 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "801-1000",
+    "programs": [
+      "Medicine",
+      "Engineering",
+      "Arts",
+      "Sciences"
+    ],
+    "notes": "Affordable European education, low cost of living",
+    "searchable_text": "University: University of Belgrade | Location: Belgrade, Serbia | Programs: Medicine, Engineering, Arts, Sciences | Tuition: 1500 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 801-1000 | Notes: Affordable European education, low cost of living",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "UB"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Engineering",
+      "Arts",
+      "Sciences"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "Comenius University",
+    "country": "Slovakia",
+    "city": "Bratislava",
+    "tuition": "2000 EUR",
+    "ielts": 6.0,
+    "toefl": 79,
+    "ranking": "651-700",
+    "programs": [
+      "Medicine",
+      "Natural Sciences",
+      "Mathematics",
+      "Informatics"
+    ],
+    "notes": "EU university with very affordable tuition, near Vienna",
+    "searchable_text": "University: Comenius University | Location: Bratislava, Slovakia | Programs: Medicine, Natural Sciences, Mathematics, Informatics | Tuition: 2000 EUR | IELTS requirement: 6.0 | TOEFL requirement: 79 | Ranking: 651-700 | Notes: EU university with very affordable tuition, near Vienna",
+    "affordability": "Very Affordable",
+    "name_variations": [
+      "UK",
+      "UNIBA"
+    ],
+    "program_categories": [
+      "Healthcare",
+      "Sciences",
+      "Technology"
+    ],
+    "region": "Europe"
+  },
+  {
+    "university_name": "American University of Sharjah",
+    "country": "United Arab Emirates",
+    "city": "Sharjah",
+    "tuition": "4000 USD",
+    "ielts": 6.0,
+    "toefl": 80,
+    "ranking": "601-650",
+    "programs": [
+      "Engineering",
+      "Business",
+      "Architecture",
+      "Arts"
+    ],
+    "notes": "Merit scholarships up to 100%, American-style education",
+    "searchable_text": "University: American University of Sharjah | Location: Sharjah, United Arab Emirates | Programs: Engineering, Business, Architecture, Arts | Tuition: 4000 USD | IELTS requirement: 6.0 | TOEFL requirement: 80 | Ranking: 601-650 | Notes: Merit scholarships up to 100%, American-style education",
+    "affordability": "Affordable",
+    "name_variations": [
+      "AUS"
+    ],
+    "program_categories": [
+      "Engineering",
+      "Business",
+      "Arts"
+    ],
+    "region": "Asia"
+  },
+  {
+    "university_name": "Ashesi University",
+    "country": "Ghana",
+    "city": "Berekuso",
+    "tuition": "4500 USD",
+    "ielts": 6.5,
+    "toefl": 85,
+    "ranking": "African Leader",
+    "programs": [
+      "Computer Science",
+      "Business",
+      "Engineering"
+    ],
+    "notes": "Need-based scholarships available, innovative African university",
+    "searchable_text": "University: Ashesi University | Location: Berekuso, Ghana | Programs: Computer Science, Business, Engineering | Tuition: 4500 USD | IELTS requirement: 6.5 | TOEFL requirement: 85 | Ranking: African Leader | Notes: Need-based scholarships available, innovative African university",
+    "affordability": "Affordable",
+    "name_variations": [
+      "Ashesi"
+    ],
+    "program_categories": [
+      "Technology",
+      "Business",
+      "Engineering"
+    ],
+    "region": "Africa"
+  }
+]

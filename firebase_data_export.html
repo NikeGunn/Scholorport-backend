@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Data Export - Scholarport</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #7f8c8d;
+      margin-bottom: 40px;
+      font-size: 1.1em;
+    }
+
+    .download-section {
+      margin: 30px 0;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .firebase-btn {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    }
+
+    .local-btn {
+      background: linear-gradient(135deg, #4834d4, #686de0);
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .status {
+      margin: 20px 0;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .status.show {
+      opacity: 1;
+    }
+
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .status.loading {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    .info-box {
+      background: #e8f4fd;
+      border: 1px solid #b8daff;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      color: #004085;
+    }
+
+    .data-count {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🔥 Firebase Data Export</h1>
+    <p class="subtitle">Download your Scholarport student data</p>
+
+    <div class="info-box">
+      <strong>📊 Available Data:</strong><br>
+      ✅ Student profiles and conversations<br>
+      ✅ University recommendations<br>
+      ✅ Firebase cloud data<br>
+      ✅ Complete conversation history
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div class="download-section">
+      <h3>🌐 Firebase Cloud Data</h3>
+      <button class="download-btn firebase-btn" onclick="downloadFirebaseData()">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+        </svg>
+        Download Firebase JSON
+      </button>
+    </div>
+
+    <div class="download-section">
+      <h3>💾 Local Database Export</h3>
+      <button class="download-btn local-btn" onclick="downloadLocalData()">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2Z" />
+        </svg>
+        Download Excel Report
+      </button>
+    </div>
+
+    <div id="dataCount" class="data-count"></div>
+  </div>
+
+  <script>
+    const API_BASE_URL = 'http://127.0.0.1:8000/api/chat';
+
+    function showStatus(message, type) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `status ${type} show`;
+
+      if (type === 'success') {
+        setTimeout(() => {
+          status.classList.remove('show');
+        }, 5000);
+      }
+    }
+
+    async function downloadFirebaseData() {
+      showStatus('🔄 Downloading Firebase data...', 'loading');
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/admin/firebase-export/?format=json`, {
+          method: 'GET',
+          mode: 'cors'
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+
+        // Get filename from header or generate one
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let filename = `firebase_data_${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.json`;
+        if (contentDisposition) {
+          const matches = contentDisposition.match(/filename="([^"]+)"/);
+          if (matches) filename = matches[1];
+        }
+
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        showStatus('✅ Firebase data downloaded successfully!', 'success');
+        await checkDataCount();
+
+      } catch (error) {
+        showStatus(`❌ Failed to download Firebase data: ${error.message}`, 'error');
+      }
+    }
+
+    async function downloadLocalData() {
+      showStatus('🔄 Downloading local database export...', 'loading');
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/admin/export/`, {
+          method: 'GET',
+          mode: 'cors'
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+
+        // Get filename from header or generate one
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let filename = `scholarport_data_${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.xlsx`;
+        if (contentDisposition) {
+          const matches = contentDisposition.match(/filename="([^"]+)"/);
+          if (matches) filename = matches[1];
+        }
+
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        showStatus('✅ Local data downloaded successfully!', 'success');
+
+      } catch (error) {
+        showStatus(`❌ Failed to download local data: ${error.message}`, 'error');
+      }
+    }
+
+    async function checkDataCount() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/admin/firebase-export/?format=json`);
+        if (response.ok) {
+          const data = await response.json();
+          const count = data.length || 0;
+          document.getElementById('dataCount').textContent = `📈 Total Records in Firebase: ${count}`;
+        }
+      } catch (error) {
+        console.log('Could not fetch data count:', error);
+      }
+    }
+
+    // Check data count on page load
+    window.onload = function () {
+      checkDataCount();
+      showStatus('🚀 Ready to download your data!', 'success');
+    };
+  </script>
+</body>
+
+</html>
