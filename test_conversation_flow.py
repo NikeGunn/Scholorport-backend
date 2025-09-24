@@ -9,7 +9,7 @@ import json
 BASE_URL = "http://127.0.0.1:8000/api/chat"
 
 def test_complete_conversation_with_profile():
-    """Test a complete 5-step conversation to ensure profile is created"""
+    """Test a complete 7-step conversation to ensure profile is created"""
 
     print("🚀 Testing Complete Conversation Flow...")
     print("=" * 60)
@@ -71,11 +71,37 @@ def test_complete_conversation_with_profile():
         data = response.json()
         print(f"Step: {data.get('current_step')}, Completed: {data.get('completed')}")
 
-    # Step 6: Send country (FINAL)
-    print("\n6️⃣ Sending country preference (FINAL)...")
+    # Step 6: Send country
+    print("\n6️⃣ Sending country preference...")
     response = requests.post(f"{BASE_URL}/send/", json={
         "session_id": session_id,
         "message": "I want to study in Australia"
+    })
+    print(f"Status: {response.status_code}")
+    if response.status_code == 200:
+        data = response.json()
+        print(f"Step: {data.get('current_step')}, Completed: {data.get('completed')}")
+    else:
+        print(f"❌ Error: {response.text}")
+
+    # Step 7: Send email
+    print("\n7️⃣ Sending email address...")
+    response = requests.post(f"{BASE_URL}/send/", json={
+        "session_id": session_id,
+        "message": "john.smith@email.com"
+    })
+    print(f"Status: {response.status_code}")
+    if response.status_code == 200:
+        data = response.json()
+        print(f"Step: {data.get('current_step')}, Completed: {data.get('completed')}")
+    else:
+        print(f"❌ Error: {response.text}")
+
+    # Step 8: Send phone (FINAL)
+    print("\n8️⃣ Sending phone number (FINAL)...")
+    response = requests.post(f"{BASE_URL}/send/", json={
+        "session_id": session_id,
+        "message": "+1 (555) 123-4567"
     })
     print(f"Status: {response.status_code}")
     if response.status_code == 200:
@@ -96,16 +122,16 @@ def test_complete_conversation_with_profile():
     else:
         print(f"❌ Error: {response.text}")
 
-    # Step 7: Check conversation history
-    print("\n7️⃣ Checking conversation history...")
+    # Step 9: Check conversation history
+    print("\n9️⃣ Checking conversation history...")
     response = requests.get(f"{BASE_URL}/conversation/{session_id}/")
     if response.status_code == 200:
         data = response.json()
         print(f"✅ History retrieved: {len(data.get('messages', []))} messages")
         print(f"Conversation completed: {data.get('completed')}")
 
-    # Step 8: Check admin profiles to see if profile was created
-    print("\n8️⃣ Checking if profile appears in admin...")
+    # Step 10: Check admin profiles to see if profile was created
+    print("\n🔟 Checking if profile appears in admin...")
     response = requests.get(f"{BASE_URL}/admin/profiles/")
     if response.status_code == 200:
         data = response.json()

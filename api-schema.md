@@ -97,7 +97,7 @@ Creates a new conversation session and returns a unique session ID.
 #### 1.3 Send Message
 **POST** `/send/`
 
-Send a message in an existing conversation. Handles the 5-question flow and generates recommendations.
+Send a message in an existing conversation. Handles the 7-question flow and generates recommendations.
 
 **Request Body:**
 ```json
@@ -842,7 +842,7 @@ interface StudentProfile {
 ### Testing Workflow
 1. Start with health check
 2. Create conversation session
-3. Complete 5-question flow
+3. Complete 7-question flow
 4. Verify recommendations
 5. Test consent handling
 6. Validate admin endpoints

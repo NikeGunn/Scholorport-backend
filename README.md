@@ -151,7 +151,7 @@ python test_api.py
 |--------|----------|-------------|
 | `GET` | `/health/` | Health check |
 | `POST` | `/start/` | Start new conversation |
-| `POST` | `/send/` | Send message (5-question flow) |
+| `POST` | `/send/` | Send message (7-question flow) |
 | `POST` | `/consent/` | Handle data consent |
 | `GET` | `/conversation/{session_id}/` | Get chat history |
 
@@ -188,13 +188,15 @@ response = requests.post('http://127.0.0.1:8000/api/chat/start/')
 session_data = response.json()
 session_id = session_data['session_id']
 
-# Send messages through 5-question flow
+# Send messages through 7-question flow
 messages = [
     "John Smith",                           # Step 1: Name
     "Bachelor's in Computer Science",       # Step 2: Education
     "IELTS 7.0",                           # Step 3: Test Score
     "$25,000 USD per year",                # Step 4: Budget
-    "Canada"                               # Step 5: Country
+    "Canada",                              # Step 5: Country
+    "john.smith@email.com",                # Step 6: Email
+    "+1 (555) 123-4567"                    # Step 7: Phone
 ]
 
 for message in messages:
@@ -560,7 +562,7 @@ The project includes automatic suppression of Google Cloud ALTS warnings. If you
 ## 🎯 Roadmap
 
 ### **Phase 1 - MVP** ✅
-- ✅ 5-question conversation flow
+- ✅ 7-question conversation flow (includes contact collection)
 - ✅ University recommendation engine
 - ✅ Admin dashboard and exports
 - ✅ Firebase cloud integration
