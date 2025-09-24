@@ -20,11 +20,12 @@ All requests and responses use `application/json` content type unless specified 
 ## 🏗️ System Architecture
 
 ### Core Components
-1. **Chat API** - Conversation management and AI interactions
-2. **University API** - University data access and search
-3. **Admin API** - Dashboard, analytics, and data exports
-4. **Firebase Integration** - Cloud data storage and export
-5. **Consent Management** - User data consent handling
+1. **Chat API** - Conversation management and AI interactions with 7-step flow
+2. **University API** - University data access and search (243+ universities)
+3. **Admin API** - Professional Django admin with advanced filtering and exports
+4. **Contact Collection** - Email and phone number collection for counselor outreach
+5. **Firebase Integration** - Cloud data storage and export
+6. **Consent Management** - User data consent handling
 
 ### Data Flow
 ```
@@ -32,7 +33,7 @@ Frontend → Chat API → AI Processing → University Matching → Profile Crea
 ```
 
 ### Database Models
-- **ConversationSession** - Chat sessions with 5-question flow
+- **ConversationSession** - Chat sessions with 7-question flow (includes email & phone collection)
 - **ChatMessage** - Individual messages in conversations
 - **University** - University database (243+ universities)
 - **StudentProfile** - Finalized student profiles for counselor follow-up
@@ -83,7 +84,7 @@ Creates a new conversation session and returns a unique session ID.
     "current_step": 1,
     "message": "Hello! Welcome to Scholarport - your personalized study abroad advisor. I'll help you find the perfect universities based on your preferences. Let's start with a few questions.",
     "question": "Hi! I'm Scholarport AI, your study abroad assistant. What is your name?",
-    "total_steps": 5
+    "total_steps": 7
 }
 ```
 
@@ -118,7 +119,7 @@ Send a message in an existing conversation. Handles the 5-question flow and gene
     "current_step": 2,
     "bot_response": "Nice to meet you, John Smith! What is your education level?",
     "completed": false,
-    "total_steps": 5,
+    "total_steps": 7,
     "next_question": "What is your education level? (e.g., High School, Bachelor's, Master's, etc.)"
 }
 ```
@@ -131,7 +132,7 @@ Send a message in an existing conversation. Handles the 5-question flow and gene
     "current_step": 6,
     "bot_response": "Perfect! Based on your profile, I've found 3 excellent universities in Canada that match your preferences.",
     "completed": true,
-    "total_steps": 5,
+    "total_steps": 7,
     "recommendations": [
         {
             "name": "University of Toronto",
@@ -184,12 +185,14 @@ Send a message in an existing conversation. Handles the 5-question flow and gene
 - `404` - Invalid session ID
 - `500` - Server error
 
-**5-Question Flow:**
+**7-Question Flow:**
 1. **Name** - Student's name
 2. **Education** - Educational background
 3. **Test Score** - IELTS/TOEFL scores
 4. **Budget** - Budget amount and currency
 5. **Country** - Preferred study destination
+6. **Email** - Contact email address
+7. **Phone** - Contact phone number
 
 ---
 
@@ -741,10 +744,16 @@ const downloadExcel = () => {
 interface ConversationSession {
     session_id: string;
     student_name?: string;
+    student_email?: string;
+    student_phone?: string;
     current_step: number;
     is_completed: boolean;
     suggested_universities: University[];
     data_save_consent: boolean;
+    email_response?: string;
+    phone_response?: string;
+    processed_email?: string;
+    processed_phone?: string;
     created_at: string;
     updated_at: string;
 }
@@ -773,6 +782,8 @@ interface StudentProfile {
     id: number;
     session_id: string;
     student_name: string;
+    email?: string;
+    phone?: string;
     education_background: string;
     budget: string;
     test_score: string;

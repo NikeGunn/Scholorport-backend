@@ -65,7 +65,7 @@ def start_conversation(request):
             'current_step': session.current_step,
             'message': welcome_data['message'],
             'question': welcome_data['question'],
-            'total_steps': 5
+            'total_steps': 7
         }, status=status.HTTP_201_CREATED)
 
     except Exception as e:
@@ -149,7 +149,7 @@ def send_message(request):
             'current_step': session.current_step,
             'bot_response': response_data['bot_response'],
             'completed': session.is_completed,
-            'total_steps': 5
+            'total_steps': 7
         }
 
         # Add next question if conversation continues

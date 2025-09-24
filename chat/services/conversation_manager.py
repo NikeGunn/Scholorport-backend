@@ -15,7 +15,7 @@ from chat.models import ConversationSession, ChatMessage, University
 
 class ConversationManager:
     """
-    Manages the 5-step conversation flow for university recommendations.
+    Manages the 7-step conversation flow for university recommendations.
 
     The flow:
     1. Name
@@ -23,7 +23,9 @@ class ConversationManager:
     3. Test score (IELTS/TOEFL)
     4. Budget
     5. Country preference
-    6. Generate university suggestions
+    6. Email address (for counselor contact)
+    7. Phone number (for counselor contact)
+    8. Generate university suggestions
     """
 
     # The 7 conversation questions (added email & phone collection)
