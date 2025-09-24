@@ -477,21 +477,20 @@ def admin_export_excel(request):
             conversation = profile.conversation
             messages = conversation.messages.all().order_by('timestamp')
 
-            # Extract conversation data
+            # Extract conversation data using step numbers instead of flawed counting
             student_responses = {}
             for msg in messages:
                 if msg.sender == 'user':
-                    if 'name' in msg.message_text.lower():
+                    # Use step_number to properly map responses
+                    if msg.step_number == 1:
                         student_responses['name'] = msg.message_text
-                    elif len(student_responses) == 0:
-                        student_responses['name'] = msg.message_text
-                    elif len(student_responses) == 1:
+                    elif msg.step_number == 2:
                         student_responses['education'] = msg.message_text
-                    elif len(student_responses) == 2:
+                    elif msg.step_number == 3:
                         student_responses['test_score'] = msg.message_text
-                    elif len(student_responses) == 3:
+                    elif msg.step_number == 4:
                         student_responses['budget'] = msg.message_text
-                    elif len(student_responses) == 4:
+                    elif msg.step_number == 5:
                         student_responses['country'] = msg.message_text
 
             # Parse recommended universities (assuming it's stored as a string or list)

@@ -92,6 +92,8 @@ class ProfileCreator:
         profile = StudentProfile.objects.create(
             conversation=conversation,
             name=profile_data['name'],
+            email=profile_data['email'],
+            phone=profile_data['phone'],
             education_level=profile_data['education'],
             budget_amount=profile_data['budget_amount'],
             budget_currency=profile_data['budget_currency'],
@@ -124,6 +126,10 @@ class ProfileCreator:
         # Parse country
         country = self._parse_country(country_text)
 
+        # Extract email and phone
+        email = conversation.processed_email or conversation.student_email or conversation.email_response or ""
+        phone = conversation.processed_phone or conversation.student_phone or conversation.phone_response or ""
+
         return {
             'name': name,
             'education': education,
@@ -131,7 +137,9 @@ class ProfileCreator:
             'budget_currency': budget_info['currency'],
             'test_type': test_info['type'],
             'test_score': test_info['score'],
-            'country': country
+            'country': country,
+            'email': email,
+            'phone': phone
         }
 
     def _parse_budget(self, budget_text: str) -> Dict:

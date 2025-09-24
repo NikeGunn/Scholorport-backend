@@ -22,13 +22,16 @@ class ConversationSession(models.Model):
     # Basic student information
     student_name = models.CharField(max_length=255, blank=True, null=True)
     student_email = models.EmailField(blank=True, null=True)
+    student_phone = models.CharField(max_length=20, blank=True, null=True)
 
-    # 5-question responses
+    # 7-question responses (added email and phone collection)
     name_response = models.CharField(max_length=255, blank=True, null=True)
     education_response = models.TextField(blank=True, null=True)
     test_score_response = models.CharField(max_length=100, blank=True, null=True)
     budget_response = models.CharField(max_length=100, blank=True, null=True)
     country_response = models.CharField(max_length=100, blank=True, null=True)
+    email_response = models.EmailField(blank=True, null=True)
+    phone_response = models.CharField(max_length=20, blank=True, null=True)
 
     # Processed (AI-understood) versions of responses
     processed_name = models.CharField(max_length=255, blank=True, null=True)
@@ -36,9 +39,11 @@ class ConversationSession(models.Model):
     processed_test_score = models.CharField(max_length=100, blank=True, null=True)
     processed_budget = models.CharField(max_length=100, blank=True, null=True)
     processed_country = models.CharField(max_length=100, blank=True, null=True)
+    processed_email = models.EmailField(blank=True, null=True)
+    processed_phone = models.CharField(max_length=20, blank=True, null=True)
 
     # Conversation state
-    current_step = models.IntegerField(default=1)  # 1-6 (1-5 questions, 6=completed)
+    current_step = models.IntegerField(default=1)  # 1-8 (1-7 questions, 8=completed)
     is_completed = models.BooleanField(default=False)
 
     # University suggestions (stored as JSON)

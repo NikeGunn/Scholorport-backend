@@ -48,7 +48,6 @@ INSTALLED_APPS = [
 
     # Our custom apps
     "chat",                     # Main chatbot functionality
-    "admin_panel",              # Admin features for counselors
 ]
 
 MIDDLEWARE = [

@@ -26,13 +26,15 @@ class ConversationManager:
     6. Generate university suggestions
     """
 
-    # The 5 conversation questions
+    # The 7 conversation questions (added email & phone collection)
     QUESTIONS = [
         "Hi! I'm Scholarport AI, your study abroad assistant. What is your name?",
         "Nice to meet you {name}! What is your education level?",
         "Great! What is your IELTS or TOEFL score?",
         "Perfect! What is your budget for studying abroad per year?",
-        "Finally, which country do you prefer to study in?"
+        "Finally, which country do you prefer to study in?",
+        "To help our counselors contact you, what is your email address?",
+        "And what is your phone number? (Include country code if international)"
     ]
 
     # Guided suggestions for each step
@@ -41,7 +43,9 @@ class ConversationManager:
         2: ["BBA", "BSc Computer Science", "MBA", "High School", "Bachelor's Degree", "Master's Degree"],
         3: ["IELTS 6.5", "IELTS 7.0", "TOEFL 80", "TOEFL 100", "No test yet"],
         4: ["$20,000 USD", "$25,000 USD", "£18,000 GBP", "€20,000 EUR", "$15,000 USD"],
-        5: ["USA", "UK", "Canada", "Australia", "Germany", "Singapore"]
+        5: ["USA", "UK", "Canada", "Australia", "Germany", "Singapore"],
+        6: [],  # No suggestions for email
+        7: ["+1 (555) 123-4567", "+44 20 1234 5678", "+91 98765 43210", "Skip phone number"]
     }
 
     def __init__(self):
@@ -109,8 +113,8 @@ class ConversationManager:
         # Store the processed response in conversation
         self._store_response(conversation, current_step, user_input, processed_input)
 
-        # Check if conversation is complete
-        if current_step >= 5:
+        # Check if conversation is complete (after collecting email and phone)
+        if current_step >= 7:
             return self._complete_conversation(conversation)
 
         # Move to next step
@@ -291,6 +295,7 @@ Return the standardized country name."""
         if step == 1:
             conversation.name_response = original
             conversation.processed_name = processed
+            conversation.student_name = processed  # Store in main field too
         elif step == 2:
             conversation.education_response = original
             conversation.processed_education = processed
@@ -303,6 +308,14 @@ Return the standardized country name."""
         elif step == 5:
             conversation.country_response = original
             conversation.processed_country = processed
+        elif step == 6:
+            conversation.email_response = original
+            conversation.processed_email = processed
+            conversation.student_email = processed  # Store in main field too
+        elif step == 7:
+            conversation.phone_response = original
+            conversation.processed_phone = processed
+            conversation.student_phone = processed  # Store in main field too
 
         conversation.save()
 
@@ -327,7 +340,7 @@ Return the standardized country name."""
         from chat.services.university_selector import UniversitySelector
 
         # Mark conversation as completed
-        conversation.current_step = 6
+        conversation.current_step = 8
         conversation.is_completed = True
 
         # Generate university suggestions
@@ -346,17 +359,17 @@ Return the standardized country name."""
             conversation=conversation,
             sender='bot',
             message_text=ai_response,
-            step_number=6
+            step_number=8
         )
 
         return {
             'bot_response': ai_response,
-            'conversation_step': 6,
+            'conversation_step': 8,
             'session_id': str(conversation.session_id),
             'is_completed': True,
             'suggested_universities': universities,
             'guided_suggestions': [],
-            'next_question': "Would you like me to save your details so our expert counselors can help you with the application process?"
+            'next_question': "Thank you! Our counselors now have your contact details and will reach out to help with your application process."
         }
 
     def _generate_final_response(self, conversation: ConversationSession,

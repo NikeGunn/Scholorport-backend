@@ -1,0 +1,52 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block content_title %}
+{% if title %}
+<h1>{{ title }}</h1>
+{% endif %}
+
+<!-- Custom Export Buttons -->
+<div
+  style="margin: 15px 0; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+  <h3 style="color: white; margin: 0 0 15px 0; font-size: 18px;">
+    📊 Complete Database Export
+  </h3>
+  <p style="color: rgba(255,255,255,0.9); margin: 0 0 15px 0; font-size: 14px;">
+    Download the entire Scholarport database with all conversations, messages, universities, and student profiles in a
+    single Excel file.
+  </p>
+  <div style="display: flex; gap: 10px;">
+    <a href="{% url 'admin:chat_export_all_data' %}" style="
+                   background: rgba(255,255,255,0.2);
+                   color: white;
+                   padding: 10px 20px;
+                   text-decoration: none;
+                   border-radius: 6px;
+                   font-weight: 600;
+                   transition: all 0.3s ease;
+                   border: 2px solid rgba(255,255,255,0.3);
+               " onmouseover="this.style.background='rgba(255,255,255,0.3)'"
+      onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+      📥 Download Complete Database (Excel)
+    </a>
+    <a href="/api/chat/admin/export/" target="_blank" style="
+                   background: rgba(255,193,7,0.8);
+                   color: #212529;
+                   padding: 10px 20px;
+                   text-decoration: none;
+                   border-radius: 6px;
+                   font-weight: 600;
+                   transition: all 0.3s ease;
+                   border: 2px solid rgba(255,193,7,0.5);
+               " onmouseover="this.style.background='rgba(255,193,7,1)'"
+      onmouseout="this.style.background='rgba(255,193,7,0.8)'">
+      ⚠️ Legacy API Export (Limited Data)
+    </a>
+  </div>
+</div>
+{% endblock %}
+
+{% block result_list %}
+{{ block.super }}
+{% endblock %}
