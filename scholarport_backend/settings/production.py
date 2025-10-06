@@ -27,8 +27,10 @@ DATABASES = {
     }
 }
 
-# CORS - Restrict to your frontend domains
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
+# CORS - Now handled by Nginx
+# Django CORS middleware not needed since Nginx adds headers
+# But keeping these for documentation/fallback
+CORS_ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if origin.strip()]
 CORS_ALLOW_CREDENTIALS = True
 
 # Security middleware - SSL disabled for initial deployment
