@@ -210,10 +210,16 @@ celerybeat-schedule
 celerybeat.pid
 
 # ========================================
-# Docker
+# Docker & Deployment
 # ========================================
 .dockerignore
 docker-compose.override.yml
+postgres_data/
+certbot/
+logs/
+*.tar.gz
+scholarport-deploy.tar.gz
+backups/
 
 # ========================================
 # CI/CD & Deployment

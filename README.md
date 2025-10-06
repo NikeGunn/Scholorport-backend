@@ -8,6 +8,24 @@
 
 **Scholarport** is an AI-powered university recommendation chatbot backend that helps students find their perfect study abroad destination through intelligent conversation and personalized recommendations.
 
+## 🚀 Quick Deployment
+
+### Fresh EC2 Instance
+```powershell
+# From Windows PowerShell
+.\deploy-fresh.ps1 -EC2_IP <your-ec2-public-ip>
+```
+
+Then on EC2:
+```bash
+cd ~/scholarport-backend
+./server-commands.sh
+```
+
+📖 **Complete Guide:** [DEPLOYMENT-GUIDE.md](DEPLOYMENT-GUIDE.md)
+⚡ **Quick Commands:** [COMMANDS.md](COMMANDS.md)
+🧹 **What's New:** [CLEAN-DEPLOYMENT.md](CLEAN-DEPLOYMENT.md)
+
 ---
 
 ## 🌟 Features

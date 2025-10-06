@@ -6,6 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    # Use the settings package (supports dev/prod environments)
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "scholarport_backend.settings")
     try:
         from django.core.management import execute_from_command_line
