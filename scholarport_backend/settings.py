@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     # Third-party apps
     "rest_framework",            # Django REST Framework for APIs
     "corsheaders",              # Handle Cross-Origin requests from frontend
+    "drf_spectacular",          # OpenAPI 3.0 Schema Generation
+    "drf_spectacular_sidecar",  # Serve Swagger UI and ReDoc static files
 
     # Our custom apps
     "chat",                     # Main chatbot functionality
@@ -106,7 +108,48 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 20
+    'PAGE_SIZE': 20,
+    # OpenAPI Schema Generation
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# drf-spectacular settings for Swagger UI
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Scholarport API',
+    'DESCRIPTION': '''
+## Scholarport Backend API Documentation
+
+A comprehensive API for university search chatbot functionality including:
+
+- **Conversation Management**: Start and manage chatbot conversations
+- **University Search**: Search and filter universities with recommendations
+- **Admin Dashboard**: Analytics and data export for counselors
+- **Firebase Integration**: Real-time data export capabilities
+
+### Authentication
+Most endpoints are publicly accessible. Admin endpoints will require authentication in future versions.
+
+### Rate Limiting
+No rate limiting is currently implemented.
+    ''',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+        'displayOperationId': True,
+        'filter': True,
+    },
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    'COMPONENT_SPLIT_REQUEST': True,
+    'TAGS': [
+        {'name': 'Chat', 'description': 'Conversation and message endpoints'},
+        {'name': 'Universities', 'description': 'University search and details'},
+        {'name': 'Admin', 'description': 'Admin dashboard and export endpoints'},
+        {'name': 'Health', 'description': 'Health check endpoint'},
+    ],
 }
 
 # CORS settings for frontend integration

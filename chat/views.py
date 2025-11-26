@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample, OpenApiResponse
+from drf_spectacular.types import OpenApiTypes
 import json
 import uuid
 from datetime import datetime
@@ -28,6 +30,46 @@ university_selector = UniversitySelector()
 profile_creator = ProfileCreator()
 
 
+@extend_schema(
+    tags=['Chat'],
+    summary='Start a new conversation',
+    description='''
+    Initialize a new chatbot conversation session.
+
+    This endpoint creates a new conversation session and returns a unique session_id
+    that must be used for all subsequent messages in this conversation.
+
+    The response includes the welcome message and the first question to ask the user.
+    ''',
+    request=None,
+    responses={
+        201: OpenApiResponse(
+            description='Conversation started successfully',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'session_id': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                        'current_step': 1,
+                        'message': 'Welcome to Scholarport! I\'m here to help you find the perfect university.',
+                        'question': 'What is your name?',
+                        'total_steps': 7
+                    }
+                )
+            ]
+        ),
+        500: OpenApiResponse(
+            description='Server error',
+            examples=[
+                OpenApiExample(
+                    'Error Response',
+                    value={'success': False, 'error': 'Failed to start conversation: error details'}
+                )
+            ]
+        )
+    }
+)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def start_conversation(request):
@@ -75,6 +117,71 @@ def start_conversation(request):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@extend_schema(
+    tags=['Chat'],
+    summary='Send a message in conversation',
+    description='''
+    Send a user message in an existing conversation session.
+
+    This endpoint processes the user's response, advances the conversation,
+    and returns the bot's response along with the next question if applicable.
+
+    When the conversation is complete, university recommendations are included
+    in the response.
+    ''',
+    request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+                'session_id': {'type': 'string', 'format': 'uuid', 'description': 'The conversation session ID'},
+                'message': {'type': 'string', 'description': 'User message/response'}
+            },
+            'required': ['session_id', 'message'],
+            'example': {
+                'session_id': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                'message': 'John Doe'
+            }
+        }
+    },
+    responses={
+        200: OpenApiResponse(
+            description='Message processed successfully',
+            examples=[
+                OpenApiExample(
+                    'Conversation Continues',
+                    value={
+                        'success': True,
+                        'session_id': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                        'current_step': 2,
+                        'bot_response': 'Nice to meet you, John! Let me help you find the right university.',
+                        'next_question': 'What is your education level?',
+                        'completed': False,
+                        'total_steps': 7
+                    }
+                ),
+                OpenApiExample(
+                    'Conversation Completed',
+                    value={
+                        'success': True,
+                        'session_id': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                        'current_step': 7,
+                        'bot_response': 'Based on your preferences, here are my recommendations...',
+                        'completed': True,
+                        'total_steps': 7,
+                        'recommendations': [
+                            {'name': 'Harvard University', 'country': 'USA', 'ranking': 1}
+                        ],
+                        'profile_created': True,
+                        'profile_id': 123
+                    }
+                )
+            ]
+        ),
+        400: OpenApiResponse(description='Invalid request - missing fields or completed conversation'),
+        404: OpenApiResponse(description='Session not found'),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def send_message(request):
@@ -175,6 +282,47 @@ def send_message(request):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@extend_schema(
+    tags=['Chat'],
+    summary='Get conversation history',
+    description='''
+    Retrieve the complete chat history for a conversation session.
+
+    Returns all messages exchanged between the user and bot in chronological order.
+    ''',
+    operation_id='get_conversation_history',
+    parameters=[
+        OpenApiParameter(
+            name='session_id',
+            type=OpenApiTypes.UUID,
+            location=OpenApiParameter.PATH,
+            description='The conversation session ID'
+        )
+    ],
+    responses={
+        200: OpenApiResponse(
+            description='Conversation history retrieved',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'session_id': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                        'messages': [
+                            {'type': 'bot', 'content': 'Welcome!', 'step_number': 0, 'timestamp': '2024-01-01T10:00:00Z'},
+                            {'type': 'user', 'content': 'John Doe', 'step_number': 1, 'timestamp': '2024-01-01T10:01:00Z'}
+                        ],
+                        'current_step': 2,
+                        'completed': False,
+                        'created_at': '2024-01-01T10:00:00Z'
+                    }
+                )
+            ]
+        ),
+        404: OpenApiResponse(description='Session not found'),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_conversation_history(request, session_id):
@@ -223,6 +371,54 @@ def get_conversation_history(request, session_id):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@extend_schema(
+    tags=['Universities'],
+    summary='Get all universities',
+    description='''
+    Retrieve a list of universities with optional filtering.
+
+    Supports filtering by country, tuition, ranking, and text search.
+    Results are paginated with a default limit of 50.
+    ''',
+    operation_id='list_universities',
+    parameters=[
+        OpenApiParameter(name='country', type=OpenApiTypes.STR, description='Filter by country name'),
+        OpenApiParameter(name='search', type=OpenApiTypes.STR, description='Search in university name'),
+        OpenApiParameter(name='max_tuition', type=OpenApiTypes.STR, description='Maximum tuition filter'),
+        OpenApiParameter(name='min_ranking', type=OpenApiTypes.INT, description='Minimum ranking filter'),
+        OpenApiParameter(name='limit', type=OpenApiTypes.INT, description='Number of results (default: 50)')
+    ],
+    responses={
+        200: OpenApiResponse(
+            description='Universities retrieved successfully',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'universities': [
+                            {
+                                'id': 1,
+                                'name': 'Harvard University',
+                                'country': 'USA',
+                                'city': 'Cambridge',
+                                'tuition': '$50,000/year',
+                                'programs': ['Computer Science', 'MBA'],
+                                'ranking': 1,
+                                'ielts_requirement': '7.0',
+                                'toefl_requirement': '100',
+                                'affordability': 'High',
+                                'region': 'North America'
+                            }
+                        ],
+                        'total_count': 1
+                    }
+                )
+            ]
+        ),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_universities(request):
@@ -287,6 +483,49 @@ def get_universities(request):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@extend_schema(
+    tags=['Universities'],
+    summary='Get university details',
+    description='Retrieve detailed information about a specific university by ID.',
+    operation_id='get_university_details',
+    parameters=[
+        OpenApiParameter(
+            name='university_id',
+            type=OpenApiTypes.INT,
+            location=OpenApiParameter.PATH,
+            description='The university ID'
+        )
+    ],
+    responses={
+        200: OpenApiResponse(
+            description='University details retrieved',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'university': {
+                            'id': 1,
+                            'name': 'Harvard University',
+                            'country': 'USA',
+                            'city': 'Cambridge',
+                            'tuition': '$50,000/year',
+                            'programs': ['Computer Science', 'MBA', 'Law'],
+                            'ranking': 1,
+                            'ielts_requirement': '7.0',
+                            'toefl_requirement': '100',
+                            'affordability': 'High',
+                            'region': 'North America',
+                            'notes': 'Ivy League university'
+                        }
+                    }
+                )
+            ]
+        ),
+        404: OpenApiResponse(description='University not found'),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_university_details(request, university_id):
@@ -323,6 +562,39 @@ def get_university_details(request, university_id):
 
 # Admin Panel API Views (for counselors)
 
+@extend_schema(
+    tags=['Admin'],
+    summary='Get dashboard statistics',
+    description='''
+    Retrieve dashboard statistics for the admin panel.
+
+    Returns metrics including total conversations, completion rates,
+    popular destination countries, and recent activity.
+    ''',
+    responses={
+        200: OpenApiResponse(
+            description='Dashboard stats retrieved',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'stats': {
+                            'total_conversations': 150,
+                            'completed_conversations': 120,
+                            'total_profiles': 100,
+                            'completion_rate': 80.0,
+                            'popular_countries': ['USA', 'UK', 'Canada', 'Australia', 'Germany'],
+                            'recent_activity': 25,
+                            'profile_stats': {}
+                        }
+                    }
+                )
+            ]
+        ),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])  # TODO: Add admin authentication
 def admin_dashboard_stats(request):
@@ -378,6 +650,56 @@ def admin_dashboard_stats(request):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@extend_schema(
+    tags=['Admin'],
+    summary='Get student profiles',
+    description='''
+    Retrieve all student profiles for the admin dashboard.
+
+    Supports filtering by country and completion status, with pagination.
+    ''',
+    parameters=[
+        OpenApiParameter(name='limit', type=OpenApiTypes.INT, description='Number of profiles (default: 50)'),
+        OpenApiParameter(name='offset', type=OpenApiTypes.INT, description='Pagination offset (default: 0)'),
+        OpenApiParameter(name='country', type=OpenApiTypes.STR, description='Filter by preferred country'),
+        OpenApiParameter(name='completed_only', type=OpenApiTypes.BOOL, description='Show only completed conversations')
+    ],
+    responses={
+        200: OpenApiResponse(
+            description='Student profiles retrieved',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'profiles': [
+                            {
+                                'id': 1,
+                                'session_id': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                                'student_name': 'John Doe',
+                                'education_background': 'Bachelor\'s',
+                                'budget': 'USD 50,000',
+                                'test_score': 'IELTS 7.5',
+                                'preferred_country': 'USA',
+                                'recommended_universities': ['Harvard', 'MIT'],
+                                'ai_insights': 'Strong candidate for top universities',
+                                'created_at': '2024-01-01T10:00:00Z',
+                                'conversation_completed': True
+                            }
+                        ],
+                        'pagination': {
+                            'total_count': 100,
+                            'limit': 50,
+                            'offset': 0,
+                            'has_more': True
+                        }
+                    }
+                )
+            ]
+        ),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])  # TODO: Add admin authentication
 def admin_get_student_profiles(request):
@@ -447,6 +769,24 @@ def admin_get_student_profiles(request):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@extend_schema(
+    tags=['Admin'],
+    summary='Export data to Excel',
+    description='''
+    Export all completed student profiles to an Excel file.
+
+    Returns an Excel file (.xlsx) download containing all student data
+    including conversation details and university recommendations.
+    ''',
+    responses={
+        200: OpenApiResponse(
+            description='Excel file download',
+            response={'type': 'string', 'format': 'binary'}
+        ),
+        404: OpenApiResponse(description='No completed profiles to export'),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])  # TODO: Add admin authentication
 def admin_export_excel(request):
@@ -563,6 +903,32 @@ def admin_export_excel(request):
         }, status=500)
 
 
+@extend_schema(
+    tags=['Admin'],
+    summary='Export Firebase data',
+    description='''
+    Export data directly from Firebase Firestore.
+
+    Supports JSON and Excel export formats.
+    ''',
+    parameters=[
+        OpenApiParameter(
+            name='format',
+            type=OpenApiTypes.STR,
+            description='Export format: json or excel (default: json)',
+            enum=['json', 'excel']
+        )
+    ],
+    responses={
+        200: OpenApiResponse(
+            description='Data export (JSON or Excel file)',
+            response={'type': 'string', 'format': 'binary'}
+        ),
+        400: OpenApiResponse(description='Invalid format specified'),
+        404: OpenApiResponse(description='No data found in Firebase'),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])  # TODO: Add admin authentication
 def admin_export_firebase_data(request):
@@ -687,6 +1053,47 @@ def admin_export_firebase_data(request):
         }, status=500)
 
 
+@extend_schema(
+    tags=['Chat'],
+    summary='Handle data consent',
+    description='''
+    Handle user consent for data saving.
+
+    Called when users respond to the data saving question
+    after receiving university recommendations.
+    ''',
+    request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+                'session_id': {'type': 'string', 'format': 'uuid', 'description': 'The conversation session ID'},
+                'consent': {'type': 'boolean', 'description': 'Whether user consents to data saving'}
+            },
+            'required': ['session_id', 'consent'],
+            'example': {
+                'session_id': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                'consent': True
+            }
+        }
+    },
+    responses={
+        200: OpenApiResponse(
+            description='Consent handled successfully',
+            examples=[
+                OpenApiExample(
+                    'Consent Given',
+                    value={'success': True, 'message': 'Your data has been saved successfully.'}
+                ),
+                OpenApiExample(
+                    'Consent Declined',
+                    value={'success': True, 'message': 'Your data will not be saved. Thank you for using Scholarport!'}
+                )
+            ]
+        ),
+        400: OpenApiResponse(description='Invalid request'),
+        500: OpenApiResponse(description='Server error')
+    }
+)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def handle_data_consent(request):
@@ -733,6 +1140,27 @@ def handle_data_consent(request):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@extend_schema(
+    tags=['Health'],
+    summary='Health check',
+    description='Simple health check endpoint to verify the API is running.',
+    responses={
+        200: OpenApiResponse(
+            description='API is healthy',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'message': 'Scholarport Backend API is running',
+                        'timestamp': '2024-01-01T10:00:00.000000',
+                        'version': '1.0.0'
+                    }
+                )
+            ]
+        )
+    }
+)
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def health_check(request):
