@@ -1,0 +1,1435 @@
+{
+  "info": {
+    "_postman_id": "booking-blog-api-collection",
+    "name": "Scholarport Booking & Blog API",
+    "description": "Complete API collection for Scholarport's Booking System and Blog/Educational Content features.\n\n## Setup Instructions\n1. Import this collection into Postman\n2. Set the `base_url` variable to your server URL\n3. **Get JWT Token first** using your admin credentials\n4. Start with creating a counselor (Admin) before testing bookings\n5. Start with creating a category before testing blog posts\n\n## Authentication\nUse JWT Bearer token for admin endpoints:\n1. Call 'Login (Get JWT Token)' with your admin credentials\n2. Token is auto-saved to collection variable\n3. Admin endpoints will use this token automatically",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "booking_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "verification_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "counselor_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "post_slug",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "category_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "tag_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "comment_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "image_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 AUTHENTICATION",
+      "item": [
+        {
+          "name": "Login (Get JWT Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access) {",
+                  "    pm.collectionVariables.set('access_token', jsonData.access);",
+                  "}",
+                  "if (jsonData.refresh) {",
+                  "    pm.collectionVariables.set('refresh_token', jsonData.refresh);",
+                  "}",
+                  "",
+                  "pm.test('Login successful', function() {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(jsonData.access).to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"your_password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                ""
+              ]
+            },
+            "description": "Login with admin credentials to get JWT access and refresh tokens.\n\n**Steps:**\n1. Replace 'admin' with your username\n2. Replace 'your_password' with your password\n3. Send the request\n4. Tokens are automatically saved to collection variables\n\n**Response:**\n- `access`: Short-lived access token (use in Bearer header)\n- `refresh`: Long-lived refresh token (use to get new access token)"
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access) {",
+                  "    pm.collectionVariables.set('access_token', jsonData.access);",
+                  "}",
+                  "",
+                  "pm.test('Token refreshed', function() {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(jsonData.access).to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/refresh/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                "refresh",
+                ""
+              ]
+            },
+            "description": "Use the refresh token to get a new access token when the current one expires.\n\n**Note:** The refresh token is automatically used from collection variables."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Token (Test Auth)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/booking/admin/sessions/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "booking",
+                "admin",
+                "sessions",
+                ""
+              ]
+            },
+            "description": "Test that your authentication is working by calling an admin endpoint.\n\n**Expected:** If authenticated, returns list of bookings. If not, returns 401 Unauthorized."
+          },
+          "response": []
+        }
+      ],
+      "description": "## Authentication\n\nThis API uses JWT (JSON Web Token) authentication for admin endpoints.\n\n### How to Authenticate:\n1. **Login** - Send username/password to get tokens\n2. **Use Access Token** - Include in Authorization header as `Bearer <token>`\n3. **Refresh** - When access token expires, use refresh token to get a new one\n\n### Token Lifetimes:\n- Access Token: 1 day\n- Refresh Token: 7 days\n\n### Which endpoints need auth?\n- All `/admin/` endpoints require authentication\n- Public endpoints (list counselors, create booking, etc.) do not require auth"
+    },
+    {
+      "name": "📅 BOOKING SYSTEM",
+      "item": [
+        {
+          "name": "1. Counselors",
+          "item": [
+            {
+              "name": "List All Counselors",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    ""
+                  ]
+                },
+                "description": "Get a list of all active counselors available for booking sessions."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Counselor Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/{{counselor_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    "{{counselor_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get detailed information about a specific counselor including their specializations and availability."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Counselor Available Slots",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/{{counselor_id}}/slots/?days=7",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    "{{counselor_id}}",
+                    "slots",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "7",
+                      "description": "Number of days to look ahead (default: 7, max: 30)"
+                    }
+                  ]
+                },
+                "description": "Get available booking slots for a counselor for the next N days. Returns dates with available time slots."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "2. Book a Session",
+          "item": [
+            {
+              "name": "Create Booking",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.booking_id) {",
+                      "    pm.collectionVariables.set('booking_id', jsonData.booking_id);",
+                      "}",
+                      "if (jsonData.verification_token) {",
+                      "    pm.collectionVariables.set('verification_token', jsonData.verification_token);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"counselor_id\": {{counselor_id}},\n    \"student_name\": \"John Doe\",\n    \"student_email\": \"john.doe@example.com\",\n    \"student_phone\": \"+1234567890\",\n    \"scheduled_date\": \"2025-12-05\",\n    \"scheduled_time\": \"10:00:00\",\n    \"session_type\": \"initial\",\n    \"meeting_notes\": \"I'm interested in universities in the USA and Canada. Budget around $50,000/year.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    ""
+                  ]
+                },
+                "description": "Create a new booking session with a counselor.\n\n**Session Types:**\n- `video` - Video call session\n- `audio` - Audio call session\n- `in_person` - In-person meeting\n\n**Note:** After creating, the student will receive a verification email. Use the verification token to confirm the booking."
+              },
+              "response": []
+            },
+            {
+              "name": "Verify Booking (Email Confirmation)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"verification_token\": \"{{verification_token}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/verify/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "verify",
+                    ""
+                  ]
+                },
+                "description": "Verify a booking using the token sent to the student's email. This confirms the booking and changes status to 'confirmed'."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Booking Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get details of a specific booking using its booking_id (UUID)."
+              },
+              "response": []
+            },
+            {
+              "name": "Cancel Booking",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"cancellation_reason\": \"Schedule conflict - need to reschedule\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/cancel/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "cancel",
+                    ""
+                  ]
+                },
+                "description": "Cancel an existing booking. Optionally provide a cancellation reason."
+              },
+              "response": []
+            },
+            {
+              "name": "Reschedule Booking",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"scheduled_date\": \"2025-12-10\",\n    \"scheduled_time\": \"14:00:00\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/reschedule/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "reschedule",
+                    ""
+                  ]
+                },
+                "description": "Reschedule an existing booking to a new date and time. Use PATCH method for partial updates."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "3. Admin - Booking Management",
+          "item": [
+            {
+              "name": "List All Bookings (Admin)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/admin/sessions/?status=pending&page=1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "admin",
+                    "sessions",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "pending",
+                      "description": "Filter by status: pending, confirmed, completed, cancelled, no_show"
+                    },
+                    {
+                      "key": "counselor",
+                      "value": "1",
+                      "description": "Filter by counselor ID",
+                      "disabled": true
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "2025-12-01",
+                      "description": "Filter by start date",
+                      "disabled": true
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "2025-12-31",
+                      "description": "Filter by end date",
+                      "disabled": true
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "Admin endpoint to list all bookings with filtering options."
+              },
+              "response": []
+            },
+            {
+              "name": "Update Booking Status (Admin)",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"status\": \"completed\",\n    \"admin_notes\": \"Session completed successfully. Student decided on 3 universities to apply.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/admin/sessions/{{booking_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "admin",
+                    "sessions",
+                    "{{booking_id}}",
+                    ""
+                  ]
+                },
+                "description": "Admin endpoint to update booking status and add notes.\n\n**Status Options:**\n- `pending` - Awaiting verification\n- `confirmed` - Verified and confirmed\n- `completed` - Session completed\n- `cancelled` - Cancelled by student or admin\n- `no_show` - Student didn't attend"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Booking Statistics (Admin)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/admin/stats/?days=30",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "admin",
+                    "stats",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "30",
+                      "description": "Number of days to analyze (default: 30)"
+                    }
+                  ]
+                },
+                "description": "Get booking statistics including total bookings, status breakdown, and popular counselors."
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "description": "## Booking System API\n\nAllows students to book counseling sessions with available counselors.\n\n### Workflow:\n1. **Browse Counselors** - List available counselors\n2. **Check Availability** - Get available time slots\n3. **Create Booking** - Submit booking request\n4. **Verify Email** - Confirm booking via email token\n5. **Attend Session** - Join at scheduled time\n\n### No Authentication Required\nBookings use email verification instead of user accounts."
+    },
+    {
+      "name": "📝 BLOG SYSTEM",
+      "item": [
+        {
+          "name": "1. Categories",
+          "item": [
+            {
+              "name": "List Categories",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    ""
+                  ]
+                },
+                "description": "Get all blog categories with post counts."
+              },
+              "response": []
+            },
+            {
+              "name": "Create Category",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.id) {",
+                      "    pm.collectionVariables.set('category_id', jsonData.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Study Abroad Tips\",\n    \"description\": \"Helpful tips and guides for students planning to study abroad\",\n    \"meta_title\": \"Study Abroad Tips & Guides | Scholarport\",\n    \"meta_description\": \"Expert tips and comprehensive guides for international students planning to study abroad.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    ""
+                  ]
+                },
+                "description": "Create a new blog category. Slug is auto-generated from name."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Category Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/{{category_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    "{{category_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get details of a specific category."
+              },
+              "response": []
+            },
+            {
+              "name": "Update Category",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Study Abroad Guides\",\n    \"description\": \"Comprehensive guides for international students\",\n    \"is_active\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/{{category_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    "{{category_id}}",
+                    ""
+                  ]
+                },
+                "description": "Update an existing category."
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Category",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/{{category_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    "{{category_id}}",
+                    ""
+                  ]
+                },
+                "description": "Delete a category. Will fail if category has posts."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "2. Tags",
+          "item": [
+            {
+              "name": "List Tags",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    ""
+                  ]
+                },
+                "description": "Get all tags with usage counts."
+              },
+              "response": []
+            },
+            {
+              "name": "Create Tag",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.id) {",
+                      "    pm.collectionVariables.set('tag_id', jsonData.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"USA Universities\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    ""
+                  ]
+                },
+                "description": "Create a new tag. Slug is auto-generated from name."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Tag Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/{{tag_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    "{{tag_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get details of a specific tag."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "3. Blog Posts",
+          "item": [
+            {
+              "name": "List Posts (Public)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/?page=1&page_size=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "category",
+                      "value": "study-abroad-tips",
+                      "description": "Filter by category slug",
+                      "disabled": true
+                    },
+                    {
+                      "key": "tag",
+                      "value": "usa-universities",
+                      "description": "Filter by tag slug",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "scholarship",
+                      "description": "Search in title and content",
+                      "disabled": true
+                    },
+                    {
+                      "key": "featured",
+                      "value": "true",
+                      "description": "Only featured posts",
+                      "disabled": true
+                    },
+                    {
+                      "key": "ordering",
+                      "value": "-published_at",
+                      "description": "Sort by: published_at, -published_at, view_count, -view_count",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "description": "List all published blog posts with pagination and filtering.\n\n**Filter Options:**\n- `category` - Filter by category slug\n- `tag` - Filter by tag slug\n- `search` - Search in title and content\n- `featured` - Only featured posts (true/false)\n- `ordering` - Sort results"
+              },
+              "response": []
+            },
+            {
+              "name": "Create Post",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.slug) {",
+                      "    pm.collectionVariables.set('post_slug', jsonData.slug);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"title\": \"Top 10 Universities in USA for Computer Science in 2025\",\n    \"excerpt\": \"Discover the best universities in the United States for pursuing a degree in Computer Science, including admission requirements and scholarship opportunities.\",\n    \"content\": \"<h2>Introduction</h2><p>The United States remains one of the top destinations for international students pursuing Computer Science degrees. In this comprehensive guide, we'll explore the top 10 universities that offer exceptional CS programs.</p>\\n\\n<h2>1. Massachusetts Institute of Technology (MIT)</h2><p>MIT consistently ranks as the #1 university for Computer Science worldwide. With cutting-edge research facilities and world-renowned faculty, MIT offers unparalleled opportunities for CS students.</p>\\n\\n<h2>2. Stanford University</h2><p>Located in the heart of Silicon Valley, Stanford provides unique access to tech giants and startup ecosystems. Their CS program emphasizes both theoretical foundations and practical applications.</p>\\n\\n<h2>3. Carnegie Mellon University</h2><p>CMU's School of Computer Science is one of the oldest and most respected in the world. They offer specialized tracks in AI, robotics, and human-computer interaction.</p>\\n\\n<h2>Admission Requirements</h2><p>Most top universities require:</p><ul><li>Strong GPA (3.5+)</li><li>GRE scores (optional at some schools post-COVID)</li><li>TOEFL/IELTS for international students</li><li>Letters of recommendation</li><li>Statement of purpose</li></ul>\\n\\n<h2>Scholarship Opportunities</h2><p>Many universities offer merit-based scholarships and teaching/research assistantships that can significantly reduce the cost of attendance.</p>\",\n    \"category\": {{category_id}},\n    \"tags\": [\"USA Universities\", \"Computer Science\", \"Graduate Studies\"],\n    \"status\": \"published\",\n    \"is_featured\": true,\n    \"meta_title\": \"Top 10 USA Universities for Computer Science 2025 | Scholarport\",\n    \"meta_description\": \"Complete guide to the best Computer Science programs in the United States for 2025, including MIT, Stanford, and CMU.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    ""
+                  ]
+                },
+                "description": "Create a new blog post.\n\n**Status Options:**\n- `draft` - Not visible to public\n- `published` - Visible to everyone\n- `archived` - Hidden but not deleted\n\n**Tags:** Can be existing tag names or new ones (will be created automatically)"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Post Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    ""
+                  ]
+                },
+                "description": "Get full details of a blog post by slug. Automatically increments view count."
+              },
+              "response": []
+            },
+            {
+              "name": "Update Post",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"title\": \"Top 10 Universities in USA for Computer Science in 2025 (Updated)\",\n    \"excerpt\": \"Updated guide to the best CS universities in America.\",\n    \"content\": \"<h2>Introduction</h2><p>Updated content here...</p>\",\n    \"tags\": [\"USA Universities\", \"Computer Science\", \"Graduate Studies\", \"2025 Rankings\"],\n    \"is_featured\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    ""
+                  ]
+                },
+                "description": "Update an existing blog post. All fields are optional - only provided fields will be updated."
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Post (Soft Delete)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    ""
+                  ]
+                },
+                "description": "Soft delete a blog post. The post is archived, not permanently deleted."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "4. Comments",
+          "item": [
+            {
+              "name": "Get Post Comments",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/comments/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "comments",
+                    ""
+                  ]
+                },
+                "description": "Get all approved comments for a blog post, including nested replies."
+              },
+              "response": []
+            },
+            {
+              "name": "Add Comment (Guest)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.id) {",
+                      "    pm.collectionVariables.set('comment_id', jsonData.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"guest_name\": \"Sarah Johnson\",\n    \"guest_email\": \"sarah.j@example.com\",\n    \"content\": \"This is really helpful! I'm planning to apply to MIT next year. Do you have any tips for the application essay?\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/comments/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "comments",
+                    ""
+                  ]
+                },
+                "description": "Add a comment to a blog post as a guest. Comments require moderation before appearing."
+              },
+              "response": []
+            },
+            {
+              "name": "Reply to Comment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"guest_name\": \"Admin\",\n    \"guest_email\": \"admin@scholarport.com\",\n    \"content\": \"Hi Sarah! Great question. For MIT essays, focus on demonstrating your passion for CS through specific projects or experiences. Be authentic and show how you'll contribute to their community.\",\n    \"parent\": {{comment_id}}\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/comments/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "comments",
+                    ""
+                  ]
+                },
+                "description": "Reply to an existing comment. Set the `parent` field to the comment ID you're replying to."
+              },
+              "response": []
+            },
+            {
+              "name": "Moderate Comment (Admin)",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"status\": \"approved\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/admin/comments/{{comment_id}}/moderate/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "admin",
+                    "comments",
+                    "{{comment_id}}",
+                    "moderate",
+                    ""
+                  ]
+                },
+                "description": "Approve or reject a comment.\n\n**Status Options:**\n- `pending` - Awaiting moderation\n- `approved` - Visible on the post\n- `rejected` - Hidden from public"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "5. Media Library",
+          "item": [
+            {
+              "name": "List Images",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    ""
+                  ]
+                },
+                "description": "List all uploaded images in the media library."
+              },
+              "response": []
+            },
+            {
+              "name": "Upload Image",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.id) {",
+                      "    pm.collectionVariables.set('image_id', jsonData.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": "",
+                      "description": "Select an image file (jpg, png, gif, webp)"
+                    },
+                    {
+                      "key": "title",
+                      "value": "MIT Campus View",
+                      "type": "text"
+                    },
+                    {
+                      "key": "alt_text",
+                      "value": "Aerial view of MIT campus in Cambridge, Massachusetts",
+                      "type": "text"
+                    },
+                    {
+                      "key": "caption",
+                      "value": "MIT's iconic campus along the Charles River",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/upload/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    "upload",
+                    ""
+                  ]
+                },
+                "description": "Upload an image to the media library (stored in Cloudinary).\n\n**Supported Formats:** JPG, PNG, GIF, WebP\n**Max Size:** Depends on Cloudinary plan (10MB for free tier)"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Image Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/{{image_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    "{{image_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get details of a specific image."
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Image",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/{{image_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    "{{image_id}}",
+                    ""
+                  ]
+                },
+                "description": "Delete an image from the media library."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "6. Newsletter Subscription",
+          "item": [
+            {
+              "name": "Subscribe to Newsletter",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"subscriber@example.com\",\n    \"name\": \"John Smith\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/subscribe/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "subscribe",
+                    ""
+                  ]
+                },
+                "description": "Subscribe to the blog newsletter to receive updates about new posts."
+              },
+              "response": []
+            },
+            {
+              "name": "Unsubscribe from Newsletter",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"subscriber@example.com\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/unsubscribe/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "unsubscribe",
+                    ""
+                  ]
+                },
+                "description": "Unsubscribe from the blog newsletter."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "7. Admin - Blog Statistics",
+          "item": [
+            {
+              "name": "Get Blog Statistics",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/admin/stats/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "admin",
+                    "stats",
+                    ""
+                  ]
+                },
+                "description": "Get blog statistics including total posts, views, comments, and top performing content."
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "description": "## Blog/Educational Content System\n\nFull CRUD operations for managing educational blog content.\n\n### Features:\n- **Categories** - Organize posts by topic\n- **Tags** - Flexible tagging system\n- **Posts** - Rich content with SEO fields\n- **Comments** - Community engagement with moderation\n- **Media Library** - Image uploads via Cloudinary\n- **Newsletter** - Email subscriptions\n\n### Content Workflow:\n1. Create categories for organization\n2. Create posts (draft or published)\n3. Upload images for posts\n4. Moderate comments\n5. Track analytics"
+    },
+    {
+      "name": "🔧 SETUP & TESTING",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                ""
+              ]
+            },
+            "description": "Check if the API is running."
+          },
+          "response": []
+        },
+        {
+          "name": "Swagger Documentation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/docs/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "docs",
+                ""
+              ]
+            },
+            "description": "Open Swagger UI documentation in browser."
+          },
+          "response": []
+        },
+        {
+          "name": "OpenAPI Schema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/schema/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "schema",
+                ""
+              ]
+            },
+            "description": "Get OpenAPI 3.0 schema in YAML format."
+          },
+          "response": []
+        }
+      ],
+      "description": "Utility endpoints for testing and documentation."
+    }
+  ]
+}

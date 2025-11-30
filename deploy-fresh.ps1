@@ -2,7 +2,7 @@
 # Run this from Windows PowerShell in your project directory
 
 param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [string]$EC2_IP,
 
     [string]$KeyFile = "scholarport-backend.pem"
@@ -72,12 +72,12 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "  All files uploaded" -ForegroundColor Green
 
 Write-Host "`n[3/6] Setting up directory structure on EC2..." -ForegroundColor Yellow
-ssh -i $KeyFile $EC2_HOST "mkdir -p ~/scholarport-backend ~/backups"
+ssh -i $KeyFile -o BatchMode=yes -o StrictHostKeyChecking=no -o ConnectTimeout=30 $EC2_HOST "mkdir -p ~/scholarport-backend ~/backups"
 Write-Host "  Directories created" -ForegroundColor Green
 
 Write-Host "`n[4/6] Extracting files on EC2..." -ForegroundColor Yellow
 $extractCmd = "cd ~/scholarport-backend && tar -xzf /tmp/$packageName && mv /tmp/.env .env && mv /tmp/scholorport-firebase-adminsdk-fbsvc-b17f9acfbf.json . && mv /tmp/server-commands.sh . && chmod +x server-commands.sh docker-entrypoint.sh && rm /tmp/$packageName"
-ssh -i $KeyFile $EC2_HOST $extractCmd
+ssh -i $KeyFile -o BatchMode=yes -o StrictHostKeyChecking=no -o ConnectTimeout=30 $EC2_HOST $extractCmd
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Failed to extract files" -ForegroundColor Red

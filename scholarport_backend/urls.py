@@ -17,15 +17,33 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
     SpectacularRedocView,
 )
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    # JWT Authentication endpoints
+    path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Core API endpoints
     path("api/chat/", include('chat.urls')),
+
+    # Booking API - Session booking with counselors
+    path("api/booking/", include('booking.urls', namespace='booking')),
+
+    # Blog API - Educational content
+    path("api/blog/", include('blog.urls', namespace='blog')),
 
     # API Documentation URLs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -34,3 +52,7 @@ urlpatterns = [
     # ReDoc - Alternative API Documentation (cleaner for reading)
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -26,7 +26,11 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_spectacular",
     "drf_spectacular_sidecar",
+    "cloudinary_storage",
+    "cloudinary",
     "chat",
+    "booking",
+    "blog",
 ]
 
 MIDDLEWARE = [
@@ -63,6 +67,7 @@ WSGI_APPLICATION = "scholarport_backend.wsgi.application"
 # REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
@@ -76,23 +81,50 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+# JWT Settings
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
 # drf-spectacular settings for Swagger UI
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Scholarport API',
     'DESCRIPTION': '''
 ## Scholarport Backend API Documentation
 
-A comprehensive API for university search chatbot functionality including:
+A comprehensive API for study abroad student counseling platform including:
 
-- **Conversation Management**: Start and manage chatbot conversations
-- **University Search**: Search and filter universities with recommendations
+### Core Features
+- **Conversation Management**: AI-powered chatbot for university recommendations
+- **University Search**: Search and filter universities with intelligent matching
 - **Admin Dashboard**: Analytics and data export for counselors
 - **Firebase Integration**: Real-time data export capabilities
 
+### Booking System (NEW)
+- **Counselor Profiles**: Browse available counselors and their specializations
+- **Session Booking**: Book consultation sessions with counselors
+- **Availability Management**: Manage counselor availability slots
+- **Email Verification**: Secure booking confirmation via email
+
+### Blog/Educational Content (NEW)
+- **Articles & Guides**: Educational content about studying abroad
+- **Categories & Tags**: Organized content for easy discovery
+- **Comments**: Community engagement on posts
+- **Media Library**: Image upload and management
+- **Newsletter**: Email subscription for updates
+
 ### Authentication
-Most endpoints are publicly accessible. Admin endpoints will require authentication in future versions.
+Most endpoints are publicly accessible. Admin endpoints require authentication.
+Booking uses email verification instead of user accounts.
+
+### Image Storage
+Images are stored using Cloudinary (cloud) or local storage (development).
     ''',
-    'VERSION': '1.0.0',
+    'VERSION': '2.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'SWAGGER_UI_SETTINGS': {
         'deepLinking': True,
@@ -107,6 +139,11 @@ Most endpoints are publicly accessible. Admin endpoints will require authenticat
     'TAGS': [
         {'name': 'Chat', 'description': 'Conversation and message endpoints'},
         {'name': 'Universities', 'description': 'University search and details'},
+        {'name': 'Booking', 'description': 'Session booking with counselors'},
+        {'name': 'Counselors', 'description': 'Counselor profiles and availability'},
+        {'name': 'Blog', 'description': 'Educational content and articles'},
+        {'name': 'Blog Categories', 'description': 'Blog category management'},
+        {'name': 'Blog Comments', 'description': 'Blog comments and discussions'},
         {'name': 'Admin', 'description': 'Admin dashboard and export endpoints'},
         {'name': 'Health', 'description': 'Health check endpoint'},
     ],
@@ -129,6 +166,62 @@ USE_TZ = True
 # Static files
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Media files (user uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cloudinary Configuration (for production image storage)
+# Supports CLOUDINARY_URL format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+# Get your free API credentials at: https://cloudinary.com/
+import cloudinary
+import re
+
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL', '')
+
+if CLOUDINARY_URL:
+    # Extract values from the URL
+    # Format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+    match = re.match(r'cloudinary://([^:]+):([^@]+)@(.+)', CLOUDINARY_URL)
+    if match:
+        CLOUDINARY_API_KEY = match.group(1)
+        CLOUDINARY_API_SECRET = match.group(2)
+        CLOUDINARY_CLOUD_NAME = match.group(3)
+
+        # Configure cloudinary with explicit values (more reliable than cloudinary_url param)
+        cloudinary.config(
+            cloud_name=CLOUDINARY_CLOUD_NAME,
+            api_key=CLOUDINARY_API_KEY,
+            api_secret=CLOUDINARY_API_SECRET,
+            secure=True
+        )
+
+        # Configure django-cloudinary-storage
+        CLOUDINARY_STORAGE = {
+            'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+            'API_KEY': CLOUDINARY_API_KEY,
+            'API_SECRET': CLOUDINARY_API_SECRET,
+        }
+        DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    # Fallback to individual env vars
+    CLOUDINARY_CLOUD_NAME = os.getenv('CLOUDINARY_CLOUD_NAME', '')
+    CLOUDINARY_API_KEY = os.getenv('CLOUDINARY_API_KEY', '')
+    CLOUDINARY_API_SECRET = os.getenv('CLOUDINARY_API_SECRET', '')
+
+    if CLOUDINARY_CLOUD_NAME:
+        cloudinary.config(
+            cloud_name=CLOUDINARY_CLOUD_NAME,
+            api_key=CLOUDINARY_API_KEY,
+            api_secret=CLOUDINARY_API_SECRET,
+            secure=True
+        )
+        CLOUDINARY_STORAGE = {
+            'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+            'API_KEY': CLOUDINARY_API_KEY,
+            'API_SECRET': CLOUDINARY_API_SECRET,
+        }
+        DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

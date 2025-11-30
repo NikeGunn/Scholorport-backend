@@ -1,0 +1,2131 @@
+{
+  "info": {
+    "_postman_id": "scholarport-complete-api-v2",
+    "name": "Scholarport API - Complete Collection v2.0",
+    "description": "# Scholarport Backend API Collection\n\n## Complete API documentation for:\n- 🔐 **Authentication** - JWT token management\n- 💬 **Chat System** - AI-powered conversation and university matching\n- 📅 **Booking System** - Counselor session scheduling\n- 📝 **Blog System** - Educational content management\n- 🔧 **Setup & Testing** - Health checks and documentation\n\n---\n\n## Quick Start\n\n1. Set `base_url` variable to your server (default: `http://localhost:8000`)\n2. For admin endpoints, login first to get JWT token\n3. Tokens are auto-saved to collection variables\n\n## Authentication\n\n- **Access Token**: Valid for 24 hours\n- **Refresh Token**: Valid for 7 days\n- Admin endpoints require `Bearer {{access_token}}` header\n\n## Base URLs\n\n| Environment | URL |\n|-------------|-----|\n| Local | `http://localhost:8000` |\n| Production | `https://your-domain.com` |\n\n---\n\n**Version:** 2.0.0  \n**Last Updated:** November 30, 2025",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "session_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "booking_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "verification_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "counselor_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "post_slug",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "category_slug",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tag_slug",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "comment_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "image_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "Login (Get JWT Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access) {",
+                  "    pm.collectionVariables.set('access_token', jsonData.access);",
+                  "    console.log('Access token saved');",
+                  "}",
+                  "if (jsonData.refresh) {",
+                  "    pm.collectionVariables.set('refresh_token', jsonData.refresh);",
+                  "    console.log('Refresh token saved');",
+                  "}",
+                  "",
+                  "pm.test('Login successful', function() {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(jsonData.access).to.exist;",
+                  "    pm.expect(jsonData.refresh).to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"your_password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                ""
+              ]
+            },
+            "description": "Login with credentials to get JWT tokens.\n\n**Response:**\n- `access` - Access token (24 hours)\n- `refresh` - Refresh token (7 days)\n\nTokens are automatically saved to collection variables."
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access) {",
+                  "    pm.collectionVariables.set('access_token', jsonData.access);",
+                  "    console.log('Access token refreshed');",
+                  "}",
+                  "",
+                  "pm.test('Token refreshed', function() {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(jsonData.access).to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/refresh/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                "refresh",
+                ""
+              ]
+            },
+            "description": "Get a new access token using your refresh token."
+          }
+        }
+      ],
+      "description": "JWT Authentication endpoints for admin access."
+    },
+    {
+      "name": "💬 Chat System",
+      "item": [
+        {
+          "name": "Start Conversation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.session_id) {",
+                  "    pm.collectionVariables.set('session_id', jsonData.session_id);",
+                  "    console.log('Session ID saved:', jsonData.session_id);",
+                  "}",
+                  "",
+                  "pm.test('Conversation started', function() {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(jsonData.session_id).to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/chat/start/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "start",
+                ""
+              ]
+            },
+            "description": "Start a new conversation session with the AI chatbot."
+          }
+        },
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"message\": \"I want to study Computer Science in the USA\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/chat/send/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "send",
+                ""
+              ]
+            },
+            "description": "Send a message to the AI chatbot and get university recommendations."
+          }
+        },
+        {
+          "name": "Handle Data Consent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"session_id\": \"{{session_id}}\",\n    \"consent\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/chat/consent/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "consent",
+                ""
+              ]
+            },
+            "description": "Submit user consent for data storage."
+          }
+        },
+        {
+          "name": "Get Conversation History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/conversation/{{session_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "conversation",
+                "{{session_id}}",
+                ""
+              ]
+            },
+            "description": "Retrieve the full conversation history for a session."
+          }
+        },
+        {
+          "name": "List Universities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/universities/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "universities",
+                ""
+              ]
+            },
+            "description": "Get list of all universities in the database."
+          }
+        },
+        {
+          "name": "Get University Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/universities/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "universities",
+                "1",
+                ""
+              ]
+            },
+            "description": "Get detailed information about a specific university."
+          }
+        },
+        {
+          "name": "Admin - Dashboard Stats",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/admin/stats/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "admin",
+                "stats",
+                ""
+              ]
+            },
+            "description": "Get admin dashboard statistics (requires authentication)."
+          }
+        },
+        {
+          "name": "Admin - Get Student Profiles",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/admin/profiles/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "admin",
+                "profiles",
+                ""
+              ]
+            },
+            "description": "Get all student profiles (requires authentication)."
+          }
+        },
+        {
+          "name": "Admin - Export Excel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/admin/export/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "admin",
+                "export",
+                ""
+              ]
+            },
+            "description": "Export data as Excel file (requires authentication)."
+          }
+        },
+        {
+          "name": "Admin - Export Firebase Data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/admin/firebase-export/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "admin",
+                "firebase-export",
+                ""
+              ]
+            },
+            "description": "Export data to Firebase (requires authentication)."
+          }
+        }
+      ],
+      "description": "AI-powered chat system for university recommendations."
+    },
+    {
+      "name": "📅 Booking System",
+      "item": [
+        {
+          "name": "Counselors",
+          "item": [
+            {
+              "name": "List All Counselors",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    ""
+                  ]
+                },
+                "description": "Get list of all active counselors."
+              }
+            },
+            {
+              "name": "Get Counselor Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/{{counselor_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    "{{counselor_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get detailed information about a specific counselor."
+              }
+            },
+            {
+              "name": "Get Counselor Available Slots",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/{{counselor_id}}/slots/?days=7",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    "{{counselor_id}}",
+                    "slots",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "7",
+                      "description": "Number of days to show availability"
+                    }
+                  ]
+                },
+                "description": "Get available time slots for a counselor."
+              }
+            },
+            {
+              "name": "Set Counselor Availability (Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"day_of_week\": 1,\n    \"start_time\": \"09:00:00\",\n    \"end_time\": \"17:00:00\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/{{counselor_id}}/availability/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    "{{counselor_id}}",
+                    "availability",
+                    ""
+                  ]
+                },
+                "description": "Set availability slots for a counselor.\n\n**day_of_week:** 0=Monday, 1=Tuesday, ..., 6=Sunday"
+              }
+            },
+            {
+              "name": "Delete Counselor Availability (Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/counselors/{{counselor_id}}/availability/1/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "counselors",
+                    "{{counselor_id}}",
+                    "availability",
+                    "1",
+                    ""
+                  ]
+                },
+                "description": "Delete a specific availability slot."
+              }
+            }
+          ],
+          "description": "Counselor management endpoints."
+        },
+        {
+          "name": "Sessions",
+          "item": [
+            {
+              "name": "Create Booking",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.data && jsonData.data.booking_id) {",
+                      "    pm.collectionVariables.set('booking_id', jsonData.data.booking_id);",
+                      "    console.log('Booking ID saved:', jsonData.data.booking_id);",
+                      "}",
+                      "if (jsonData.data && jsonData.data.verification_token) {",
+                      "    pm.collectionVariables.set('verification_token', jsonData.data.verification_token);",
+                      "    console.log('Verification token saved');",
+                      "}",
+                      "",
+                      "pm.test('Booking created', function() {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"counselor_id\": {{counselor_id}},\n    \"student_name\": \"John Doe\",\n    \"student_email\": \"john.doe@example.com\",\n    \"student_phone\": \"+1234567890\",\n    \"scheduled_date\": \"2025-12-15\",\n    \"scheduled_time\": \"10:00:00\",\n    \"session_type\": \"video\",\n    \"meeting_notes\": \"I'm interested in studying Computer Science in the USA.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    ""
+                  ]
+                },
+                "description": "Create a new booking session.\n\n**Session Types:**\n- `video` - Video call\n- `audio` - Audio call\n- `in_person` - In-person meeting\n- `initial` - Initial consultation\n- `followup` - Follow-up session"
+              }
+            },
+            {
+              "name": "Get Booking Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get details of a specific booking."
+              }
+            },
+            {
+              "name": "Verify Booking",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"verification_token\": \"{{verification_token}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/verify/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "verify",
+                    ""
+                  ]
+                },
+                "description": "Verify a booking using the email verification token."
+              }
+            },
+            {
+              "name": "Update Booking",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"meeting_notes\": \"Updated notes for the session\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/update/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "update",
+                    ""
+                  ]
+                },
+                "description": "Update booking details."
+              }
+            },
+            {
+              "name": "Reschedule Booking",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"scheduled_date\": \"2025-12-20\",\n    \"scheduled_time\": \"14:00:00\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/reschedule/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "reschedule",
+                    ""
+                  ]
+                },
+                "description": "Reschedule a booking to a new date/time."
+              }
+            },
+            {
+              "name": "Cancel Booking",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"cancellation_reason\": \"Schedule conflict\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/cancel/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "cancel",
+                    ""
+                  ]
+                },
+                "description": "Cancel an existing booking."
+              }
+            },
+            {
+              "name": "Submit Feedback",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"rating\": 5,\n    \"feedback\": \"Excellent counseling session! Very helpful.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/sessions/{{booking_id}}/feedback/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "sessions",
+                    "{{booking_id}}",
+                    "feedback",
+                    ""
+                  ]
+                },
+                "description": "Submit feedback for a completed session."
+              }
+            },
+            {
+              "name": "Get My Bookings (by Email)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/my-bookings/?email=john.doe@example.com",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "my-bookings",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "john.doe@example.com",
+                      "description": "Student's email address"
+                    }
+                  ]
+                },
+                "description": "Get all bookings for a specific email address."
+              }
+            }
+          ],
+          "description": "Booking session management."
+        },
+        {
+          "name": "Admin",
+          "item": [
+            {
+              "name": "List All Bookings",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/admin/sessions/?status=pending&page=1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "admin",
+                    "sessions",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "pending",
+                      "description": "Filter: pending, confirmed, completed, cancelled, no_show"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "counselor",
+                      "value": "1",
+                      "disabled": true,
+                      "description": "Filter by counselor ID"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "2025-01-01",
+                      "disabled": true
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "2025-12-31",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "description": "Admin endpoint to list all bookings with filters."
+              }
+            },
+            {
+              "name": "Update Booking Status",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"status\": \"completed\",\n    \"admin_notes\": \"Session completed successfully.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/booking/admin/sessions/{{booking_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "admin",
+                    "sessions",
+                    "{{booking_id}}",
+                    ""
+                  ]
+                },
+                "description": "Update booking status.\n\n**Status Options:**\n- `pending`\n- `confirmed`\n- `completed`\n- `cancelled`\n- `no_show`"
+              }
+            },
+            {
+              "name": "Get Booking Statistics",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/booking/admin/stats/?days=30",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "booking",
+                    "admin",
+                    "stats",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "30",
+                      "description": "Statistics for last N days"
+                    }
+                  ]
+                },
+                "description": "Get booking statistics for admin dashboard."
+              }
+            }
+          ],
+          "description": "Admin booking management endpoints."
+        }
+      ],
+      "description": "Session booking system with counselors."
+    },
+    {
+      "name": "📝 Blog System",
+      "item": [
+        {
+          "name": "Categories",
+          "item": [
+            {
+              "name": "List Categories",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    ""
+                  ]
+                },
+                "description": "Get all blog categories with post counts."
+              }
+            },
+            {
+              "name": "Create Category",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.data && jsonData.data.slug) {",
+                      "    pm.collectionVariables.set('category_slug', jsonData.data.slug);",
+                      "    console.log('Category slug saved:', jsonData.data.slug);",
+                      "}",
+                      "",
+                      "pm.test('Category created', function() {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Study Abroad Tips\",\n    \"description\": \"Helpful tips and guides for students planning to study abroad\",\n    \"meta_title\": \"Study Abroad Tips & Guides | Scholarport\",\n    \"meta_description\": \"Expert tips for international students.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/create/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    "create",
+                    ""
+                  ]
+                },
+                "description": "Create a new blog category. Slug is auto-generated."
+              }
+            },
+            {
+              "name": "Get Category",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/{{category_slug}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    "{{category_slug}}",
+                    ""
+                  ]
+                },
+                "description": "Get category details by slug."
+              }
+            },
+            {
+              "name": "Update Category",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Study Abroad Guides\",\n    \"description\": \"Updated description\",\n    \"is_active\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/{{category_slug}}/update/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    "{{category_slug}}",
+                    "update",
+                    ""
+                  ]
+                },
+                "description": "Update an existing category."
+              }
+            },
+            {
+              "name": "Delete Category",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/categories/{{category_slug}}/delete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "categories",
+                    "{{category_slug}}",
+                    "delete",
+                    ""
+                  ]
+                },
+                "description": "Delete a category (fails if has posts)."
+              }
+            }
+          ],
+          "description": "Blog category management."
+        },
+        {
+          "name": "Tags",
+          "item": [
+            {
+              "name": "List Tags",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    ""
+                  ]
+                },
+                "description": "Get all tags with usage counts."
+              }
+            },
+            {
+              "name": "Create Tag",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.data && jsonData.data.slug) {",
+                      "    pm.collectionVariables.set('tag_slug', jsonData.data.slug);",
+                      "    console.log('Tag slug saved:', jsonData.data.slug);",
+                      "}",
+                      "",
+                      "pm.test('Tag created', function() {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"USA Universities\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/create/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    "create",
+                    ""
+                  ]
+                },
+                "description": "Create a new tag. Slug is auto-generated."
+              }
+            },
+            {
+              "name": "Get Tag",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/{{tag_slug}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    "{{tag_slug}}",
+                    ""
+                  ]
+                },
+                "description": "Get tag details by slug."
+              }
+            },
+            {
+              "name": "Update Tag",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"US Universities\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/{{tag_slug}}/update/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    "{{tag_slug}}",
+                    "update",
+                    ""
+                  ]
+                },
+                "description": "Update an existing tag."
+              }
+            },
+            {
+              "name": "Delete Tag",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/tags/{{tag_slug}}/delete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "tags",
+                    "{{tag_slug}}",
+                    "delete",
+                    ""
+                  ]
+                },
+                "description": "Delete a tag."
+              }
+            }
+          ],
+          "description": "Blog tag management."
+        },
+        {
+          "name": "Posts",
+          "item": [
+            {
+              "name": "List Posts (Public)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/?page=1&page_size=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "category",
+                      "value": "study-abroad-tips",
+                      "disabled": true,
+                      "description": "Filter by category slug"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "usa-universities",
+                      "disabled": true,
+                      "description": "Filter by tag slug"
+                    },
+                    {
+                      "key": "search",
+                      "value": "computer science",
+                      "disabled": true,
+                      "description": "Search in title/content"
+                    },
+                    {
+                      "key": "featured",
+                      "value": "true",
+                      "disabled": true,
+                      "description": "Only featured posts"
+                    },
+                    {
+                      "key": "ordering",
+                      "value": "-published_at",
+                      "disabled": true,
+                      "description": "Sort order"
+                    }
+                  ]
+                },
+                "description": "List published blog posts with filtering and pagination."
+              }
+            },
+            {
+              "name": "Create Post",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.data && jsonData.data.slug) {",
+                      "    pm.collectionVariables.set('post_slug', jsonData.data.slug);",
+                      "    console.log('Post slug saved:', jsonData.data.slug);",
+                      "}",
+                      "",
+                      "pm.test('Post created', function() {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"title\": \"Top 10 Universities in USA for Computer Science 2025\",\n    \"excerpt\": \"Discover the best universities for CS degrees in the United States.\",\n    \"content\": \"<h2>Introduction</h2><p>The United States is home to world-renowned Computer Science programs...</p>\",\n    \"category\": \"{{category_slug}}\",\n    \"tags\": [\"USA Universities\", \"Computer Science\"],\n    \"status\": \"published\",\n    \"is_featured\": true,\n    \"meta_title\": \"Top 10 USA Universities for CS 2025\",\n    \"meta_description\": \"Complete guide to the best CS programs in America.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/create/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "create",
+                    ""
+                  ]
+                },
+                "description": "Create a new blog post.\n\n**Status Options:**\n- `draft` - Not visible\n- `published` - Visible to public\n- `archived` - Hidden"
+              }
+            },
+            {
+              "name": "Get Post by Slug",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    ""
+                  ]
+                },
+                "description": "Get post details by slug. Increments view count."
+              }
+            },
+            {
+              "name": "Get Post by ID (Preview)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/id/{{post_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "id",
+                    "{{post_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get post by UUID (useful for draft previews)."
+              }
+            },
+            {
+              "name": "Update Post",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"title\": \"Top 10 Universities in USA for CS 2025 (Updated)\",\n    \"content\": \"<h2>Updated Content</h2><p>New information...</p>\",\n    \"is_featured\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/update/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "update",
+                    ""
+                  ]
+                },
+                "description": "Update an existing blog post."
+              }
+            },
+            {
+              "name": "Delete Post (Soft)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/delete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "delete",
+                    ""
+                  ]
+                },
+                "description": "Soft delete a post (archives it)."
+              }
+            },
+            {
+              "name": "Like Post",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/like/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "like",
+                    ""
+                  ]
+                },
+                "description": "Like a blog post (increments like count)."
+              }
+            },
+            {
+              "name": "Admin - List All Posts",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/admin/posts/?status=draft",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "admin",
+                    "posts",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "draft",
+                      "description": "Filter: draft, published, archived"
+                    }
+                  ]
+                },
+                "description": "Admin: List all posts including drafts."
+              }
+            }
+          ],
+          "description": "Blog post management."
+        },
+        {
+          "name": "Comments",
+          "item": [
+            {
+              "name": "Get Post Comments",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/comments/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "comments",
+                    ""
+                  ]
+                },
+                "description": "Get approved comments for a post."
+              }
+            },
+            {
+              "name": "Create Comment",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.data && jsonData.data.comment_id) {",
+                      "    pm.collectionVariables.set('comment_id', jsonData.data.comment_id);",
+                      "    console.log('Comment ID saved:', jsonData.data.comment_id);",
+                      "}",
+                      "",
+                      "pm.test('Comment created', function() {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"guest_name\": \"Jane Smith\",\n    \"guest_email\": \"jane@example.com\",\n    \"content\": \"This is really helpful! Thanks for sharing.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/comments/create/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "comments",
+                    "create",
+                    ""
+                  ]
+                },
+                "description": "Add a comment to a post. Requires moderation."
+              }
+            },
+            {
+              "name": "Reply to Comment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"guest_name\": \"Admin\",\n    \"guest_email\": \"admin@scholarport.com\",\n    \"content\": \"Thank you for your feedback!\",\n    \"parent\": \"{{comment_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/posts/{{post_slug}}/comments/create/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "posts",
+                    "{{post_slug}}",
+                    "comments",
+                    "create",
+                    ""
+                  ]
+                },
+                "description": "Reply to an existing comment."
+              }
+            },
+            {
+              "name": "Moderate Comment (Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"status\": \"approved\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/comments/{{comment_id}}/moderate/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "comments",
+                    "{{comment_id}}",
+                    "moderate",
+                    ""
+                  ]
+                },
+                "description": "Moderate a comment.\n\n**Status Options:**\n- `pending`\n- `approved`\n- `spam`"
+              }
+            },
+            {
+              "name": "Delete Comment (Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/comments/{{comment_id}}/delete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "comments",
+                    "{{comment_id}}",
+                    "delete",
+                    ""
+                  ]
+                },
+                "description": "Delete a comment."
+              }
+            }
+          ],
+          "description": "Blog comments management."
+        },
+        {
+          "name": "Media Library",
+          "item": [
+            {
+              "name": "List Images",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    ""
+                  ]
+                },
+                "description": "List all uploaded images."
+              }
+            },
+            {
+              "name": "Upload Image",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData.data && jsonData.data.image_id) {",
+                      "    pm.collectionVariables.set('image_id', jsonData.data.image_id);",
+                      "    console.log('Image ID saved:', jsonData.data.image_id);",
+                      "}",
+                      "",
+                      "pm.test('Image uploaded', function() {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "description": "Image file (JPG, PNG, GIF, WebP)"
+                    },
+                    {
+                      "key": "title",
+                      "value": "University Campus",
+                      "type": "text"
+                    },
+                    {
+                      "key": "alt_text",
+                      "value": "Beautiful university campus view",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/upload/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    "upload",
+                    ""
+                  ]
+                },
+                "description": "Upload an image to Cloudinary.\n\n**Supported Formats:** JPG, PNG, GIF, WebP\n**Max Size:** 10MB"
+              }
+            },
+            {
+              "name": "Get Image",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/{{image_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    "{{image_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get image details by ID."
+              }
+            },
+            {
+              "name": "Delete Image",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/images/{{image_id}}/delete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "images",
+                    "{{image_id}}",
+                    "delete",
+                    ""
+                  ]
+                },
+                "description": "Delete an image from the library."
+              }
+            }
+          ],
+          "description": "Image upload and management via Cloudinary."
+        },
+        {
+          "name": "Newsletter",
+          "item": [
+            {
+              "name": "Subscribe",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"subscriber@example.com\",\n    \"name\": \"John Smith\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/subscribe/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "subscribe",
+                    ""
+                  ]
+                },
+                "description": "Subscribe to the blog newsletter."
+              }
+            },
+            {
+              "name": "Unsubscribe",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"subscriber@example.com\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/blog/unsubscribe/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "unsubscribe",
+                    ""
+                  ]
+                },
+                "description": "Unsubscribe from the newsletter."
+              }
+            }
+          ],
+          "description": "Newsletter subscription management."
+        },
+        {
+          "name": "Admin",
+          "item": [
+            {
+              "name": "Get Blog Statistics",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/blog/admin/stats/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "blog",
+                    "admin",
+                    "stats",
+                    ""
+                  ]
+                },
+                "description": "Get blog statistics for admin dashboard."
+              }
+            }
+          ],
+          "description": "Admin blog management endpoints."
+        }
+      ],
+      "description": "Educational content and blog management system."
+    },
+    {
+      "name": "🔧 Setup & Testing",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/chat/health/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "health",
+                ""
+              ]
+            },
+            "description": "Check if the API is running and healthy."
+          }
+        },
+        {
+          "name": "Swagger Documentation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/docs/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "docs",
+                ""
+              ]
+            },
+            "description": "Open Swagger UI documentation (open in browser)."
+          }
+        },
+        {
+          "name": "ReDoc Documentation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/redoc/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "redoc",
+                ""
+              ]
+            },
+            "description": "Open ReDoc documentation (open in browser)."
+          }
+        },
+        {
+          "name": "OpenAPI Schema (JSON/YAML)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/schema/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "schema",
+                ""
+              ]
+            },
+            "description": "Get OpenAPI 3.0 schema for code generation."
+          }
+        },
+        {
+          "name": "Django Admin Panel",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                ""
+              ]
+            },
+            "description": "Access Django admin panel (open in browser)."
+          }
+        }
+      ],
+      "description": "Health checks and API documentation endpoints."
+    }
+  ]
+}
