@@ -28,7 +28,7 @@ $packageName = "scholarport-deploy-$timestamp.tar.gz"
 
 # Create tar package (excluding unnecessary files)
 Write-Host "  - Packaging files..." -ForegroundColor Gray
-tar -czf $packageName --exclude=venv --exclude=__pycache__ --exclude=*.pyc --exclude=.git --exclude=db.sqlite3 --exclude=staticfiles --exclude=test_*.py --exclude=*_test.py --exclude=debug_*.py --exclude=download_*.py --exclude=check_*.py --exclude=simple_*.py --exclude=detailed_*.py --exclude=demo_*.py --exclude=*.xlsx --exclude=*.html --exclude=firebase_data_*.json --exclude=deploy*.ps1 --exclude=fresh-deploy*.ps1 * 2>$null
+tar -czf $packageName --exclude=venv --exclude=__pycache__ --exclude=*.pyc --exclude=.git --exclude=db.sqlite3 --exclude=staticfiles --exclude=test_*.py --exclude=*_test.py --exclude=debug_*.py --exclude=download_*.py --exclude=check_*.py --exclude=simple_*.py --exclude=detailed_*.py --exclude=demo_*.py --exclude=*.xlsx --exclude=*.html --exclude=firebase_data_*.json --exclude=deploy*.ps1 --exclude=fresh-deploy*.ps1 --exclude=*.tar.gz * 2>$null
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Failed to create package" -ForegroundColor Red
