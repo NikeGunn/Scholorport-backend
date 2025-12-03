@@ -27,11 +27,11 @@ DATABASES = {
     }
 }
 
-# CORS - Now handled by Nginx
-# Django CORS middleware not needed since Nginx adds headers
-# But keeping these for documentation/fallback
+# CORS - Allow all origins for development/testing while we sort out SSL
+# In production with proper domain setup, use specific origins only
 CORS_ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if origin.strip()]
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True  # Enable for development - disable after frontend is on proper domain
 
 # Security middleware - SSL disabled for initial deployment
 SECURE_SSL_REDIRECT = False  # Disabled - no SSL certificates yet
