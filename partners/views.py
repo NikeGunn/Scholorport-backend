@@ -118,7 +118,7 @@ def get_partner(request, partner_id):
     description='''
     **GET**: Get all partners including inactive ones.
     **POST**: Create a new partner.
-    
+
     Requires admin authentication.
     ''',
     responses={
@@ -189,7 +189,7 @@ def admin_partners(request):
     **GET**: Get partner details.
     **PATCH/PUT**: Update a partner.
     **DELETE**: Delete a partner.
-    
+
     Requires admin authentication.
     ''',
     request=PartnerAdminSerializer,
