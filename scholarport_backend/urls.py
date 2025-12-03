@@ -45,6 +45,12 @@ urlpatterns = [
     # Blog API - Educational content
     path("api/blog/", include('blog.urls', namespace='blog')),
 
+    # Partners API - University and agent partners
+    path("api/partners/", include('partners.urls', namespace='partners')),
+
+    # Contact API - Contact form submissions
+    path("api/contact/", include('contact.urls', namespace='contact')),
+
     # API Documentation URLs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI - Interactive API Documentation

@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     "chat",
     "booking",
     "blog",
+    "partners",
+    "contact",
 ]
 
 MIDDLEWARE = [
@@ -144,7 +146,11 @@ Images are stored using Cloudinary (cloud) or local storage (development).
         {'name': 'Blog', 'description': 'Educational content and articles'},
         {'name': 'Blog Categories', 'description': 'Blog category management'},
         {'name': 'Blog Comments', 'description': 'Blog comments and discussions'},
+        {'name': 'Partners', 'description': 'University and agent partners'},
+        {'name': 'Contact', 'description': 'Contact form submissions'},
         {'name': 'Admin', 'description': 'Admin dashboard and export endpoints'},
+        {'name': 'Admin - Partners', 'description': 'Partner management (admin only)'},
+        {'name': 'Admin - Contact', 'description': 'Contact submissions management (admin only)'},
         {'name': 'Health', 'description': 'Health check endpoint'},
     ],
 }

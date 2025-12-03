@@ -1,0 +1,680 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Scholarport Partners & Contact API",
+    "description": "API collection for Partners and Contact endpoints.\n\n## Setup Instructions\n\n1. Set the `base_url` variable to your server URL\n2. For admin endpoints, first get a JWT token using the Auth endpoints\n3. The token will be automatically saved and used for admin requests\n\n## Public Endpoints (No Auth Required)\n- GET /api/partners/ - List partners for homepage\n- POST /api/contact/ - Submit contact form\n\n## Admin Endpoints (JWT Required)\n- All /api/partners/admin/* endpoints\n- All /api/contact/admin/* endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://43.205.95.162",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "description": "Get JWT tokens for admin endpoints",
+      "item": [
+        {
+          "name": "Get JWT Token (Login)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('access_token', jsonData.access);",
+                  "    console.log('Token saved successfully!');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"your_password_here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                ""
+              ]
+            },
+            "description": "Get JWT access token for admin endpoints.\n\n**Steps:**\n1. Replace `admin` with your username\n2. Replace `your_password_here` with your password\n3. Send the request\n4. The access token will be automatically saved"
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"refresh\": \"your_refresh_token_here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/refresh/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                "refresh",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🤝 Partners API",
+      "description": "Partner management endpoints",
+      "item": [
+        {
+          "name": "Public",
+          "description": "No authentication required",
+          "item": [
+            {
+              "name": "List All Partners (Public)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/partners/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    ""
+                  ]
+                },
+                "description": "Get all active partners for homepage display.\n\n**No authentication required.**\n\nOptional query parameters:\n- `type`: Filter by 'university' or 'agent'\n- `featured`: Filter by featured status (true/false)"
+              },
+              "response": []
+            },
+            {
+              "name": "List Partners - Filter by Type",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/partners/?type=university",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "university",
+                      "description": "Filter: 'university' or 'agent'"
+                    }
+                  ]
+                },
+                "description": "Get partners filtered by type (university or agent)"
+              },
+              "response": []
+            },
+            {
+              "name": "List Partners - Featured Only",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/partners/?featured=true",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "featured",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Get only featured partners"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Partner Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/partners/{{partner_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    "{{partner_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get details of a specific partner.\n\nReplace `{{partner_id}}` with an actual UUID."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Admin",
+          "description": "Requires JWT authentication",
+          "item": [
+            {
+              "name": "List All Partners (Admin)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/partners/admin/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    "admin",
+                    ""
+                  ]
+                },
+                "description": "Get all partners including inactive ones.\n\n**Requires admin JWT token.**"
+              },
+              "response": []
+            },
+            {
+              "name": "Create Partner",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Harvard University\",\n    \"type\": \"university\",\n    \"country\": \"USA\",\n    \"description\": \"World-renowned Ivy League university\",\n    \"website\": \"https://www.harvard.edu\",\n    \"featured\": true,\n    \"is_active\": true,\n    \"order\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/partners/admin/create/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    "admin",
+                    "create",
+                    ""
+                  ]
+                },
+                "description": "Create a new partner.\n\n**Requires admin JWT token.**\n\n**Fields:**\n- name (required): Partner name\n- type (required): 'university' or 'agent'\n- country (optional): Country name\n- description (optional): Description text\n- website (optional): Website URL\n- featured (optional): Show in featured section\n- is_active (optional): Visibility status\n- order (optional): Display order"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Partner",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"featured\": false,\n    \"description\": \"Updated description\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/partners/admin/{{partner_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    "admin",
+                    "{{partner_id}}",
+                    ""
+                  ]
+                },
+                "description": "Update an existing partner.\n\n**Requires admin JWT token.**\n\nReplace `{{partner_id}}` with the partner's UUID.\n\nOnly include fields you want to update."
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Partner",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/partners/admin/{{partner_id}}/delete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "partners",
+                    "admin",
+                    "{{partner_id}}",
+                    "delete",
+                    ""
+                  ]
+                },
+                "description": "Delete a partner.\n\n**Requires admin JWT token.**\n\nReplace `{{partner_id}}` with the partner's UUID."
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📧 Contact API",
+      "description": "Contact form endpoints",
+      "item": [
+        {
+          "name": "Public",
+          "description": "No authentication required",
+          "item": [
+            {
+              "name": "Submit Contact Form",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"phone\": \"+1234567890\",\n    \"message\": \"I am interested in studying abroad. Please provide more information about your services.\",\n    \"type\": \"student\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/contact/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    ""
+                  ]
+                },
+                "description": "Submit a contact form.\n\n**No authentication required.**\n\n**Fields:**\n- name (required): Full name\n- email (required): Email address\n- phone (optional): Phone number\n- message (required): Message (min 10 characters)\n- type (required): 'student', 'university', 'agent', or 'other'"
+              },
+              "response": []
+            },
+            {
+              "name": "Submit Contact - University Inquiry",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"University Partnership Team\",\n    \"email\": \"partnerships@university.edu\",\n    \"phone\": \"+1987654321\",\n    \"message\": \"We are interested in partnering with Scholarport to help international students apply to our programs.\",\n    \"type\": \"university\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/contact/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    ""
+                  ]
+                },
+                "description": "Example: University partnership inquiry"
+              },
+              "response": []
+            },
+            {
+              "name": "Submit Contact - Agent Inquiry",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Education Agency\",\n    \"email\": \"info@agency.com\",\n    \"message\": \"We are an education consultancy and would like to discuss collaboration opportunities.\",\n    \"type\": \"agent\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/contact/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    ""
+                  ]
+                },
+                "description": "Example: Agent collaboration inquiry"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Admin",
+          "description": "Requires JWT authentication",
+          "item": [
+            {
+              "name": "List All Submissions",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    ""
+                  ]
+                },
+                "description": "Get all contact submissions.\n\n**Requires admin JWT token.**\n\nOptional filters:\n- `read`: true/false\n- `type`: student/university/agent/other"
+              },
+              "response": []
+            },
+            {
+              "name": "List Unread Submissions",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/?read=false",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "read",
+                      "value": "false"
+                    }
+                  ]
+                },
+                "description": "Get only unread contact submissions"
+              },
+              "response": []
+            },
+            {
+              "name": "List by Type (Students)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/?type=student",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "student"
+                    }
+                  ]
+                },
+                "description": "Get submissions from students only"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Submission Details",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/{{submission_id}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    "{{submission_id}}",
+                    ""
+                  ]
+                },
+                "description": "Get full details of a contact submission.\n\n**Requires admin JWT token.**\n\nReplace `{{submission_id}}` with the submission's UUID."
+              },
+              "response": []
+            },
+            {
+              "name": "Mark as Read",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/{{submission_id}}/read/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    "{{submission_id}}",
+                    "read",
+                    ""
+                  ]
+                },
+                "description": "Mark a submission as read.\n\n**Requires admin JWT token.**\n\nReplace `{{submission_id}}` with the submission's UUID."
+              },
+              "response": []
+            },
+            {
+              "name": "Update Submission (Add Notes)",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"notes\": \"Responded via email on Dec 3, 2025. Scheduled follow-up call.\",\n    \"read\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/{{submission_id}}/update/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    "{{submission_id}}",
+                    "update",
+                    ""
+                  ]
+                },
+                "description": "Add internal notes to a submission.\n\n**Requires admin JWT token.**"
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Submission",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/{{submission_id}}/delete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    "{{submission_id}}",
+                    "delete",
+                    ""
+                  ]
+                },
+                "description": "Delete a contact submission.\n\n**Requires admin JWT token.**"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Statistics",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/contact/admin/stats/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "contact",
+                    "admin",
+                    "stats",
+                    ""
+                  ]
+                },
+                "description": "Get contact submission statistics.\n\n**Requires admin JWT token.**\n\nReturns:\n- Total submissions\n- Unread count\n- Count by type"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
