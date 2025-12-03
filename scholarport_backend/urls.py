@@ -51,6 +51,9 @@ urlpatterns = [
     # Contact API - Contact form submissions
     path("api/contact/", include('contact.urls', namespace='contact')),
 
+    # Admin API - React Admin Panel
+    path("api/admin-panel/", include('admin_api.urls', namespace='admin_api')),
+
     # API Documentation URLs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI - Interactive API Documentation

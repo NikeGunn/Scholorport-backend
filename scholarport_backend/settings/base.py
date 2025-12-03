@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "drf_spectacular",
     "drf_spectacular_sidecar",
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
     "blog",
     "partners",
     "contact",
+    "admin_api",
 ]
 
 MIDDLEWARE = [
@@ -149,6 +151,10 @@ Images are stored using Cloudinary (cloud) or local storage (development).
         {'name': 'Partners', 'description': 'University and agent partners'},
         {'name': 'Contact', 'description': 'Contact form submissions'},
         {'name': 'Admin', 'description': 'Admin dashboard and export endpoints'},
+        {'name': 'Admin Auth', 'description': 'Admin authentication (login, logout, profile)'},
+        {'name': 'Admin Dashboard', 'description': 'Dashboard statistics and analytics'},
+        {'name': 'Admin Users', 'description': 'Admin user management'},
+        {'name': 'Admin Quick Actions', 'description': 'Quick actions and global search'},
         {'name': 'Admin - Partners', 'description': 'Partner management (admin only)'},
         {'name': 'Admin - Contact', 'description': 'Contact submissions management (admin only)'},
         {'name': 'Health', 'description': 'Health check endpoint'},
