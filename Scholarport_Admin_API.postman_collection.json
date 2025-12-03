@@ -72,8 +72,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/auth/login/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "auth", "login", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "auth",
+                "login",
+                ""
+              ]
             },
             "description": "Login with admin credentials to get JWT tokens.\n\n**Requirements:**\n- User must have `is_staff=True`\n- User must be active\n\n**Response:**\n- `access`: Use in Authorization header\n- `refresh`: Use to get new access token\n- `user`: Admin user profile data"
           },
@@ -120,8 +128,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/auth/refresh/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "auth", "refresh", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "auth",
+                "refresh",
+                ""
+              ]
             },
             "description": "Get a new access token using the refresh token."
           },
@@ -134,8 +150,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/auth/me/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "auth", "me", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "auth",
+                "me",
+                ""
+              ]
             },
             "description": "Get the currently authenticated admin user's profile."
           },
@@ -157,8 +181,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/auth/profile/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "auth", "profile", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "auth",
+                "profile",
+                ""
+              ]
             },
             "description": "Update the current admin user's profile."
           },
@@ -180,8 +212,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/auth/change-password/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "auth", "change-password", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "auth",
+                "change-password",
+                ""
+              ]
             },
             "description": "Change the current user's password."
           },
@@ -203,8 +243,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/auth/logout/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "auth", "logout", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "auth",
+                "logout",
+                ""
+              ]
             },
             "description": "Logout and blacklist the refresh token."
           },
@@ -223,8 +271,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/dashboard/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "dashboard", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "dashboard",
+                ""
+              ]
             },
             "description": "Get comprehensive dashboard statistics including:\n- Conversations count and completion rate\n- Bookings by status\n- Blog posts and views\n- Student profiles\n- Partners count\n- Contact submissions"
           },
@@ -244,8 +299,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/dashboard/activity/?limit=5",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "dashboard", "activity", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "dashboard",
+                "activity",
+                ""
+              ],
               "query": [
                 {
                   "key": "limit",
@@ -265,8 +328,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/dashboard/analytics/?period=week",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "dashboard", "analytics", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "dashboard",
+                "analytics",
+                ""
+              ],
               "query": [
                 {
                   "key": "period",
@@ -286,8 +357,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/dashboard/analytics/?period=month",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "dashboard", "analytics", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "dashboard",
+                "analytics",
+                ""
+              ],
               "query": [
                 {
                   "key": "period",
@@ -306,8 +385,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/dashboard/pending/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "dashboard", "pending", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "dashboard",
+                "pending",
+                ""
+              ]
             },
             "description": "Get count of items requiring attention:\n- Pending bookings\n- Unread contacts\n- Pending comments"
           },
@@ -326,8 +413,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                ""
+              ]
             },
             "description": "Get list of all admin users."
           },
@@ -340,8 +434,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/?role=superadmin",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                ""
+              ],
               "query": [
                 {
                   "key": "role",
@@ -361,8 +462,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/?search=john",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                ""
+              ],
               "query": [
                 {
                   "key": "search",
@@ -382,8 +490,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/1/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", "1", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                "1",
+                ""
+              ]
             },
             "description": "Get detailed information about a specific admin user."
           },
@@ -405,8 +521,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/create/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", "create", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                "create",
+                ""
+              ]
             },
             "description": "Create a new admin user. **Requires superadmin privileges.**\n\n- `is_superuser`: true for full privileges, false for regular admin"
           },
@@ -428,8 +552,17 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/2/update/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", "2", "update", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                "2",
+                "update",
+                ""
+              ]
             },
             "description": "Update an admin user. **Requires superadmin privileges.**"
           },
@@ -442,8 +575,17 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/2/delete/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", "2", "delete", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                "2",
+                "delete",
+                ""
+              ]
             },
             "description": "Delete an admin user. **Requires superadmin privileges.**\n\n⚠️ Cannot delete yourself."
           },
@@ -465,8 +607,17 @@
             },
             "url": {
               "raw": "{{base_url}}/api/admin-panel/users/2/reset-password/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "users", "2", "reset-password", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "users",
+                "2",
+                "reset-password",
+                ""
+              ]
             },
             "description": "Reset another user's password. **Requires superadmin privileges.**"
           },
@@ -485,8 +636,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/admin-panel/search/?q=john",
-              "host": ["{{base_url}}"],
-              "path": ["api", "admin-panel", "search", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "search",
+                ""
+              ],
               "query": [
                 {
                   "key": "q",
@@ -519,8 +677,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/partners/admin/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "partners", "admin", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "partners",
+                "admin",
+                ""
+              ]
             },
             "description": "Get all partners including inactive ones."
           },
@@ -542,8 +707,15 @@
             },
             "url": {
               "raw": "{{base_url}}/api/partners/admin/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "partners", "admin", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "partners",
+                "admin",
+                ""
+              ]
             },
             "description": "Create a new partner."
           },
@@ -565,8 +737,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/partners/admin/:id/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "partners", "admin", ":id", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "partners",
+                "admin",
+                ":id",
+                ""
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -586,8 +766,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/partners/admin/:id/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "partners", "admin", ":id", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "partners",
+                "admin",
+                ":id",
+                ""
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -612,8 +800,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/contact/admin/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "contact", "admin", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contact",
+                "admin",
+                ""
+              ]
             },
             "description": "Get all contact submissions."
           },
@@ -626,8 +821,15 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/contact/admin/?read=false",
-              "host": ["{{base_url}}"],
-              "path": ["api", "contact", "admin", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contact",
+                "admin",
+                ""
+              ],
               "query": [
                 {
                   "key": "read",
@@ -646,8 +848,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/contact/admin/:id/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "contact", "admin", ":id", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contact",
+                "admin",
+                ":id",
+                ""
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -675,8 +885,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/contact/admin/:id/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "contact", "admin", ":id", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contact",
+                "admin",
+                ":id",
+                ""
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -695,8 +913,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/contact/admin/:id/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "contact", "admin", ":id", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contact",
+                "admin",
+                ":id",
+                ""
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -721,8 +947,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/booking/admin/sessions/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "booking", "admin", "sessions", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "booking",
+                "admin",
+                "sessions",
+                ""
+              ]
             },
             "description": "Get all booking sessions."
           },
@@ -735,8 +969,17 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/booking/admin/sessions/:id/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "booking", "admin", "sessions", ":id", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "booking",
+                "admin",
+                "sessions",
+                ":id",
+                ""
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -764,8 +1007,17 @@
             },
             "url": {
               "raw": "{{base_url}}/api/booking/admin/sessions/:id/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "booking", "admin", "sessions", ":id", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "booking",
+                "admin",
+                "sessions",
+                ":id",
+                ""
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -790,8 +1042,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/blog/admin/posts/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "blog", "admin", "posts", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "blog",
+                "admin",
+                "posts",
+                ""
+              ]
             },
             "description": "Get all blog posts including drafts."
           },
@@ -813,8 +1073,16 @@
             },
             "url": {
               "raw": "{{base_url}}/api/blog/admin/posts/",
-              "host": ["{{base_url}}"],
-              "path": ["api", "blog", "admin", "posts", ""]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "blog",
+                "admin",
+                "posts",
+                ""
+              ]
             },
             "description": "Create a new blog post."
           },
@@ -827,8 +1095,16 @@
             "header": [],
             "url": {
               "raw": "{{base_url}}/api/blog/admin/comments/?status=pending",
-              "host": ["{{base_url}}"],
-              "path": ["api", "blog", "admin", "comments", ""],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "blog",
+                "admin",
+                "comments",
+                ""
+              ],
               "query": [
                 {
                   "key": "status",

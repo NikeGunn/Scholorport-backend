@@ -43,16 +43,16 @@ from contact.models import ContactSubmission
     summary='Admin Login',
     description='''
     Authenticate an admin user and get JWT tokens.
-    
+
     **Requirements:**
     - User must have `is_staff=True` (admin privileges)
     - User must be active (`is_active=True`)
-    
+
     **Returns:**
     - `access`: JWT access token (use in Authorization header)
     - `refresh`: JWT refresh token (use to get new access token)
     - `user`: Admin user profile data
-    
+
     **Usage:**
     ```
     Authorization: Bearer <access_token>
@@ -249,7 +249,7 @@ def admin_logout(request):
     summary='Get Dashboard Overview',
     description='''
     Get comprehensive dashboard statistics for the admin panel.
-    
+
     **Includes:**
     - Total counts for all entities
     - Recent activity metrics
