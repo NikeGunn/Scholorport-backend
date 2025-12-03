@@ -114,53 +114,18 @@ def get_partner(request, partner_id):
 
 @extend_schema(
     tags=['Admin - Partners'],
-    summary='List all partners (Admin)',
-    description='Get all partners including inactive ones. Requires admin authentication.',
+    summary='List or Create partners (Admin)',
+    description='''
+    **GET**: Get all partners including inactive ones.
+    **POST**: Create a new partner.
+    
+    Requires admin authentication.
+    ''',
     responses={
         200: OpenApiResponse(
             response=PartnerAdminSerializer(many=True),
             description='List of all partners'
-        )
-    }
-)
-@api_view(['GET'])
-@permission_classes([IsAdminUser])
-def admin_list_partners(request):
-    """Admin: List all partners including inactive."""
-    queryset = Partner.objects.all()
-
-    # Filter by type
-    partner_type = request.query_params.get('type')
-    if partner_type in ['university', 'agent']:
-        queryset = queryset.filter(type=partner_type)
-
-    # Filter by active status
-    is_active = request.query_params.get('is_active')
-    if is_active is not None:
-        if is_active.lower() in ['true', '1', 'yes']:
-            queryset = queryset.filter(is_active=True)
-        elif is_active.lower() in ['false', '0', 'no']:
-            queryset = queryset.filter(is_active=False)
-
-    serializer = PartnerAdminSerializer(
-        queryset,
-        many=True,
-        context={'request': request}
-    )
-
-    return Response({
-        'success': True,
-        'count': queryset.count(),
-        'data': serializer.data
-    })
-
-
-@extend_schema(
-    tags=['Admin - Partners'],
-    summary='Create a partner (Admin)',
-    description='Create a new partner. Requires admin authentication.',
-    request=PartnerAdminSerializer,
-    responses={
+        ),
         201: OpenApiResponse(
             response=PartnerAdminSerializer,
             description='Partner created successfully'
@@ -168,84 +133,113 @@ def admin_list_partners(request):
         400: OpenApiResponse(description='Validation error')
     }
 )
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAdminUser])
-def admin_create_partner(request):
-    """Admin: Create a new partner."""
-    serializer = PartnerAdminSerializer(data=request.data)
+def admin_partners(request):
+    """Admin: List all partners (GET) or create a new partner (POST)."""
+    if request.method == 'GET':
+        queryset = Partner.objects.all()
 
-    if serializer.is_valid():
-        partner = serializer.save()
+        # Filter by type
+        partner_type = request.query_params.get('type')
+        if partner_type in ['university', 'agent']:
+            queryset = queryset.filter(type=partner_type)
+
+        # Filter by active status
+        is_active = request.query_params.get('is_active')
+        if is_active is not None:
+            if is_active.lower() in ['true', '1', 'yes']:
+                queryset = queryset.filter(is_active=True)
+            elif is_active.lower() in ['false', '0', 'no']:
+                queryset = queryset.filter(is_active=False)
+
+        serializer = PartnerAdminSerializer(
+            queryset,
+            many=True,
+            context={'request': request}
+        )
+
         return Response({
             'success': True,
-            'message': 'Partner created successfully',
-            'data': PartnerAdminSerializer(partner, context={'request': request}).data
-        }, status=status.HTTP_201_CREATED)
+            'count': queryset.count(),
+            'data': serializer.data
+        })
 
-    return Response({
-        'success': False,
-        'errors': serializer.errors
-    }, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'POST':
+        serializer = PartnerAdminSerializer(data=request.data)
+
+        if serializer.is_valid():
+            partner = serializer.save()
+            return Response({
+                'success': True,
+                'message': 'Partner created successfully',
+                'data': PartnerAdminSerializer(partner, context={'request': request}).data
+            }, status=status.HTTP_201_CREATED)
+
+        return Response({
+            'success': False,
+            'errors': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
 
 
 @extend_schema(
     tags=['Admin - Partners'],
-    summary='Update a partner (Admin)',
-    description='Update an existing partner. Requires admin authentication.',
+    summary='Get, Update, or Delete a partner (Admin)',
+    description='''
+    **GET**: Get partner details.
+    **PATCH/PUT**: Update a partner.
+    **DELETE**: Delete a partner.
+    
+    Requires admin authentication.
+    ''',
     request=PartnerAdminSerializer,
     responses={
         200: OpenApiResponse(
             response=PartnerAdminSerializer,
-            description='Partner updated successfully'
+            description='Partner details or updated successfully'
         ),
         400: OpenApiResponse(description='Validation error'),
         404: OpenApiResponse(description='Partner not found')
     }
 )
-@api_view(['PATCH', 'PUT'])
+@api_view(['GET', 'PATCH', 'PUT', 'DELETE'])
 @permission_classes([IsAdminUser])
-def admin_update_partner(request, partner_id):
-    """Admin: Update a partner."""
+def admin_partner_detail(request, partner_id):
+    """Admin: Get, update, or delete a partner."""
     partner = get_object_or_404(Partner, id=partner_id)
-    serializer = PartnerAdminSerializer(
-        partner,
-        data=request.data,
-        partial=True,
-        context={'request': request}
-    )
 
-    if serializer.is_valid():
-        serializer.save()
+    if request.method == 'GET':
+        serializer = PartnerAdminSerializer(partner, context={'request': request})
         return Response({
             'success': True,
-            'message': 'Partner updated successfully',
             'data': serializer.data
         })
 
-    return Response({
-        'success': False,
-        'errors': serializer.errors
-    }, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method in ['PATCH', 'PUT']:
+        serializer = PartnerAdminSerializer(
+            partner,
+            data=request.data,
+            partial=True,
+            context={'request': request}
+        )
 
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'success': True,
+                'message': 'Partner updated successfully',
+                'data': serializer.data
+            })
 
-@extend_schema(
-    tags=['Admin - Partners'],
-    summary='Delete a partner (Admin)',
-    description='Delete a partner. Requires admin authentication.',
-    responses={
-        200: OpenApiResponse(description='Partner deleted successfully'),
-        404: OpenApiResponse(description='Partner not found')
-    }
-)
-@api_view(['DELETE'])
-@permission_classes([IsAdminUser])
-def admin_delete_partner(request, partner_id):
-    """Admin: Delete a partner."""
-    partner = get_object_or_404(Partner, id=partner_id)
-    partner_name = partner.name
-    partner.delete()
+        return Response({
+            'success': False,
+            'errors': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response({
-        'success': True,
-        'message': f'Partner "{partner_name}" deleted successfully'
-    })
+    elif request.method == 'DELETE':
+        partner_name = partner.name
+        partner.delete()
+        return Response({
+            'success': True,
+            'message': f'Partner "{partner_name}" deleted successfully'
+        })
