@@ -1,82 +1,77 @@
 #!/bin/bash
-# SSL Setup Script for Scholarport Backend
-# Domain: scholarport.co
+# =============================================================
+# SSL Setup Script for api.scholarport.co
+# Run this AFTER the initial deployment is working on HTTP
+# Backward compatible - HTTP continues to work if SSL fails
+# =============================================================
 
 set -e
 
-echo "🔐 Scholarport SSL Setup Script"
-echo "================================"
-echo ""
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
 
-# Configuration
-DOMAIN="scholarport.co"
-WWW_DOMAIN="www.scholarport.co"
-EMAIL="your-email@example.com"  # CHANGE THIS!
+echo -e "${GREEN}=========================================="
+echo "SSL Setup for api.scholarport.co"
+echo -e "==========================================${NC}"
 
-echo "📋 Configuration:"
-echo "   Domain: $DOMAIN"
-echo "   WWW: $WWW_DOMAIN"
-echo "   Email: $EMAIL"
-echo ""
+cd ~/scholarport || { echo -e "${RED}Error: ~/scholarport not found${NC}"; exit 1; }
 
-# Check if email is still default
-if [ "$EMAIL" = "your-email@example.com" ]; then
-    echo "⚠️  WARNING: Please edit this script and change the EMAIL variable!"
-    echo "   Email is required for Let's Encrypt certificate notifications."
-    read -p "Enter your email address: " EMAIL
+# Check if certificate already exists
+if [ -f "certbot/conf/live/api.scholarport.co/fullchain.pem" ]; then
+    echo -e "${GREEN}✓ SSL certificate already exists!${NC}"
+    echo "  To renew: sudo certbot renew"
+    exit 0
 fi
 
+# Create directories
+mkdir -p certbot/conf certbot/www
+
+# Stop nginx temporarily (need port 80 for certbot standalone)
+echo -e "\n${YELLOW}[1/4] Stopping nginx temporarily...${NC}"
+sudo docker-compose stop nginx
+
+# Get SSL certificate
+echo -e "\n${YELLOW}[2/4] Obtaining SSL certificate...${NC}"
+sudo certbot certonly \
+    --standalone \
+    --preferred-challenges http \
+    -d api.scholarport.co \
+    --email admin@scholarport.co \
+    --agree-tos \
+    --non-interactive
+
+# Copy certificates to Docker-accessible location
+echo -e "\n${YELLOW}[3/4] Setting up certificates...${NC}"
+sudo cp -rL /etc/letsencrypt/* certbot/conf/
+sudo chown -R $USER:$USER certbot/
+
+# Restart all containers
+echo -e "\n${YELLOW}[4/4] Restarting services with SSL...${NC}"
+sudo docker-compose up -d --build
+
+sleep 10
+
+# Test HTTPS
+echo -e "\n${GREEN}Testing HTTPS...${NC}"
+HTTPS=$(curl -s -o /dev/null -w "%{http_code}" https://api.scholarport.co/api/docs/ 2>/dev/null || echo "000")
+if [ "$HTTPS" = "200" ]; then
+    echo -e "${GREEN}✓ HTTPS is working!${NC}"
+else
+    echo -e "${YELLOW}⚠ HTTPS returned: $HTTPS${NC}"
+fi
+
+echo -e "\n${GREEN}=========================================="
+echo "SSL Setup Complete!"
+echo -e "==========================================${NC}"
 echo ""
-echo "🔍 Step 1: Checking prerequisites..."
-echo "─────────────────────────────────────"
-
-# Check if running in correct directory
-if [ ! -f "docker-compose.yml" ]; then
-    echo "❌ Error: docker-compose.yml not found!"
-    echo "   Please run this script from ~/scholarport-backend/"
-    exit 1
-fi
-
-# Check if domain resolves correctly
-echo "Checking DNS resolution for $DOMAIN..."
-RESOLVED_IP=$(dig +short $DOMAIN | tail -n1)
-CURRENT_IP=$(curl -s ifconfig.me)
-
-echo "   Domain resolves to: $RESOLVED_IP"
-echo "   Server IP: $CURRENT_IP"
-
-if [ "$RESOLVED_IP" != "$CURRENT_IP" ]; then
-    echo "⚠️  WARNING: Domain does not resolve to this server!"
-    echo "   Make sure DNS A record points to $CURRENT_IP"
-    read -p "Continue anyway? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        exit 1
-    fi
-fi
-
+echo "Your API is now available at:"
+echo "  HTTP:  http://api.scholarport.co/api/"
+echo "  HTTPS: https://api.scholarport.co/api/"
 echo ""
-echo "📦 Step 2: Preparing Nginx configuration..."
-echo "─────────────────────────────────────"
-
-# Backup existing configs
-if [ -d "nginx/conf.d" ]; then
-    echo "Backing up existing configs..."
-    mkdir -p nginx/conf.d/backup
-    cp nginx/conf.d/*.conf nginx/conf.d/backup/ 2>/dev/null || true
-fi
-
-# Remove old configs
-echo "Cleaning up old configs..."
-rm -f nginx/conf.d/simple-http.conf
-rm -f nginx/conf.d/http-with-static.conf
-rm -f nginx/conf.d/scholarport.conf
-rm -f nginx/conf.d/production.conf
-
-# Use temp HTTP config for SSL acquisition
-echo "Activating temporary HTTP config..."
-cp nginx/conf.d/temp-http-for-ssl.conf nginx/conf.d/active.conf
-
+echo "Update your frontend environment variable:"
+echo "  NEXT_PUBLIC_API_URL=https://api.scholarport.co"
 echo ""
 echo "🔄 Step 3: Restarting Nginx with HTTP-only config..."
 echo "─────────────────────────────────────"
