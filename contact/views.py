@@ -106,6 +106,7 @@ def submit_contact_form(request):
     tags=['Admin - Contact'],
     summary='List all contact submissions (Admin)',
     description='Get all contact submissions. Requires admin authentication.',
+    operation_id='contact_admin_list_all',
     parameters=[
         OpenApiParameter(
             name='read',
@@ -163,6 +164,7 @@ def admin_list_submissions(request):
     tags=['Admin - Contact'],
     summary='Get contact submission details (Admin)',
     description='Get full details of a contact submission. Requires admin authentication.',
+    operation_id='contact_admin_get_by_id',
     responses={
         200: OpenApiResponse(
             response=ContactSubmissionAdminSerializer,
@@ -188,8 +190,12 @@ def admin_get_submission(request, submission_id):
     tags=['Admin - Contact'],
     summary='Mark submission as read (Admin)',
     description='Mark a contact submission as read. Requires admin authentication.',
+    request=None,
     responses={
-        200: OpenApiResponse(description='Submission marked as read'),
+        200: OpenApiResponse(
+            response=ContactSubmissionAdminSerializer,
+            description='Submission marked as read'
+        ),
         404: OpenApiResponse(description='Submission not found')
     }
 )

@@ -6,6 +6,7 @@ Serializers for admin authentication and user management.
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from drf_spectacular.utils import extend_schema_field
 
 
 class AdminLoginSerializer(serializers.Serializer):
@@ -55,9 +56,11 @@ class AdminUserSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id', 'date_joined', 'last_login']
 
+    @extend_schema_field(str)
     def get_full_name(self, obj):
         return obj.get_full_name() or obj.username
 
+    @extend_schema_field(str)
     def get_role(self, obj):
         if obj.is_superuser:
             return 'superadmin'
@@ -83,9 +86,11 @@ class AdminUserListSerializer(serializers.ModelSerializer):
             'last_login',
         ]
 
+    @extend_schema_field(str)
     def get_full_name(self, obj):
         return obj.get_full_name() or obj.username
 
+    @extend_schema_field(str)
     def get_role(self, obj):
         if obj.is_superuser:
             return 'superadmin'

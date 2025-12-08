@@ -1,0 +1,1237 @@
+{
+  "info": {
+    "_postman_id": "jobs-api-collection-2025",
+    "name": "Scholarport Jobs API",
+    "description": "# Jobs/Careers API Collection\n\nThis collection contains all endpoints for the Jobs/Careers API.\n\n## Setup Instructions\n\n1. **Set Base URL**: Update the `base_url` variable to your server URL\n2. **Get Auth Token**: Run \"Admin Login\" first to get JWT token\n3. **Token Auto-Save**: The login request automatically saves the token\n\n## Endpoint Categories\n\n### Public Endpoints (No Auth Required)\n- List Active Jobs\n- Get Job by Slug\n\n### Admin Endpoints (Auth Required)\n- List All Jobs (Admin)\n- Get Job by ID (Admin)\n- Create Job (Admin)\n- Update Job (Admin)\n- Delete Job (Admin)\n\n## Testing Flow\n\n1. Run \"List Active Jobs\" - Should return empty array initially\n2. Run \"Admin Login\" to get token\n3. Run \"Create Job\" to add a job\n4. Run \"List Active Jobs\" again - Should show the new job\n5. Run \"Get Job by Slug\" with the job's slug\n6. Run \"Update Job\" to modify the job\n7. Run \"Delete Job\" to remove it",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "job_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "job_slug",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "1. Admin Login (Get Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.access) {",
+                  "        pm.collectionVariables.set('access_token', jsonData.access);",
+                  "        console.log('✅ Token saved successfully!');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin-panel/auth/login/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin-panel",
+                "auth",
+                "login",
+                ""
+              ]
+            },
+            "description": "## Admin Login\n\nGet JWT access token for admin endpoints.\n\n### Default Credentials (Development)\n- Username: `admin`\n- Password: `admin123`\n\n### Response\nThe access token is automatically saved to collection variables."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📋 Public Endpoints",
+      "item": [
+        {
+          "name": "2. List Active Jobs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is valid JSON', function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "// Save first job's slug if available",
+                  "var jsonData = pm.response.json();",
+                  "var results = jsonData.results || jsonData;",
+                  "if (results && results.length > 0) {",
+                  "    pm.collectionVariables.set('job_slug', results[0].slug);",
+                  "    pm.collectionVariables.set('job_id', results[0].id);",
+                  "    console.log('✅ Saved job slug: ' + results[0].slug);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ]
+            },
+            "description": "## List Active Jobs (Public)\n\nReturns all active, non-expired job postings.\n\n### No Authentication Required\n\n### Query Parameters (Optional)\n- `department` - Filter by department\n- `location` - Filter by location\n- `type` - Filter by job type (full-time, part-time, contract, internship)\n- `featured` - Filter featured jobs (true/false)\n- `search` - Search in title, description, requirements\n- `limit` - Results per page (default: 20)\n- `offset` - Pagination offset"
+          },
+          "response": []
+        },
+        {
+          "name": "2a. List Jobs - Filter by Department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/?department=Engineering",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "department",
+                  "value": "Engineering"
+                }
+              ]
+            },
+            "description": "## Filter Jobs by Department\n\nExample: Get all Engineering jobs"
+          },
+          "response": []
+        },
+        {
+          "name": "2b. List Jobs - Filter by Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/?type=full-time",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "full-time"
+                }
+              ]
+            },
+            "description": "## Filter Jobs by Type\n\nValid types:\n- `full-time`\n- `part-time`\n- `contract`\n- `internship`"
+          },
+          "response": []
+        },
+        {
+          "name": "2c. List Jobs - Filter by Location",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/?location=Remote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "location",
+                  "value": "Remote"
+                }
+              ]
+            },
+            "description": "## Filter Jobs by Location\n\nPartial match supported (case-insensitive)"
+          },
+          "response": []
+        },
+        {
+          "name": "2d. List Jobs - Featured Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/?featured=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "featured",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "## Get Featured Jobs Only"
+          },
+          "response": []
+        },
+        {
+          "name": "2e. List Jobs - Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/?search=software",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "software"
+                }
+              ]
+            },
+            "description": "## Search Jobs\n\nSearches in title, description, requirements, and responsibilities"
+          },
+          "response": []
+        },
+        {
+          "name": "2f. List Jobs - With Pagination",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/?limit=10&offset=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "## Paginated Jobs List\n\n- `limit` - Number of results (default: 20, max: 100)\n- `offset` - Skip N results"
+          },
+          "response": []
+        },
+        {
+          "name": "3. Get Job by Slug",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 404', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 404]);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/{{job_slug}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "{{job_slug}}",
+                ""
+              ]
+            },
+            "description": "## Get Job Details by Slug (Public)\n\nReturns detailed information about a specific job.\n\n### No Authentication Required\n\n### Note\n- Returns 404 if job is inactive or expired\n- Uses the `job_slug` variable (auto-saved from list or create)"
+          },
+          "response": []
+        },
+        {
+          "name": "3a. Get Job by Slug (Manual)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/senior-software-engineer/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "senior-software-engineer",
+                ""
+              ]
+            },
+            "description": "## Get Job by Slug (Manual Entry)\n\nReplace `senior-software-engineer` with actual job slug"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🔒 Admin Endpoints",
+      "item": [
+        {
+          "name": "4. List All Jobs (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "// Save first job's ID if available",
+                  "var jsonData = pm.response.json();",
+                  "var results = jsonData.results || jsonData;",
+                  "if (results && results.length > 0) {",
+                  "    pm.collectionVariables.set('job_id', results[0].id);",
+                  "    pm.collectionVariables.set('job_slug', results[0].slug);",
+                  "    console.log('✅ Saved job ID: ' + results[0].id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                ""
+              ]
+            },
+            "description": "## List All Jobs (Admin)\n\n### Authentication Required\nUses Bearer token from login.\n\n### Returns\nAll jobs including inactive ones.\n\n### Additional Filters\n- `is_active` - Filter by active status (true/false)\n- Plus all public filters"
+          },
+          "response": []
+        },
+        {
+          "name": "4a. List Jobs - Filter Inactive (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/?is_active=false",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "is_active",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "## List Inactive Jobs Only (Admin)\n\nFilter to see only inactive/draft jobs"
+          },
+          "response": []
+        },
+        {
+          "name": "5. Create Job (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('job_id', jsonData.id);",
+                  "    pm.collectionVariables.set('job_slug', jsonData.slug);",
+                  "    console.log('✅ Job created! ID: ' + jsonData.id);",
+                  "    console.log('✅ Job slug: ' + jsonData.slug);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Senior Software Engineer\",\n    \"department\": \"Engineering\",\n    \"location\": \"Remote\",\n    \"type\": \"full-time\",\n    \"description\": \"<p>We are looking for a <strong>Senior Software Engineer</strong> to join our growing team.</p><p>You will be responsible for designing, developing, and maintaining high-quality software solutions.</p>\",\n    \"requirements\": \"<ul><li>5+ years of experience in software development</li><li>Proficiency in Python, JavaScript, or similar languages</li><li>Experience with RESTful APIs and microservices</li><li>Strong problem-solving skills</li><li>Excellent communication skills</li></ul>\",\n    \"responsibilities\": \"<ul><li>Design and implement new features</li><li>Write clean, maintainable code</li><li>Participate in code reviews</li><li>Mentor junior developers</li><li>Collaborate with cross-functional teams</li></ul>\",\n    \"application_email\": \"careers@scholarport.co\",\n    \"application_method\": \"<p>Please send your CV and cover letter to <a href='mailto:careers@scholarport.co'>careers@scholarport.co</a></p><p>Include 'Senior Software Engineer Application' in the subject line.</p>\",\n    \"is_active\": true,\n    \"is_featured\": true,\n    \"expires_at\": \"2025-06-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "create",
+                ""
+              ]
+            },
+            "description": "## Create New Job (Admin)\n\n### Authentication Required\n\n### Required Fields\n- `title` - Job title\n- `description` - Job description (HTML)\n- `application_email` - Email for applications\n\n### Optional Fields\n- `slug` - URL slug (auto-generated if not provided)\n- `department` - Department name\n- `location` - Job location\n- `type` - Job type (full-time, part-time, contract, internship)\n- `requirements` - Requirements (HTML)\n- `responsibilities` - Responsibilities (HTML)\n- `application_method` - How to apply (HTML)\n- `is_active` - Active status (default: true)\n- `is_featured` - Featured status (default: false)\n- `expires_at` - Expiration date (ISO 8601)"
+          },
+          "response": []
+        },
+        {
+          "name": "5a. Create Job - Minimal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('job_id', jsonData.id);",
+                  "    pm.collectionVariables.set('job_slug', jsonData.slug);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Marketing Intern\",\n    \"description\": \"<p>Join our marketing team as an intern!</p>\",\n    \"application_email\": \"hr@scholarport.co\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "create",
+                ""
+              ]
+            },
+            "description": "## Create Job with Minimal Data\n\nOnly required fields - slug will be auto-generated"
+          },
+          "response": []
+        },
+        {
+          "name": "5b. Create Job - Part Time",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('job_id', jsonData.id);",
+                  "    pm.collectionVariables.set('job_slug', jsonData.slug);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Part-Time Content Writer\",\n    \"department\": \"Marketing\",\n    \"location\": \"Kathmandu, Nepal\",\n    \"type\": \"part-time\",\n    \"description\": \"<p>We're looking for a talented content writer to create engaging articles about studying abroad.</p>\",\n    \"requirements\": \"<ul><li>Excellent writing skills in English</li><li>Experience in content marketing</li><li>Knowledge of SEO best practices</li></ul>\",\n    \"application_email\": \"content@scholarport.co\",\n    \"is_active\": true,\n    \"is_featured\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "create",
+                ""
+              ]
+            },
+            "description": "## Create Part-Time Job"
+          },
+          "response": []
+        },
+        {
+          "name": "5c. Create Job - Internship",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('job_id', jsonData.id);",
+                  "    pm.collectionVariables.set('job_slug', jsonData.slug);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Software Development Intern\",\n    \"department\": \"Engineering\",\n    \"location\": \"Hybrid - Kathmandu\",\n    \"type\": \"internship\",\n    \"description\": \"<p>Kickstart your career with our 3-month internship program!</p><p>Work alongside experienced developers and learn industry best practices.</p>\",\n    \"requirements\": \"<ul><li>Currently pursuing a degree in Computer Science or related field</li><li>Basic knowledge of Python or JavaScript</li><li>Eager to learn and grow</li></ul>\",\n    \"responsibilities\": \"<ul><li>Assist in developing new features</li><li>Write unit tests</li><li>Participate in team meetings</li><li>Document code and processes</li></ul>\",\n    \"application_email\": \"internships@scholarport.co\",\n    \"application_method\": \"<p>Apply via email with your resume and a brief introduction about yourself.</p>\",\n    \"is_active\": true,\n    \"is_featured\": false,\n    \"expires_at\": \"2025-03-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "create",
+                ""
+              ]
+            },
+            "description": "## Create Internship Position"
+          },
+          "response": []
+        },
+        {
+          "name": "5d. Create Job - Contract",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('job_id', jsonData.id);",
+                  "    pm.collectionVariables.set('job_slug', jsonData.slug);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"UI/UX Designer (6-Month Contract)\",\n    \"department\": \"Design\",\n    \"location\": \"Remote\",\n    \"type\": \"contract\",\n    \"description\": \"<p>We're seeking a talented UI/UX designer for a 6-month contract to redesign our student portal.</p>\",\n    \"requirements\": \"<ul><li>3+ years of UI/UX design experience</li><li>Proficiency in Figma or Sketch</li><li>Portfolio demonstrating web/mobile design work</li><li>Understanding of user-centered design principles</li></ul>\",\n    \"responsibilities\": \"<ul><li>Redesign the student portal interface</li><li>Create wireframes and prototypes</li><li>Conduct user research</li><li>Collaborate with developers</li></ul>\",\n    \"application_email\": \"design@scholarport.co\",\n    \"is_active\": true,\n    \"is_featured\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "create",
+                ""
+              ]
+            },
+            "description": "## Create Contract Position"
+          },
+          "response": []
+        },
+        {
+          "name": "6. Get Job by ID (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/{{job_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "{{job_id}}",
+                ""
+              ]
+            },
+            "description": "## Get Job by ID (Admin)\n\n### Authentication Required\n\nReturns job details including inactive jobs.\n\nUses the `job_id` variable (auto-saved from create or list)"
+          },
+          "response": []
+        },
+        {
+          "name": "7. Update Job (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('job_slug', jsonData.slug);",
+                  "    console.log('✅ Job updated successfully!');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Lead Software Engineer\",\n    \"is_featured\": true,\n    \"description\": \"<p>Updated: We are now looking for a <strong>Lead Software Engineer</strong> to head our development team.</p>\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/{{job_id}}/update/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "{{job_id}}",
+                "update",
+                ""
+              ]
+            },
+            "description": "## Update Job (Admin)\n\n### Authentication Required\n\n### Partial Update\nOnly include fields you want to change.\n\nUses the `job_id` variable."
+          },
+          "response": []
+        },
+        {
+          "name": "7a. Update Job - Deactivate",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"is_active\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/{{job_id}}/update/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "{{job_id}}",
+                "update",
+                ""
+              ]
+            },
+            "description": "## Deactivate Job\n\nSet job to inactive (hides from public)"
+          },
+          "response": []
+        },
+        {
+          "name": "7b. Update Job - Activate",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/{{job_id}}/update/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "{{job_id}}",
+                "update",
+                ""
+              ]
+            },
+            "description": "## Activate Job\n\nSet job to active (shows on public)"
+          },
+          "response": []
+        },
+        {
+          "name": "7c. Update Job - Set as Featured",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"is_featured\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/{{job_id}}/update/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "{{job_id}}",
+                "update",
+                ""
+              ]
+            },
+            "description": "## Mark Job as Featured\n\nFeatured jobs appear first in listings"
+          },
+          "response": []
+        },
+        {
+          "name": "7d. Update Job - Set Expiration",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"expires_at\": \"2025-12-31T23:59:59Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/{{job_id}}/update/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "{{job_id}}",
+                "update",
+                ""
+              ]
+            },
+            "description": "## Set Job Expiration Date\n\nJobs with past expiration dates are hidden from public"
+          },
+          "response": []
+        },
+        {
+          "name": "8. Delete Job (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 204) {",
+                  "    console.log('✅ Job deleted successfully!');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/{{job_id}}/delete/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "{{job_id}}",
+                "delete",
+                ""
+              ]
+            },
+            "description": "## Delete Job (Admin)\n\n### Authentication Required\n\n### Warning\nThis permanently deletes the job. Consider deactivating instead.\n\nUses the `job_id` variable."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🧪 Test Scenarios",
+      "item": [
+        {
+          "name": "Test 1: Verify Auth Required",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Should return 401 Unauthorized', function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});",
+                  "",
+                  "console.log('✅ Test passed: Admin endpoints require authentication');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                ""
+              ]
+            },
+            "description": "## Test: Verify Admin Auth Required\n\nThis should return 401 Unauthorized"
+          },
+          "response": []
+        },
+        {
+          "name": "Test 2: Public Access Works",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Should return 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "console.log('✅ Test passed: Public endpoints work without auth');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                ""
+              ]
+            },
+            "description": "## Test: Verify Public Access\n\nPublic endpoint should work without auth"
+          },
+          "response": []
+        },
+        {
+          "name": "Test 3: Invalid Job Type",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Should return 400 Bad Request', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "console.log('✅ Test passed: Invalid job type rejected');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Test Job\",\n    \"description\": \"Test\",\n    \"application_email\": \"test@test.com\",\n    \"type\": \"invalid-type\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "create",
+                ""
+              ]
+            },
+            "description": "## Test: Invalid Job Type\n\nShould reject invalid job types"
+          },
+          "response": []
+        },
+        {
+          "name": "Test 4: Missing Required Fields",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Should return 400 Bad Request', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "console.log('✅ Test passed: Missing fields rejected');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Test Job\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/admin/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "admin",
+                "create",
+                ""
+              ]
+            },
+            "description": "## Test: Missing Required Fields\n\nShould reject when description and application_email are missing"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

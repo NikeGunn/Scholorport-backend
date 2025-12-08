@@ -48,6 +48,9 @@ drf-spectacular-sidecar==2024.7.1
 # Image handling
 Pillow==10.4.0
 
+# HTML sanitization for user-generated content
+bleach==6.1.0
+
 # Cloudinary for cloud image storage
 cloudinary==1.36.0
 django-cloudinary-storage==0.3.0

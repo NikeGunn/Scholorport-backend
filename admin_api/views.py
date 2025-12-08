@@ -520,6 +520,7 @@ def analytics_data(request):
     tags=['Admin Users'],
     summary='List Admin Users',
     description='Get list of all admin users.',
+    operation_id='admin_users_list_all',
     parameters=[
         OpenApiParameter(name='role', type=str, description="Filter by role: 'admin', 'superadmin'"),
         OpenApiParameter(name='search', type=str, description='Search by username or email')
@@ -564,6 +565,7 @@ def list_users(request):
     tags=['Admin Users'],
     summary='Get User Details',
     description='Get detailed information about a specific admin user.',
+    operation_id='admin_users_get_by_id',
     responses={
         200: OpenApiResponse(response=AdminUserSerializer),
         404: OpenApiResponse(description='User not found')

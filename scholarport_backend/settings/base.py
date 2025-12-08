@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "partners",
     "contact",
     "admin_api",
+    "jobs",
 ]
 
 MIDDLEWARE = [
@@ -108,21 +109,28 @@ A comprehensive API for study abroad student counseling platform including:
 - **Admin Dashboard**: Analytics and data export for counselors
 - **Firebase Integration**: Real-time data export capabilities
 
-### Booking System (NEW)
+### Booking System
 - **Counselor Profiles**: Browse available counselors and their specializations
 - **Session Booking**: Book consultation sessions with counselors
 - **Availability Management**: Manage counselor availability slots
 - **Email Verification**: Secure booking confirmation via email
 
-### Blog/Educational Content (NEW)
+### Blog/Educational Content
 - **Articles & Guides**: Educational content about studying abroad
 - **Categories & Tags**: Organized content for easy discovery
 - **Comments**: Community engagement on posts
 - **Media Library**: Image upload and management
 - **Newsletter**: Email subscription for updates
 
+### Jobs/Careers
+- **Job Listings**: Public job postings for careers page
+- **Job Filtering**: Filter by department, location, type
+- **Admin Management**: Create, update, delete job postings
+- **Featured Jobs**: Highlight important positions
+- **Expiration Handling**: Auto-hide expired jobs
+
 ### Authentication
-Most endpoints are publicly accessible. Admin endpoints require authentication.
+Most endpoints are publicly accessible. Admin endpoints require JWT authentication.
 Booking uses email verification instead of user accounts.
 
 ### Image Storage
@@ -140,6 +148,18 @@ Images are stored using Cloudinary (cloud) or local storage (development).
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     'COMPONENT_SPLIT_REQUEST': True,
+    # Fix enum naming collisions for fields with the same name in different models
+    'ENUM_NAME_OVERRIDES': {
+        # Status enums - different models have different choices
+        'BlogPostStatusEnum': 'blog.models.BlogPost.STATUS_CHOICES',
+        'BlogCommentStatusEnum': 'blog.models.BlogComment.STATUS_CHOICES',
+        'BookingStatusEnum': 'booking.models.BookingSession.STATUS_CHOICES',
+        # Type enums - different models have different choices
+        'ContactTypeEnum': 'contact.models.ContactSubmission.CONTACT_TYPE_CHOICES',
+        'PartnerTypeEnum': 'partners.models.Partner.PARTNER_TYPE_CHOICES',
+        'JobTypeEnum': 'jobs.models.Job.JOB_TYPE_CHOICES',
+        'BookingSessionTypeEnum': 'booking.models.BookingSession.SESSION_TYPE_CHOICES',
+    },
     'TAGS': [
         {'name': 'Chat', 'description': 'Conversation and message endpoints'},
         {'name': 'Universities', 'description': 'University search and details'},
@@ -148,6 +168,8 @@ Images are stored using Cloudinary (cloud) or local storage (development).
         {'name': 'Blog', 'description': 'Educational content and articles'},
         {'name': 'Blog Categories', 'description': 'Blog category management'},
         {'name': 'Blog Comments', 'description': 'Blog comments and discussions'},
+        {'name': 'Jobs', 'description': 'Public job listings and careers'},
+        {'name': 'Jobs Admin', 'description': 'Job posting management (admin only)'},
         {'name': 'Partners', 'description': 'University and agent partners'},
         {'name': 'Contact', 'description': 'Contact form submissions'},
         {'name': 'Admin', 'description': 'Admin dashboard and export endpoints'},

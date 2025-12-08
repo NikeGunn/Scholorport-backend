@@ -150,6 +150,7 @@ class AdminUserManagementTestCase(TestCase):
             'username': 'newadmin',
             'email': 'newadmin@scholarport.co',
             'password': 'newpass123',
+            'password_confirm': 'newpass123',
             'first_name': 'New',
             'last_name': 'Admin'
         })
@@ -168,6 +169,7 @@ class AdminUserManagementTestCase(TestCase):
         response = self.client.post('/api/admin-panel/users/create/', {
             'username': 'newadmin2',
             'email': 'newadmin2@scholarport.co',
-            'password': 'newpass123'
+            'password': 'newpass123',
+            'password_confirm': 'newpass123'
         })
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

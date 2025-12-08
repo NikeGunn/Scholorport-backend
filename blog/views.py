@@ -72,6 +72,7 @@ def paginate_queryset(queryset, request, serializer_class):
     tags=['Blog Categories'],
     summary='List all blog categories',
     description='Get all active blog categories with post counts.',
+    operation_id='blog_categories_list_all',
     parameters=[
         OpenApiParameter(
             name='include_inactive',
@@ -116,6 +117,7 @@ def list_categories(request):
     tags=['Blog Categories'],
     summary='Get category details',
     description='Get detailed information about a specific category.',
+    operation_id='blog_categories_get_by_slug',
     responses={
         200: OpenApiResponse(response=BlogCategoryDetailSerializer),
         404: OpenApiResponse(description='Category not found')
@@ -241,6 +243,7 @@ def delete_category(request, slug):
     tags=['Blog'],
     summary='List all tags',
     description='Get all blog tags with post counts.',
+    operation_id='blog_tags_list_all',
     responses={
         200: OpenApiResponse(
             response=BlogTagSerializer(many=True),
@@ -296,6 +299,7 @@ def create_tag(request):
     tags=['Blog'],
     summary='Get tag details',
     description='Get details of a specific tag by slug.',
+    operation_id='blog_tags_get_by_slug',
     responses={
         200: OpenApiResponse(response=BlogTagSerializer),
         404: OpenApiResponse(description='Tag not found')
@@ -389,6 +393,7 @@ def delete_tag(request, slug):
     **Sorting:**
     - `ordering`: Sort by field (e.g., `-published_at`, `view_count`, `-like_count`)
     ''',
+    operation_id='blog_posts_list_all',
     parameters=[
         OpenApiParameter(name='category', type=str, description='Category slug'),
         OpenApiParameter(name='tag', type=str, description='Tag slug'),
@@ -464,6 +469,7 @@ def list_posts(request):
     tags=['Blog'],
     summary='Get post details',
     description='Get detailed information about a specific blog post. Increments view count.',
+    operation_id='blog_posts_get_by_slug',
     responses={
         200: OpenApiResponse(response=BlogPostDetailSerializer),
         404: OpenApiResponse(description='Post not found')
@@ -683,6 +689,7 @@ def like_post(request, slug):
     tags=['Blog'],
     summary='List uploaded images',
     description='Get list of uploaded images (media library).',
+    operation_id='blog_images_list_all',
     responses={
         200: OpenApiResponse(
             response=BlogImageSerializer(many=True),
@@ -813,6 +820,7 @@ def upload_image(request):
     tags=['Blog'],
     summary='Get an image',
     description='Get details of a specific image from the media library.',
+    operation_id='blog_images_get_by_id',
     responses={
         200: BlogImageSerializer,
         404: OpenApiResponse(description='Image not found')
