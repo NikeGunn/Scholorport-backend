@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse, extend_schema_view
 
 from .models import Partner
 from .serializers import PartnerListSerializer, PartnerAdminSerializer
@@ -30,6 +30,7 @@ from .serializers import PartnerListSerializer, PartnerAdminSerializer
     - type: 'university' or 'agent'
     - featured: true/false
     ''',
+    operation_id='partners_list_all',
     parameters=[
         OpenApiParameter(
             name='type',
@@ -87,6 +88,7 @@ def list_partners(request):
     tags=['Partners'],
     summary='Get partner details',
     description='Get details of a specific partner.',
+    operation_id='partners_get_by_id',
     responses={
         200: OpenApiResponse(
             response=PartnerListSerializer,
@@ -113,19 +115,26 @@ def get_partner(request, partner_id):
 # ============================================================
 
 @extend_schema(
+    methods=['GET'],
     tags=['Admin - Partners'],
-    summary='List or Create partners (Admin)',
-    description='''
-    **GET**: Get all partners including inactive ones.
-    **POST**: Create a new partner.
-
-    Requires admin authentication.
-    ''',
+    summary='List all partners (Admin)',
+    description='Get all partners including inactive ones. Requires admin authentication.',
+    operation_id='partners_admin_list_all',
     responses={
         200: OpenApiResponse(
             response=PartnerAdminSerializer(many=True),
             description='List of all partners'
-        ),
+        )
+    }
+)
+@extend_schema(
+    methods=['POST'],
+    tags=['Admin - Partners'],
+    summary='Create a new partner (Admin)',
+    description='Create a new partner. Requires admin authentication.',
+    operation_id='partners_admin_create',
+    request=PartnerAdminSerializer,
+    responses={
         201: OpenApiResponse(
             response=PartnerAdminSerializer,
             description='Partner created successfully'
@@ -183,22 +192,59 @@ def admin_partners(request):
 
 
 @extend_schema(
+    methods=['GET'],
     tags=['Admin - Partners'],
-    summary='Get, Update, or Delete a partner (Admin)',
-    description='''
-    **GET**: Get partner details.
-    **PATCH/PUT**: Update a partner.
-    **DELETE**: Delete a partner.
-
-    Requires admin authentication.
-    ''',
+    summary='Get partner details (Admin)',
+    description='Get detailed information about a specific partner. Requires admin authentication.',
+    operation_id='partners_admin_get_by_id',
+    responses={
+        200: OpenApiResponse(
+            response=PartnerAdminSerializer,
+            description='Partner details'
+        ),
+        404: OpenApiResponse(description='Partner not found')
+    }
+)
+@extend_schema(
+    methods=['PATCH'],
+    tags=['Admin - Partners'],
+    summary='Partially update a partner (Admin)',
+    description='Partially update an existing partner. Requires admin authentication.',
+    operation_id='partners_admin_partial_update',
     request=PartnerAdminSerializer,
     responses={
         200: OpenApiResponse(
             response=PartnerAdminSerializer,
-            description='Partner details or updated successfully'
+            description='Partner updated successfully'
         ),
         400: OpenApiResponse(description='Validation error'),
+        404: OpenApiResponse(description='Partner not found')
+    }
+)
+@extend_schema(
+    methods=['PUT'],
+    tags=['Admin - Partners'],
+    summary='Fully update a partner (Admin)',
+    description='Fully update an existing partner. Requires admin authentication.',
+    operation_id='partners_admin_full_update',
+    request=PartnerAdminSerializer,
+    responses={
+        200: OpenApiResponse(
+            response=PartnerAdminSerializer,
+            description='Partner updated successfully'
+        ),
+        400: OpenApiResponse(description='Validation error'),
+        404: OpenApiResponse(description='Partner not found')
+    }
+)
+@extend_schema(
+    methods=['DELETE'],
+    tags=['Admin - Partners'],
+    summary='Delete a partner (Admin)',
+    description='Delete a partner. Requires admin authentication.',
+    operation_id='partners_admin_delete',
+    responses={
+        200: OpenApiResponse(description='Partner deleted successfully'),
         404: OpenApiResponse(description='Partner not found')
     }
 )

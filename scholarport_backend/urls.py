@@ -51,6 +51,9 @@ urlpatterns = [
     # Contact API - Contact form submissions
     path("api/contact/", include('contact.urls', namespace='contact')),
 
+    # Jobs/Careers API - Job postings management
+    path("api/jobs/", include('jobs.urls', namespace='jobs')),
+
     # Admin API - React Admin Panel
     path("api/admin-panel/", include('admin_api.urls', namespace='admin_api')),
 

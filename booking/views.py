@@ -46,6 +46,7 @@ from .serializers import (
     tags=['Counselors'],
     summary='List all active counselors',
     description='Get a list of all counselors who are currently accepting bookings.',
+    operation_id='counselors_list_all',
     parameters=[
         OpenApiParameter(
             name='specialization',
@@ -88,6 +89,7 @@ def list_counselors(request):
     tags=['Counselors'],
     summary='Get counselor details',
     description='Get detailed information about a specific counselor including their availability.',
+    operation_id='counselors_get_by_id',
     responses={
         200: OpenApiResponse(
             response=CounselorProfileDetailSerializer,
