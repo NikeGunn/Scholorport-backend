@@ -30,6 +30,62 @@ import io
 from datetime import datetime, timedelta
 
 from .models import ConversationSession, ChatMessage, University, StudentProfile
+from django import forms
+from django.contrib.admin.widgets import AdminTextareaWidget
+
+
+# Custom Widget for user-friendly JSON input
+class PrettyJSONWidget(forms.Textarea):
+    """A user-friendly widget for JSON fields that shows examples and validates input."""
+    def __init__(self, attrs=None):
+        default_attrs = {
+            'style': 'font-family: monospace; min-height: 100px;',
+            'placeholder': 'Enter items separated by commas, e.g.:\nMBA, Computer Science, Engineering\n\nOR as JSON:\n["MBA", "Computer Science", "Engineering"]'
+        }
+        if attrs:
+            default_attrs.update(attrs)
+        super().__init__(attrs=default_attrs)
+
+
+class FlexibleJSONField(forms.CharField):
+    """
+    A form field that accepts either:
+    - Simple comma-separated values: MBA, Computer Science, Engineering
+    - JSON array: ["MBA", "Computer Science", "Engineering"]
+    """
+    widget = PrettyJSONWidget
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('help_text', 
+            '💡 Enter program names separated by commas (e.g., MBA, Computer Science, Engineering) '
+            'or as a JSON array ["MBA", "Computer Science"]'
+        )
+        super().__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        if not value:
+            return []
+        
+        value = value.strip()
+        
+        # Try to parse as JSON first
+        if value.startswith('['):
+            try:
+                result = json.loads(value)
+                if isinstance(result, list):
+                    return result
+            except json.JSONDecodeError:
+                pass
+        
+        # Otherwise, treat as comma-separated values
+        items = [item.strip() for item in value.split(',') if item.strip()]
+        return items
+
+    def prepare_value(self, value):
+        if isinstance(value, list):
+            # Show as comma-separated for easier editing
+            return ', '.join(value)
+        return value or ''
 
 
 # Custom Admin Filters
@@ -80,8 +136,7 @@ class ContactInfoFilter(admin.SimpleListFilter):
             )
 
 
-# Unregister Group model (we don't need it for this app)
-admin.site.unregister(Group)
+# NOTE: We keep Group registered so admins can manage user groups/permissions
 
 
 class ChatMessageInline(admin.TabularInline):
@@ -994,6 +1049,19 @@ class UniversityAdmin(admin.ModelAdmin):
     analyze_requirements.short_description = "📊 Analyze requirements"
 
 
+# Custom form for StudentProfile with user-friendly fields
+class StudentProfileAdminForm(forms.ModelForm):
+    """Custom form that makes JSON fields easy to use for beginners."""
+    preferred_programs = FlexibleJSONField(
+        required=False,
+        help_text='💡 Enter program names separated by commas. Examples: MBA, Computer Science, Engineering, Data Science'
+    )
+
+    class Meta:
+        model = StudentProfile
+        fields = '__all__'
+
+
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):
     """
@@ -1006,6 +1074,7 @@ class StudentProfileAdmin(admin.ModelAdmin):
     - Communication tracking
     - Advanced reporting and exports
     """
+    form = StudentProfileAdminForm
 
     list_display = (
         'name',
