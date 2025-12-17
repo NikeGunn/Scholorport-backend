@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils import timezone
 from django.db.models import Count
+from django import forms
 from .models import (
     CounselorProfile,
     CounselorAvailability,
@@ -15,11 +16,103 @@ from .models import (
 )
 
 
+def generate_time_choices():
+    """Generate time choices for every 15 minutes from 00:00 to 23:45."""
+    choices = []
+    for hour in range(24):
+        for minute in [0, 15, 30, 45]:
+            time_str = f'{hour:02d}:{minute:02d}'
+            display_str = f'{hour:02d}:{minute:02d}'
+            # Add AM/PM for easier reading
+            if hour == 0:
+                display_str = f'12:{minute:02d} AM (Midnight)'
+            elif hour < 12:
+                display_str = f'{hour}:{minute:02d} AM'
+            elif hour == 12:
+                display_str = f'12:{minute:02d} PM (Noon)'
+            else:
+                display_str = f'{hour-12}:{minute:02d} PM'
+            choices.append((time_str, display_str))
+    return choices
+
+
+TIME_CHOICES = generate_time_choices()
+
+
+class CounselorAvailabilityForm(forms.ModelForm):
+    """Custom form with user-friendly time selection."""
+    start_time = forms.ChoiceField(
+        choices=TIME_CHOICES,
+        help_text="Select the start time for this availability slot",
+        widget=forms.Select(attrs={'style': 'width: 200px;'})
+    )
+    end_time = forms.ChoiceField(
+        choices=TIME_CHOICES,
+        help_text="Select the end time for this availability slot",
+        widget=forms.Select(attrs={'style': 'width: 200px;'})
+    )
+
+    class Meta:
+        model = CounselorAvailability
+        fields = '__all__'
+
+    def clean_start_time(self):
+        """Convert string back to time object."""
+        from datetime import datetime
+        time_str = self.cleaned_data['start_time']
+        return datetime.strptime(time_str, '%H:%M').time()
+
+    def clean_end_time(self):
+        """Convert string back to time object."""
+        from datetime import datetime
+        time_str = self.cleaned_data['end_time']
+        return datetime.strptime(time_str, '%H:%M').time()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
+        
+        if start_time and end_time and start_time >= end_time:
+            raise forms.ValidationError("End time must be after start time.")
+        
+        return cleaned_data
+
+
+class CounselorAvailabilityInlineForm(forms.ModelForm):
+    """Custom form for inline availability with user-friendly time selection."""
+    start_time = forms.ChoiceField(
+        choices=TIME_CHOICES,
+        widget=forms.Select(attrs={'style': 'width: 150px;'})
+    )
+    end_time = forms.ChoiceField(
+        choices=TIME_CHOICES,
+        widget=forms.Select(attrs={'style': 'width: 150px;'})
+    )
+
+    class Meta:
+        model = CounselorAvailability
+        fields = ['weekday', 'start_time', 'end_time', 'specific_date', 'is_available']
+
+    def clean_start_time(self):
+        from datetime import datetime
+        time_str = self.cleaned_data['start_time']
+        return datetime.strptime(time_str, '%H:%M').time()
+
+    def clean_end_time(self):
+        from datetime import datetime
+        time_str = self.cleaned_data['end_time']
+        return datetime.strptime(time_str, '%H:%M').time()
+
+
 class CounselorAvailabilityInline(admin.TabularInline):
-    """Inline admin for counselor availability."""
+    """Inline admin for counselor availability with user-friendly time selection."""
     model = CounselorAvailability
+    form = CounselorAvailabilityInlineForm
     extra = 1
     fields = ['weekday', 'start_time', 'end_time', 'specific_date', 'is_available']
+    verbose_name = "Availability Slot"
+    verbose_name_plural = "📅 Availability Slots (Add counselor's available time slots)"
 
 
 class BookingReminderInline(admin.TabularInline):
@@ -90,15 +183,58 @@ class CounselorProfileAdmin(admin.ModelAdmin):
 
 @admin.register(CounselorAvailability)
 class CounselorAvailabilityAdmin(admin.ModelAdmin):
-    """Admin interface for counselor availability."""
-    list_display = ['counselor', 'get_weekday', 'start_time', 'end_time', 'specific_date', 'is_available']
+    """Admin interface for counselor availability with user-friendly time selection."""
+    form = CounselorAvailabilityForm
+    list_display = ['counselor', 'get_weekday', 'get_time_slot', 'specific_date', 'availability_status']
     list_filter = ['counselor', 'weekday', 'is_available']
     search_fields = ['counselor__user__first_name', 'counselor__user__last_name']
+    list_editable = ['specific_date']
+    ordering = ['counselor', 'weekday', 'start_time']
+
+    fieldsets = (
+        ('Counselor', {
+            'fields': ('counselor',),
+            'description': 'Select the counselor for this availability slot.'
+        }),
+        ('Schedule', {
+            'fields': ('weekday', 'start_time', 'end_time'),
+            'description': '📅 Set the day and time range for this availability slot. '
+                          'The counselor will be available for bookings during this time.'
+        }),
+        ('Special Settings', {
+            'fields': ('specific_date', 'is_available'),
+            'description': '⚙️ Optional: Set a specific date for one-time availability, '
+                          'or mark as unavailable to block a time slot.',
+            'classes': ('collapse',)
+        }),
+    )
 
     def get_weekday(self, obj):
         return obj.get_weekday_display()
-    get_weekday.short_description = 'Weekday'
+    get_weekday.short_description = 'Day'
     get_weekday.admin_order_field = 'weekday'
+
+    def get_time_slot(self, obj):
+        """Display time slot in a user-friendly format."""
+        start = obj.start_time.strftime('%I:%M %p').lstrip('0')
+        end = obj.end_time.strftime('%I:%M %p').lstrip('0')
+        return format_html(
+            '<span style="font-weight: bold; color: #2c3e50;">{} - {}</span>',
+            start, end
+        )
+    get_time_slot.short_description = 'Time Slot'
+    get_time_slot.admin_order_field = 'start_time'
+
+    def availability_status(self, obj):
+        """Display availability status with icon."""
+        if obj.is_available:
+            return format_html(
+                '<span style="color: #27ae60; font-weight: bold;">✅ Available</span>'
+            )
+        return format_html(
+            '<span style="color: #e74c3c; font-weight: bold;">❌ Blocked</span>'
+        )
+    availability_status.short_description = 'Status'
 
 
 class BookingStatusFilter(admin.SimpleListFilter):
