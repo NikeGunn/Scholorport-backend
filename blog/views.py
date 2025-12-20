@@ -245,6 +245,92 @@ def delete_category(request, slug):
     })
 
 
+# ID-based category endpoints (alternative to slug-based)
+@extend_schema(
+    tags=['Blog Categories'],
+    summary='Get category by ID',
+    description='Get category details by ID.',
+    responses={
+        200: OpenApiResponse(response=BlogCategoryDetailSerializer),
+        404: OpenApiResponse(description='Category not found')
+    }
+)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_category_by_id(request, pk):
+    """Get category details by ID."""
+    category = get_object_or_404(BlogCategory, pk=pk)
+    serializer = BlogCategoryDetailSerializer(category, context={'request': request})
+
+    return Response({
+        'success': True,
+        'data': serializer.data
+    })
+
+
+@extend_schema(
+    tags=['Blog Categories'],
+    summary='Update category by ID',
+    description='Update an existing blog category by ID.',
+    request=BlogCategoryCreateUpdateSerializer,
+    responses={
+        200: OpenApiResponse(response=BlogCategoryDetailSerializer),
+        404: OpenApiResponse(description='Category not found')
+    }
+)
+@api_view(['PUT', 'PATCH'])
+@permission_classes([AllowAny])  # Change to IsAdminUser in production
+@parser_classes([MultiPartParser, FormParser, JSONParser])
+def update_category_by_id(request, pk):
+    """Update a blog category by ID."""
+    category = get_object_or_404(BlogCategory, pk=pk)
+    serializer = BlogCategoryCreateUpdateSerializer(
+        category,
+        data=request.data,
+        partial=request.method == 'PATCH'
+    )
+
+    if serializer.is_valid():
+        category = serializer.save()
+        response_serializer = BlogCategoryDetailSerializer(
+            category,
+            context={'request': request}
+        )
+
+        return Response({
+            'success': True,
+            'message': 'Category updated successfully',
+            'data': response_serializer.data
+        })
+
+    return Response({
+        'success': False,
+        'errors': serializer.errors
+    }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@extend_schema(
+    tags=['Blog Categories'],
+    summary='Delete category by ID',
+    description='Delete a blog category by ID. Posts in this category will be uncategorized.',
+    responses={
+        200: OpenApiResponse(description='Category deleted'),
+        404: OpenApiResponse(description='Category not found')
+    }
+)
+@api_view(['DELETE'])
+@permission_classes([AllowAny])  # Change to IsAdminUser in production
+def delete_category_by_id(request, pk):
+    """Delete a blog category by ID."""
+    category = get_object_or_404(BlogCategory, pk=pk)
+    category.delete()
+
+    return Response({
+        'success': True,
+        'message': 'Category deleted successfully'
+    })
+
+
 # ============================================================
 # TAG ENDPOINTS
 # ============================================================

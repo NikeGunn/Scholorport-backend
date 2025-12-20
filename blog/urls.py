@@ -14,7 +14,12 @@ urlpatterns = [
     # Create category
     path('categories/create/', views.create_category, name='create-category'),
 
-    # Get/Update/Delete category
+    # Get/Update/Delete category by ID
+    path('categories/<int:pk>/', views.get_category_by_id, name='get-category-by-id'),
+    path('categories/<int:pk>/update/', views.update_category_by_id, name='update-category-by-id'),
+    path('categories/<int:pk>/delete/', views.delete_category_by_id, name='delete-category-by-id'),
+
+    # Get/Update/Delete category by slug
     path('categories/<slug:slug>/', views.get_category, name='get-category'),
     path('categories/<slug:slug>/update/', views.update_category, name='update-category'),
     path('categories/<slug:slug>/delete/', views.delete_category, name='delete-category'),
