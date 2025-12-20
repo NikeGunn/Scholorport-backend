@@ -16,9 +16,13 @@ urlpatterns = [
     path('consent/', views.handle_data_consent, name='handle_data_consent'),
     path('conversation/<str:session_id>/', views.get_conversation_history, name='get_conversation_history'),
 
-    # University API Endpoints
-    path('universities/', views.get_universities, name='get_universities'),
-    path('universities/<int:university_id>/', views.get_university_details, name='get_university_details'),
+    # Institution API Endpoints (renamed from universities for better UX)
+    path('institutions/', views.get_institutions, name='get_institutions'),
+    path('institutions/<int:institution_id>/', views.get_institution_details, name='get_institution_details'),
+
+    # Backward compatibility - keep old URLs working to prevent production breakage
+    path('universities/', views.get_institutions, name='get_universities'),
+    path('universities/<int:university_id>/', views.get_institution_details, name='get_university_details'),
 
     # Admin Panel API Endpoints
     path('admin/stats/', views.admin_dashboard_stats, name='admin_dashboard_stats'),
