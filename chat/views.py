@@ -2,7 +2,7 @@
 API Views for Scholarport Backend.
 
 This module provides all the REST API endpoints for the chatbot functionality,
-including conversation management, university recommendations, and admin features.
+including conversation management, institution recommendations, and admin features.
 """
 
 from rest_framework import status
@@ -372,31 +372,31 @@ def get_conversation_history(request, session_id):
 
 
 @extend_schema(
-    tags=['Universities'],
-    summary='Get all universities',
+    tags=['Institutions'],
+    summary='Get all institutions',
     description='''
-    Retrieve a list of universities with optional filtering.
+    Retrieve a list of institutions (universities/colleges) with optional filtering.
 
     Supports filtering by country, tuition, ranking, and text search.
     Results are paginated with a default limit of 50.
     ''',
-    operation_id='list_universities',
+    operation_id='list_institutions',
     parameters=[
         OpenApiParameter(name='country', type=OpenApiTypes.STR, description='Filter by country name'),
-        OpenApiParameter(name='search', type=OpenApiTypes.STR, description='Search in university name'),
+        OpenApiParameter(name='search', type=OpenApiTypes.STR, description='Search in institution name'),
         OpenApiParameter(name='max_tuition', type=OpenApiTypes.STR, description='Maximum tuition filter'),
         OpenApiParameter(name='min_ranking', type=OpenApiTypes.INT, description='Minimum ranking filter'),
         OpenApiParameter(name='limit', type=OpenApiTypes.INT, description='Number of results (default: 50)')
     ],
     responses={
         200: OpenApiResponse(
-            description='Universities retrieved successfully',
+            description='Institutions retrieved successfully',
             examples=[
                 OpenApiExample(
                     'Success Response',
                     value={
                         'success': True,
-                        'universities': [
+                        'institutions': [
                             {
                                 'id': 1,
                                 'name': 'Harvard University',
@@ -421,42 +421,42 @@ def get_conversation_history(request, session_id):
 )
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def get_universities(request):
+def get_institutions(request):
     """
-    Get all universities with optional filtering.
+    Get all institutions with optional filtering.
 
     Query Parameters:
         - country: Filter by country
         - max_tuition: Maximum tuition amount
         - min_ranking: Minimum ranking
-        - search: Search in university name
+        - search: Search in institution name
         - limit: Limit results (default 50)
     """
     try:
-        universities = University.objects.all()
+        institutions = University.objects.all()
 
         # Apply filters
         country = request.GET.get('country')
         if country:
-            universities = universities.filter(country__icontains=country)
+            institutions = institutions.filter(country__icontains=country)
 
         search = request.GET.get('search')
         if search:
-            universities = universities.filter(university_name__icontains=search)
+            institutions = institutions.filter(university_name__icontains=search)
 
         max_tuition = request.GET.get('max_tuition')
         if max_tuition:
             # This is simplified - in reality you'd need more complex tuition parsing
-            universities = universities.filter(tuition__icontains=max_tuition)
+            institutions = institutions.filter(tuition__icontains=max_tuition)
 
         # Limit results
         limit = int(request.GET.get('limit', 50))
-        universities = universities[:limit]
+        institutions = institutions[:limit]
 
         # Format response
-        university_list = []
-        for uni in universities:
-            university_list.append({
+        institution_list = []
+        for uni in institutions:
+            institution_list.append({
                 'id': uni.id,
                 'name': uni.university_name,
                 'country': uni.country,
@@ -472,39 +472,39 @@ def get_universities(request):
 
         return Response({
             'success': True,
-            'universities': university_list,
-            'total_count': len(university_list)
+            'institutions': institution_list,
+            'total_count': len(institution_list)
         }, status=status.HTTP_200_OK)
 
     except Exception as e:
         return Response({
             'success': False,
-            'error': f'Failed to get universities: {str(e)}'
+            'error': f'Failed to get institutions: {str(e)}'
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @extend_schema(
-    tags=['Universities'],
-    summary='Get university details',
-    description='Retrieve detailed information about a specific university by ID.',
-    operation_id='get_university_details',
+    tags=['Institutions'],
+    summary='Get institution details',
+    description='Retrieve detailed information about a specific institution by ID.',
+    operation_id='get_institution_details',
     parameters=[
         OpenApiParameter(
-            name='university_id',
+            name='institution_id',
             type=OpenApiTypes.INT,
             location=OpenApiParameter.PATH,
-            description='The university ID'
+            description='The institution ID'
         )
     ],
     responses={
         200: OpenApiResponse(
-            description='University details retrieved',
+            description='Institution details retrieved',
             examples=[
                 OpenApiExample(
                     'Success Response',
                     value={
                         'success': True,
-                        'university': {
+                        'institution': {
                             'id': 1,
                             'name': 'Harvard University',
                             'country': 'USA',
@@ -522,41 +522,44 @@ def get_universities(request):
                 )
             ]
         ),
-        404: OpenApiResponse(description='University not found'),
+        404: OpenApiResponse(description='Institution not found'),
         500: OpenApiResponse(description='Server error')
     }
 )
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def get_university_details(request, university_id):
+def get_institution_details(request, institution_id=None, university_id=None):
     """
-    Get detailed information about a specific university.
+    Get detailed information about a specific institution.
+    Supports both institution_id and university_id for backward compatibility.
     """
     try:
-        university = get_object_or_404(University, id=university_id)
+        # Support both new and old parameter names for backward compatibility
+        lookup_id = institution_id or university_id
+        institution = get_object_or_404(University, id=lookup_id)
 
         return Response({
             'success': True,
-            'university': {
-                'id': university.id,
-                'name': university.university_name,
-                'country': university.country,
-                'city': university.city,
-                'tuition': university.tuition,
-                'programs': university.programs,
-                'ranking': university.ranking,
-                'ielts_requirement': university.ielts_requirement,
-                'toefl_requirement': university.toefl_requirement,
-                'affordability': university.affordability,
-                'region': university.region,
-                'notes': university.notes
+            'institution': {
+                'id': institution.id,
+                'name': institution.university_name,
+                'country': institution.country,
+                'city': institution.city,
+                'tuition': institution.tuition,
+                'programs': institution.programs,
+                'ranking': institution.ranking,
+                'ielts_requirement': institution.ielts_requirement,
+                'toefl_requirement': institution.toefl_requirement,
+                'affordability': institution.affordability,
+                'region': institution.region,
+                'notes': institution.notes
             }
         }, status=status.HTTP_200_OK)
 
     except Exception as e:
         return Response({
             'success': False,
-            'error': f'Failed to get university details: {str(e)}'
+            'error': f'Failed to get institution details: {str(e)}'
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
