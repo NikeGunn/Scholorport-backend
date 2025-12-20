@@ -21,6 +21,7 @@ from drf_spectacular.types import OpenApiTypes
 from .models import (
     BlogCategory,
     BlogTag,
+    NewsSource,
     BlogPost,
     BlogImage,
     BlogComment,
@@ -31,6 +32,9 @@ from .serializers import (
     BlogCategoryDetailSerializer,
     BlogCategoryCreateUpdateSerializer,
     BlogTagSerializer,
+    NewsSourceListSerializer,
+    NewsSourceDetailSerializer,
+    NewsSourceCreateUpdateSerializer,
     BlogPostListSerializer,
     BlogPostDetailSerializer,
     BlogPostCreateSerializer,
@@ -154,17 +158,23 @@ def create_category(request):
     serializer = BlogCategoryCreateUpdateSerializer(data=request.data)
 
     if serializer.is_valid():
-        category = serializer.save()
-        response_serializer = BlogCategoryDetailSerializer(
-            category,
-            context={'request': request}
-        )
+        try:
+            category = serializer.save()
+            response_serializer = BlogCategoryDetailSerializer(
+                category,
+                context={'request': request}
+            )
 
-        return Response({
-            'success': True,
-            'message': 'Category created successfully',
-            'data': response_serializer.data
-        }, status=status.HTTP_201_CREATED)
+            return Response({
+                'success': True,
+                'message': 'Category created successfully',
+                'data': response_serializer.data
+            }, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({
+                'success': False,
+                'errors': {'detail': str(e)}
+            }, status=status.HTTP_400_BAD_REQUEST)
 
     return Response({
         'success': False,
@@ -373,6 +383,214 @@ def delete_tag(request, slug):
 
 
 # ============================================================
+# NEWS SOURCE ENDPOINTS
+# ============================================================
+
+@extend_schema(
+    tags=['Blog - News Sources'],
+    summary='List all news sources',
+    description='Get all active news sources for blog posts. Sources like BBC, CNN, Reuters add authenticity to content.',
+    operation_id='blog_sources_list_all',
+    parameters=[
+        OpenApiParameter(
+            name='include_inactive',
+            type=bool,
+            description='Include inactive sources (admin only)',
+            required=False
+        ),
+        OpenApiParameter(
+            name='verified_only',
+            type=bool,
+            description='Show only verified sources',
+            required=False
+        ),
+    ],
+    responses={
+        200: OpenApiResponse(
+            response=NewsSourceListSerializer(many=True),
+            description='List of news sources'
+        )
+    }
+)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def list_sources(request):
+    """List all news sources."""
+    queryset = NewsSource.objects.all()
+
+    # Filter by active status
+    include_inactive = request.query_params.get('include_inactive', 'false').lower() == 'true'
+    if not include_inactive:
+        queryset = queryset.filter(is_active=True)
+
+    # Filter by verified status
+    verified_only = request.query_params.get('verified_only', 'false').lower() == 'true'
+    if verified_only:
+        queryset = queryset.filter(is_verified=True)
+
+    serializer = NewsSourceListSerializer(
+        queryset,
+        many=True,
+        context={'request': request}
+    )
+
+    return Response({
+        'success': True,
+        'count': queryset.count(),
+        'data': serializer.data
+    })
+
+
+@extend_schema(
+    tags=['Blog - News Sources'],
+    summary='Get news source details',
+    description='Get detailed information about a specific news source.',
+    operation_id='blog_sources_get_by_slug',
+    responses={
+        200: OpenApiResponse(response=NewsSourceDetailSerializer),
+        404: OpenApiResponse(description='Source not found')
+    }
+)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_source(request, slug):
+    """Get news source details by slug."""
+    source = get_object_or_404(NewsSource, slug=slug)
+    serializer = NewsSourceDetailSerializer(source, context={'request': request})
+
+    return Response({
+        'success': True,
+        'data': serializer.data
+    })
+
+
+@extend_schema(
+    tags=['Blog - News Sources'],
+    summary='Create a new news source',
+    description='Create a new news source (e.g., BBC, CNN, Reuters). Requires admin access.',
+    request=NewsSourceCreateUpdateSerializer,
+    responses={
+        201: OpenApiResponse(response=NewsSourceDetailSerializer),
+        400: OpenApiResponse(description='Validation error')
+    }
+)
+@api_view(['POST'])
+@permission_classes([AllowAny])  # Change to IsAdminUser in production
+@parser_classes([MultiPartParser, FormParser, JSONParser])
+def create_source(request):
+    """Create a new news source."""
+    serializer = NewsSourceCreateUpdateSerializer(data=request.data)
+
+    if serializer.is_valid():
+        try:
+            source = serializer.save()
+            return Response({
+                'success': True,
+                'message': 'News source created successfully',
+                'data': NewsSourceDetailSerializer(source, context={'request': request}).data
+            }, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({
+                'success': False,
+                'errors': {'detail': str(e)}
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response({
+        'success': False,
+        'errors': serializer.errors
+    }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@extend_schema(
+    tags=['Blog - News Sources'],
+    summary='Update a news source',
+    description='Update an existing news source.',
+    request=NewsSourceCreateUpdateSerializer,
+    responses={
+        200: OpenApiResponse(response=NewsSourceDetailSerializer),
+        400: OpenApiResponse(description='Validation error'),
+        404: OpenApiResponse(description='Source not found')
+    }
+)
+@api_view(['PUT', 'PATCH'])
+@permission_classes([AllowAny])  # Change to IsAdminUser in production
+@parser_classes([MultiPartParser, FormParser, JSONParser])
+def update_source(request, slug):
+    """Update a news source."""
+    source = get_object_or_404(NewsSource, slug=slug)
+    serializer = NewsSourceCreateUpdateSerializer(
+        source,
+        data=request.data,
+        partial=request.method == 'PATCH'
+    )
+
+    if serializer.is_valid():
+        source = serializer.save()
+        return Response({
+            'success': True,
+            'message': 'News source updated successfully',
+            'data': NewsSourceDetailSerializer(source, context={'request': request}).data
+        })
+
+    return Response({
+        'success': False,
+        'errors': serializer.errors
+    }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@extend_schema(
+    tags=['Blog - News Sources'],
+    summary='Delete a news source',
+    description='Delete a news source. Posts using this source will have their source set to null.',
+    responses={
+        200: OpenApiResponse(description='Source deleted'),
+        404: OpenApiResponse(description='Source not found')
+    }
+)
+@api_view(['DELETE'])
+@permission_classes([AllowAny])  # Change to IsAdminUser in production
+def delete_source(request, slug):
+    """Delete a news source."""
+    source = get_object_or_404(NewsSource, slug=slug)
+    source_name = source.name
+    source.delete()
+
+    return Response({
+        'success': True,
+        'message': f'News source "{source_name}" deleted successfully'
+    })
+
+
+@extend_schema(
+    tags=['Blog - News Sources'],
+    summary='Get posts by news source',
+    description='Get all published posts from a specific news source.',
+    operation_id='blog_sources_posts',
+    parameters=[
+        OpenApiParameter(name='page', type=int, description='Page number'),
+        OpenApiParameter(name='page_size', type=int, description='Items per page'),
+    ],
+    responses={
+        200: OpenApiResponse(response=BlogPostListSerializer(many=True)),
+        404: OpenApiResponse(description='Source not found')
+    }
+)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_source_posts(request, slug):
+    """Get all posts from a specific news source."""
+    source = get_object_or_404(NewsSource, slug=slug, is_active=True)
+
+    queryset = BlogPost.objects.filter(
+        source=source,
+        status='published',
+        is_deleted=False
+    ).select_related('category', 'author', 'source').prefetch_related('tags')
+
+    return paginate_queryset(queryset, request, BlogPostListSerializer)
+
+
+# ============================================================
 # POST ENDPOINTS
 # ============================================================
 
@@ -385,6 +603,7 @@ def delete_tag(request, slug):
     **Filtering options:**
     - `category`: Filter by category slug
     - `tag`: Filter by tag slug
+    - `source`: Filter by news source slug (e.g., bbc, cnn)
     - `content_type`: Filter by content type (article, guide, news, etc.)
     - `search`: Full-text search in title, content, excerpt
     - `featured`: Get only featured posts
@@ -397,6 +616,7 @@ def delete_tag(request, slug):
     parameters=[
         OpenApiParameter(name='category', type=str, description='Category slug'),
         OpenApiParameter(name='tag', type=str, description='Tag slug'),
+        OpenApiParameter(name='source', type=str, description='News source slug'),
         OpenApiParameter(name='content_type', type=str, description='Content type'),
         OpenApiParameter(name='search', type=str, description='Search query'),
         OpenApiParameter(name='featured', type=bool, description='Featured posts only'),
@@ -431,6 +651,11 @@ def list_posts(request):
     tag = request.query_params.get('tag')
     if tag:
         queryset = queryset.filter(tags__slug=tag)
+
+    # Source filter
+    source = request.query_params.get('source')
+    if source:
+        queryset = queryset.filter(source__slug=source)
 
     # Content type filter
     content_type = request.query_params.get('content_type')
@@ -561,17 +786,23 @@ def create_post(request):
     )
 
     if serializer.is_valid():
-        post = serializer.save()
-        response_serializer = BlogPostDetailSerializer(
-            post,
-            context={'request': request}
-        )
+        try:
+            post = serializer.save()
+            response_serializer = BlogPostDetailSerializer(
+                post,
+                context={'request': request}
+            )
 
-        return Response({
-            'success': True,
-            'message': 'Post created successfully',
-            'data': response_serializer.data
-        }, status=status.HTTP_201_CREATED)
+            return Response({
+                'success': True,
+                'message': 'Post created successfully',
+                'data': response_serializer.data
+            }, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({
+                'success': False,
+                'errors': {'detail': str(e)}
+            }, status=status.HTTP_400_BAD_REQUEST)
 
     return Response({
         'success': False,

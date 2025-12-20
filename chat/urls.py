@@ -21,8 +21,8 @@ urlpatterns = [
     path('institutions/<int:institution_id>/', views.get_institution_details, name='get_institution_details'),
 
     # Backward compatibility - keep old URLs working to prevent production breakage
-    path('universities/', views.get_institutions, name='get_universities'),
-    path('universities/<int:university_id>/', views.get_institution_details, name='get_university_details'),
+    path('universities/', views.get_universities_legacy, name='get_universities'),
+    path('universities/<int:university_id>/', views.get_university_details_legacy, name='get_university_details'),
 
     # Admin Panel API Endpoints
     path('admin/stats/', views.admin_dashboard_stats, name='admin_dashboard_stats'),

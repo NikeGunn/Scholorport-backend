@@ -60,8 +60,22 @@ class BlogCategory(models.Model):
         ordering = ['order', 'name']
 
     def save(self, *args, **kwargs):
+        # Generate or validate slug
         if not self.slug:
-            self.slug = slugify(self.name)
+            # No slug provided, generate from name
+            base_slug = slugify(self.name)
+        else:
+            # Slug provided, use it as base
+            base_slug = self.slug
+
+        # Ensure slug uniqueness
+        slug = base_slug
+        counter = 1
+        while BlogCategory.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -90,12 +104,104 @@ class BlogTag(models.Model):
         ordering = ['name']
 
     def save(self, *args, **kwargs):
+        # Generate or validate slug
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = slugify(self.name)
+        else:
+            base_slug = self.slug
+
+        # Ensure slug uniqueness
+        slug = base_slug
+        counter = 1
+        while BlogTag.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+
+class NewsSource(models.Model):
+    """
+    News/Blog sources to make content look authentic.
+    Examples: BBC, CNN, Reuters, The Guardian, Associated Press, etc.
+    """
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        help_text="Name of the news source (e.g., BBC, CNN)"
+    )
+    slug = models.SlugField(max_length=120, unique=True, blank=True)
+
+    # Branding
+    logo = models.ImageField(
+        upload_to='blog/sources/',
+        blank=True,
+        null=True,
+        help_text="Logo of the news source"
+    )
+    website_url = models.URLField(
+        blank=True,
+        help_text="Official website URL of the source"
+    )
+
+    # Description
+    description = models.TextField(
+        blank=True,
+        help_text="Brief description of the news source"
+    )
+
+    # Credibility
+    is_verified = models.BooleanField(
+        default=False,
+        help_text="Mark as verified/trusted source"
+    )
+    credibility_score = models.PositiveIntegerField(
+        default=5,
+        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        help_text="Credibility score from 1-10"
+    )
+
+    # Status
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'blog_news_sources'
+        verbose_name = 'News Source'
+        verbose_name_plural = 'News Sources'
+        ordering = ['order', 'name']
+
+    def save(self, *args, **kwargs):
+        # Generate or validate slug
+        if not self.slug:
+            base_slug = slugify(self.name)
+        else:
+            base_slug = self.slug
+
+        # Ensure slug uniqueness
+        slug = base_slug
+        counter = 1
+        while NewsSource.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        self.slug = slug
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def post_count(self):
+        return self.posts.filter(status='published', is_deleted=False).count()
 
 
 class BlogPost(models.Model):
@@ -181,6 +287,20 @@ class BlogPost(models.Model):
         BlogTag,
         blank=True,
         related_name='posts'
+    )
+
+    # Source - for news authenticity
+    source = models.ForeignKey(
+        NewsSource,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='posts',
+        help_text="News source for authenticity (e.g., BBC, CNN)"
+    )
+    source_url = models.URLField(
+        blank=True,
+        help_text="Original article URL from the source"
     )
 
     # Author

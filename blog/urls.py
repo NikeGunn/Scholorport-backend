@@ -35,6 +35,25 @@ urlpatterns = [
     # Delete tag
     path('tags/<slug:slug>/delete/', views.delete_tag, name='delete-tag'),
 
+    # ==================== News Source Endpoints ====================
+    # List all sources
+    path('sources/', views.list_sources, name='list-sources'),
+
+    # Create source
+    path('sources/create/', views.create_source, name='create-source'),
+
+    # Get source details
+    path('sources/<slug:slug>/', views.get_source, name='get-source'),
+
+    # Update source
+    path('sources/<slug:slug>/update/', views.update_source, name='update-source'),
+
+    # Delete source
+    path('sources/<slug:slug>/delete/', views.delete_source, name='delete-source'),
+
+    # Get posts by source
+    path('sources/<slug:slug>/posts/', views.get_source_posts, name='source-posts'),
+
     # ==================== Post Endpoints ====================
     # List posts (public, published only)
     path('posts/', views.list_posts, name='list-posts'),

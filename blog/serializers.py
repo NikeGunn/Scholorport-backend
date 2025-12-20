@@ -12,6 +12,7 @@ from drf_spectacular.types import OpenApiTypes
 from .models import (
     BlogCategory,
     BlogTag,
+    NewsSource,
     BlogPost,
     BlogImage,
     BlogComment,
@@ -103,6 +104,35 @@ class BlogCategoryCreateUpdateSerializer(serializers.ModelSerializer):
             'slug': {'required': False}
         }
 
+    def validate(self, data):
+        """Custom validation to prevent slug conflicts."""
+        # If updating, get the instance
+        instance = self.instance
+
+        # Check slug uniqueness if provided
+        slug = data.get('slug')
+        if slug:
+            qs = BlogCategory.objects.filter(slug=slug)
+            if instance:
+                qs = qs.exclude(pk=instance.pk)
+            if qs.exists():
+                raise serializers.ValidationError({
+                    'slug': f'Category with slug "{slug}" already exists. Please choose a different slug.'
+                })
+
+        # Check name uniqueness
+        name = data.get('name')
+        if name:
+            qs = BlogCategory.objects.filter(name=name)
+            if instance:
+                qs = qs.exclude(pk=instance.pk)
+            if qs.exists():
+                raise serializers.ValidationError({
+                    'name': f'Category with name "{name}" already exists. Please choose a different name.'
+                })
+
+        return data
+
 
 # ============================================================
 # TAG SERIALIZERS
@@ -122,6 +152,106 @@ class BlogTagSerializer(serializers.ModelSerializer):
     @extend_schema_field(OpenApiTypes.INT)
     def get_post_count(self, obj) -> int:
         return obj.posts.filter(status='published', is_deleted=False).count()
+
+
+# ============================================================
+# NEWS SOURCE SERIALIZERS
+# ============================================================
+
+class NewsSourceListSerializer(serializers.ModelSerializer):
+    """Serializer for listing news sources."""
+    logo_url = serializers.SerializerMethodField()
+    post_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = NewsSource
+        fields = [
+            'id', 'name', 'slug', 'logo', 'logo_url', 'website_url',
+            'description', 'is_verified', 'credibility_score',
+            'is_active', 'post_count', 'order'
+        ]
+
+    @extend_schema_field(OpenApiTypes.URI)
+    def get_logo_url(self, obj) -> Optional[str]:
+        if obj.logo:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.logo.url)
+            return obj.logo.url
+        return None
+
+    @extend_schema_field(OpenApiTypes.INT)
+    def get_post_count(self, obj) -> int:
+        return obj.posts.filter(status='published', is_deleted=False).count()
+
+
+class NewsSourceDetailSerializer(serializers.ModelSerializer):
+    """Serializer for detailed news source view."""
+    logo_url = serializers.SerializerMethodField()
+    post_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = NewsSource
+        fields = [
+            'id', 'name', 'slug', 'logo', 'logo_url', 'website_url',
+            'description', 'is_verified', 'credibility_score',
+            'is_active', 'order', 'post_count', 'created_at', 'updated_at'
+        ]
+
+    @extend_schema_field(OpenApiTypes.URI)
+    def get_logo_url(self, obj) -> Optional[str]:
+        if obj.logo:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.logo.url)
+            return obj.logo.url
+        return None
+
+    @extend_schema_field(OpenApiTypes.INT)
+    def get_post_count(self, obj) -> int:
+        return obj.posts.filter(status='published', is_deleted=False).count()
+
+
+class NewsSourceCreateUpdateSerializer(serializers.ModelSerializer):
+    """Serializer for creating/updating news sources."""
+
+    class Meta:
+        model = NewsSource
+        fields = [
+            'name', 'slug', 'logo', 'website_url', 'description',
+            'is_verified', 'credibility_score', 'is_active', 'order'
+        ]
+        extra_kwargs = {
+            'slug': {'required': False}
+        }
+
+    def validate(self, data):
+        """Custom validation to prevent conflicts."""
+        instance = self.instance
+
+        # Check slug uniqueness if provided
+        slug = data.get('slug')
+        if slug:
+            qs = NewsSource.objects.filter(slug=slug)
+            if instance:
+                qs = qs.exclude(pk=instance.pk)
+            if qs.exists():
+                raise serializers.ValidationError({
+                    'slug': f'News source with slug "{slug}" already exists.'
+                })
+
+        # Check name uniqueness
+        name = data.get('name')
+        if name:
+            qs = NewsSource.objects.filter(name=name)
+            if instance:
+                qs = qs.exclude(pk=instance.pk)
+            if qs.exists():
+                raise serializers.ValidationError({
+                    'name': f'News source with name "{name}" already exists.'
+                })
+
+        return data
 
 
 # ============================================================
@@ -164,8 +294,24 @@ class BlogImageUploadSerializer(serializers.ModelSerializer):
 # COMMENT SERIALIZERS
 # ============================================================
 
+class BlogCommentReplySerializer(serializers.ModelSerializer):
+    """Serializer for nested comment replies (no further nesting to avoid recursion)."""
+    author_name = serializers.CharField(read_only=True)
+    is_reply = serializers.BooleanField(read_only=True)
+
+    class Meta:
+        model = BlogComment
+        fields = [
+            'id', 'comment_id', 'post', 'parent', 'user',
+            'guest_name', 'guest_email', 'author_name',
+            'content', 'status', 'is_highlighted', 'like_count',
+            'is_reply', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['comment_id', 'status', 'like_count', 'created_at', 'updated_at']
+
+
 class BlogCommentSerializer(serializers.ModelSerializer):
-    """Serializer for blog comments."""
+    """Serializer for blog comments with one level of replies."""
     author_name = serializers.CharField(read_only=True)
     replies = serializers.SerializerMethodField()
     is_reply = serializers.BooleanField(read_only=True)
@@ -182,8 +328,9 @@ class BlogCommentSerializer(serializers.ModelSerializer):
 
     @extend_schema_field(OpenApiTypes.OBJECT)
     def get_replies(self, obj) -> List[Dict[str, Any]]:
+        """Return one level of replies using non-recursive serializer."""
         if obj.replies.exists():
-            return BlogCommentSerializer(
+            return BlogCommentReplySerializer(
                 obj.replies.filter(status='approved'),
                 many=True,
                 context=self.context
@@ -221,6 +368,8 @@ class BlogPostListSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
     category_slug = serializers.CharField(source='category.slug', read_only=True)
     tags = BlogTagSerializer(many=True, read_only=True)
+    source = NewsSourceListSerializer(read_only=True)
+    source_name = serializers.CharField(source='source.name', read_only=True)
     featured_image_url = serializers.SerializerMethodField()
     thumbnail_url = serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
@@ -232,6 +381,7 @@ class BlogPostListSerializer(serializers.ModelSerializer):
             'id', 'post_id', 'title', 'slug', 'subtitle', 'excerpt',
             'content_type', 'featured_image_url', 'thumbnail_url',
             'category', 'category_name', 'category_slug', 'tags',
+            'source', 'source_name', 'source_url',
             'author', 'author_name', 'status', 'published_at',
             'is_featured', 'is_pinned', 'is_published',
             'view_count', 'like_count', 'reading_time_minutes',
@@ -266,6 +416,7 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
     author = UserBasicSerializer(read_only=True)
     category = BlogCategoryListSerializer(read_only=True)
     tags = BlogTagSerializer(many=True, read_only=True)
+    source = NewsSourceDetailSerializer(read_only=True)
     featured_image_url = serializers.SerializerMethodField()
     thumbnail_url = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
@@ -279,7 +430,8 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
             'id', 'post_id', 'title', 'slug', 'subtitle', 'excerpt',
             'content', 'content_type', 'featured_image', 'featured_image_url',
             'featured_image_alt', 'thumbnail', 'thumbnail_url', 'video_url',
-            'category', 'tags', 'author', 'status', 'published_at',
+            'category', 'tags', 'source', 'source_url',
+            'author', 'status', 'published_at',
             'is_featured', 'is_pinned', 'allow_comments', 'is_published',
             'view_count', 'like_count', 'share_count', 'reading_time_minutes',
             'meta_title', 'meta_description', 'meta_keywords', 'canonical_url',
@@ -336,14 +488,39 @@ class BlogPostCreateSerializer(serializers.ModelSerializer):
         fields = [
             'title', 'slug', 'subtitle', 'excerpt', 'content', 'content_type',
             'featured_image', 'featured_image_alt', 'thumbnail', 'video_url',
-            'category', 'tags', 'tag_ids', 'status', 'published_at',
+            'category', 'tags', 'tag_ids', 'source', 'source_url',
+            'status', 'published_at',
             'is_featured', 'is_pinned', 'allow_comments',
             'meta_title', 'meta_description', 'meta_keywords', 'canonical_url'
         ]
         extra_kwargs = {
             'slug': {'required': False},
-            'excerpt': {'required': False}
+            'excerpt': {'required': False},
+            'content': {'required': True, 'error_messages': {'required': 'Content is required for blog post'}},
+            'title': {'required': True, 'error_messages': {'required': 'Title is required for blog post'}}
         }
+
+    def validate(self, data):
+        """Custom validation for blog posts."""
+        # Validate category exists if provided
+        if data.get('category') and not BlogCategory.objects.filter(pk=data['category'].pk, is_active=True).exists():
+            raise serializers.ValidationError({
+                'category': 'Selected category does not exist or is inactive.'
+            })
+
+        # Validate source exists if provided
+        if data.get('source') and not NewsSource.objects.filter(pk=data['source'].pk, is_active=True).exists():
+            raise serializers.ValidationError({
+                'source': 'Selected news source does not exist or is inactive.'
+            })
+
+        # If source_url is provided, ensure source is also provided
+        if data.get('source_url') and not data.get('source'):
+            raise serializers.ValidationError({
+                'source_url': 'Please select a news source when providing a source URL.'
+            })
+
+        return data
 
     def create(self, validated_data):
         tags_data = validated_data.pop('tags', [])
@@ -391,10 +568,35 @@ class BlogPostUpdateSerializer(serializers.ModelSerializer):
         fields = [
             'title', 'slug', 'subtitle', 'excerpt', 'content', 'content_type',
             'featured_image', 'featured_image_alt', 'thumbnail', 'video_url',
-            'category', 'tags', 'tag_ids', 'status', 'published_at',
+            'category', 'tags', 'tag_ids', 'source', 'source_url',
+            'status', 'published_at',
             'is_featured', 'is_pinned', 'allow_comments',
             'meta_title', 'meta_description', 'meta_keywords', 'canonical_url'
         ]
+
+    def validate(self, data):
+        """Custom validation for blog post updates."""
+        # Validate category exists if provided
+        if data.get('category') and not BlogCategory.objects.filter(pk=data['category'].pk, is_active=True).exists():
+            raise serializers.ValidationError({
+                'category': 'Selected category does not exist or is inactive.'
+            })
+
+        # Validate source exists if provided
+        if data.get('source') and not NewsSource.objects.filter(pk=data['source'].pk, is_active=True).exists():
+            raise serializers.ValidationError({
+                'source': 'Selected news source does not exist or is inactive.'
+            })
+
+        # If source_url is provided, ensure source is also provided
+        if data.get('source_url') and not data.get('source'):
+            # Check if instance already has a source
+            if not self.instance or not self.instance.source:
+                raise serializers.ValidationError({
+                    'source_url': 'Please select a news source when providing a source URL.'
+                })
+
+        return data
 
     def update(self, instance, validated_data):
         tags_data = validated_data.pop('tags', None)

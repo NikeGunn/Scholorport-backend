@@ -10,6 +10,7 @@ from django.db.models import Count
 from .models import (
     BlogCategory,
     BlogTag,
+    NewsSource,
     BlogPost,
     BlogImage,
     BlogComment,
@@ -70,6 +71,64 @@ class BlogTagAdmin(admin.ModelAdmin):
     get_post_count.short_description = 'Posts'
 
 
+@admin.register(NewsSource)
+class NewsSourceAdmin(admin.ModelAdmin):
+    """Admin interface for news sources."""
+    list_display = [
+        'name', 'slug', 'get_logo_preview', 'website_url',
+        'is_verified', 'credibility_score', 'get_post_count',
+        'is_active', 'order', 'created_at'
+    ]
+    list_filter = ['is_verified', 'is_active', 'credibility_score', 'created_at']
+    search_fields = ['name', 'description', 'website_url']
+    prepopulated_fields = {'slug': ('name',)}
+    readonly_fields = ['created_at', 'updated_at', 'get_logo_preview_large']
+    ordering = ['order', 'name']
+    list_editable = ['order', 'is_active', 'is_verified']
+
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('name', 'slug', 'description')
+        }),
+        ('Branding', {
+            'fields': ('logo', 'get_logo_preview_large', 'website_url')
+        }),
+        ('Credibility', {
+            'fields': ('is_verified', 'credibility_score'),
+            'description': 'Set verification status and credibility score (1-10)'
+        }),
+        ('Display', {
+            'fields': ('is_active', 'order')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+
+    def get_logo_preview(self, obj):
+        if obj.logo:
+            return format_html(
+                '<img src="{}" style="max-width:40px; max-height:40px; object-fit:contain;" />',
+                obj.logo.url
+            )
+        return '-'
+    get_logo_preview.short_description = 'Logo'
+
+    def get_logo_preview_large(self, obj):
+        if obj.logo:
+            return format_html(
+                '<img src="{}" style="max-width:200px; max-height:100px; object-fit:contain;" />',
+                obj.logo.url
+            )
+        return '-'
+    get_logo_preview_large.short_description = 'Logo Preview'
+
+    def get_post_count(self, obj):
+        return obj.posts.filter(status='published', is_deleted=False).count()
+    get_post_count.short_description = 'Posts'
+
+
 class BlogCommentInline(admin.TabularInline):
     """Inline admin for post comments."""
     model = BlogComment
@@ -106,13 +165,13 @@ class PostStatusFilter(admin.SimpleListFilter):
 class BlogPostAdmin(admin.ModelAdmin):
     """Admin interface for blog posts."""
     list_display = [
-        'title', 'get_author', 'category', 'get_status_badge',
-        'is_featured', 'is_pinned', 'view_count', 'like_count',
-        'get_comment_count', 'published_at', 'created_at'
+        'title', 'get_author', 'category', 'get_source_badge',
+        'get_status_badge', 'is_featured', 'is_pinned', 'view_count',
+        'like_count', 'get_comment_count', 'published_at', 'created_at'
     ]
     list_filter = [
         PostStatusFilter, 'is_featured', 'is_pinned', 'content_type',
-        'category', 'author', 'created_at', 'published_at'
+        'category', 'source', 'author', 'created_at', 'published_at'
     ]
     search_fields = ['title', 'content', 'excerpt', 'author__username']
     prepopulated_fields = {'slug': ('title',)}
@@ -135,6 +194,10 @@ class BlogPostAdmin(admin.ModelAdmin):
         }),
         ('Categorization', {
             'fields': ('category', 'tags')
+        }),
+        ('News Source', {
+            'fields': ('source', 'source_url'),
+            'description': 'Select a news source to make the content look authentic (e.g., BBC, CNN)'
         }),
         ('Author & Status', {
             'fields': ('author', 'status', 'published_at')
@@ -168,6 +231,18 @@ class BlogPostAdmin(admin.ModelAdmin):
         return '-'
     get_author.short_description = 'Author'
     get_author.admin_order_field = 'author__username'
+
+    def get_source_badge(self, obj):
+        if obj.source:
+            verified_icon = '✓ ' if obj.source.is_verified else ''
+            return format_html(
+                '<span style="background-color:#3498db; color:white; padding:3px 8px; '
+                'border-radius:3px; font-size:11px;">{}{}</span>',
+                verified_icon, obj.source.name
+            )
+        return '-'
+    get_source_badge.short_description = 'Source'
+    get_source_badge.admin_order_field = 'source__name'
 
     def get_status_badge(self, obj):
         colors = {

@@ -484,6 +484,57 @@ def get_institutions(request):
 
 
 @extend_schema(
+    tags=['Institutions (Legacy)'],
+    summary='Get all universities (deprecated - use /institutions/)',
+    description='Legacy endpoint for backward compatibility. Use /api/chat/institutions/ instead.',
+    operation_id='list_universities_legacy',
+    deprecated=True,
+    parameters=[
+        OpenApiParameter(name='country', type=OpenApiTypes.STR, description='Filter by country name'),
+        OpenApiParameter(name='search', type=OpenApiTypes.STR, description='Search in institution name'),
+        OpenApiParameter(name='max_tuition', type=OpenApiTypes.STR, description='Maximum tuition filter'),
+        OpenApiParameter(name='min_ranking', type=OpenApiTypes.INT, description='Minimum ranking filter'),
+        OpenApiParameter(name='limit', type=OpenApiTypes.INT, description='Number of results (default: 50)')
+    ],
+    responses={
+        200: OpenApiResponse(
+            description='Institutions retrieved successfully',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'institutions': [
+                            {
+                                'id': 1,
+                                'name': 'Harvard University',
+                                'country': 'USA',
+                                'city': 'Cambridge',
+                                'tuition': '$50,000/year',
+                                'programs': ['Computer Science', 'MBA'],
+                                'ranking': 1,
+                                'ielts_requirement': '7.0',
+                                'toefl_requirement': '100',
+                                'affordability': 'High',
+                                'region': 'North America'
+                            }
+                        ],
+                        'total_count': 1
+                    }
+                )
+            ]
+        ),
+        500: OpenApiResponse(description='Server error')
+    }
+)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_universities_legacy(request):
+    """Legacy wrapper for get_institutions (backward compatibility)."""
+    return get_institutions(request)
+
+
+@extend_schema(
     tags=['Institutions'],
     summary='Get institution details',
     description='Retrieve detailed information about a specific institution by ID.',
@@ -561,6 +612,57 @@ def get_institution_details(request, institution_id=None, university_id=None):
             'success': False,
             'error': f'Failed to get institution details: {str(e)}'
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@extend_schema(
+    tags=['Institutions (Legacy)'],
+    summary='Get university details (deprecated - use /institutions/)',
+    description='Legacy endpoint for backward compatibility. Use /api/chat/institutions/{id}/ instead.',
+    operation_id='get_university_details_legacy',
+    deprecated=True,
+    parameters=[
+        OpenApiParameter(
+            name='university_id',
+            type=OpenApiTypes.INT,
+            location=OpenApiParameter.PATH,
+            description='The university ID'
+        )
+    ],
+    responses={
+        200: OpenApiResponse(
+            description='Institution details retrieved',
+            examples=[
+                OpenApiExample(
+                    'Success Response',
+                    value={
+                        'success': True,
+                        'institution': {
+                            'id': 1,
+                            'name': 'Harvard University',
+                            'country': 'USA',
+                            'city': 'Cambridge',
+                            'tuition': '$50,000/year',
+                            'programs': ['Computer Science', 'MBA', 'Law'],
+                            'ranking': 1,
+                            'ielts_requirement': '7.0',
+                            'toefl_requirement': '100',
+                            'affordability': 'High',
+                            'region': 'North America',
+                            'notes': 'Ivy League university'
+                        }
+                    }
+                )
+            ]
+        ),
+        404: OpenApiResponse(description='Institution not found'),
+        500: OpenApiResponse(description='Server error')
+    }
+)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_university_details_legacy(request, university_id):
+    """Legacy wrapper for get_institution_details (backward compatibility)."""
+    return get_institution_details(request, institution_id=university_id)
 
 
 # Admin Panel API Views (for counselors)
