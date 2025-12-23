@@ -371,6 +371,62 @@ def get_conversation_history(request, session_id):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+def _get_institutions_list(request):
+    """
+    Helper function to get institutions list with filtering.
+    This is the core business logic used by both new and legacy endpoints.
+    """
+    try:
+        institutions = University.objects.all()
+
+        # Apply filters
+        country = request.GET.get('country')
+        if country:
+            institutions = institutions.filter(country__icontains=country)
+
+        search = request.GET.get('search')
+        if search:
+            institutions = institutions.filter(university_name__icontains=search)
+
+        max_tuition = request.GET.get('max_tuition')
+        if max_tuition:
+            # This is simplified - in reality you'd need more complex tuition parsing
+            institutions = institutions.filter(tuition__icontains=max_tuition)
+
+        # Limit results
+        limit = int(request.GET.get('limit', 50))
+        institutions = institutions[:limit]
+
+        # Format response
+        institution_list = []
+        for uni in institutions:
+            institution_list.append({
+                'id': uni.id,
+                'name': uni.university_name,
+                'country': uni.country,
+                'city': uni.city,
+                'tuition': uni.tuition,
+                'programs': uni.programs[:5] if uni.programs else [],  # Limit programs
+                'ranking': uni.ranking,
+                'ielts_requirement': uni.ielts_requirement,
+                'toefl_requirement': uni.toefl_requirement,
+                'affordability': uni.affordability,
+                'region': uni.region
+            })
+
+        return Response({
+            'success': True,
+            'institutions': institution_list,
+            'total_count': len(institution_list)
+        }, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response({
+            'success': False,
+            'error': f'Failed to get institutions: {str(e)}'
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 @extend_schema(
     tags=['Institutions'],
     summary='Get all institutions',
@@ -432,55 +488,7 @@ def get_institutions(request):
         - search: Search in institution name
         - limit: Limit results (default 50)
     """
-    try:
-        institutions = University.objects.all()
-
-        # Apply filters
-        country = request.GET.get('country')
-        if country:
-            institutions = institutions.filter(country__icontains=country)
-
-        search = request.GET.get('search')
-        if search:
-            institutions = institutions.filter(university_name__icontains=search)
-
-        max_tuition = request.GET.get('max_tuition')
-        if max_tuition:
-            # This is simplified - in reality you'd need more complex tuition parsing
-            institutions = institutions.filter(tuition__icontains=max_tuition)
-
-        # Limit results
-        limit = int(request.GET.get('limit', 50))
-        institutions = institutions[:limit]
-
-        # Format response
-        institution_list = []
-        for uni in institutions:
-            institution_list.append({
-                'id': uni.id,
-                'name': uni.university_name,
-                'country': uni.country,
-                'city': uni.city,
-                'tuition': uni.tuition,
-                'programs': uni.programs[:5] if uni.programs else [],  # Limit programs
-                'ranking': uni.ranking,
-                'ielts_requirement': uni.ielts_requirement,
-                'toefl_requirement': uni.toefl_requirement,
-                'affordability': uni.affordability,
-                'region': uni.region
-            })
-
-        return Response({
-            'success': True,
-            'institutions': institution_list,
-            'total_count': len(institution_list)
-        }, status=status.HTTP_200_OK)
-
-    except Exception as e:
-        return Response({
-            'success': False,
-            'error': f'Failed to get institutions: {str(e)}'
-        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return _get_institutions_list(request)
 
 
 @extend_schema(
@@ -531,7 +539,7 @@ def get_institutions(request):
 @permission_classes([AllowAny])
 def get_universities_legacy(request):
     """Legacy wrapper for get_institutions (backward compatibility)."""
-    return get_institutions(request)
+    return _get_institutions_list(request)
 
 
 @extend_schema(
@@ -662,7 +670,32 @@ def get_institution_details(request, institution_id=None, university_id=None):
 @permission_classes([AllowAny])
 def get_university_details_legacy(request, university_id):
     """Legacy wrapper for get_institution_details (backward compatibility)."""
-    return get_institution_details(request, institution_id=university_id)
+    try:
+        institution = get_object_or_404(University, id=university_id)
+
+        return Response({
+            'success': True,
+            'institution': {
+                'id': institution.id,
+                'name': institution.university_name,
+                'country': institution.country,
+                'city': institution.city,
+                'tuition': institution.tuition,
+                'programs': institution.programs,
+                'ranking': institution.ranking,
+                'ielts_requirement': institution.ielts_requirement,
+                'toefl_requirement': institution.toefl_requirement,
+                'affordability': institution.affordability,
+                'region': institution.region,
+                'notes': institution.notes
+            }
+        }, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response({
+            'success': False,
+            'error': f'Failed to get institution details: {str(e)}'
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Admin Panel API Views (for counselors)
