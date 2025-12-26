@@ -593,6 +593,132 @@ class BlogComment(models.Model):
         return self.parent is not None
 
 
+class BlogPostReference(models.Model):
+    """
+    References/citations for blog posts.
+    Allows up to 10 optional references per post for credibility and sourcing.
+    Each reference contains a title and URL link.
+    """
+    # Constants for validation
+    MAX_REFERENCES_PER_POST = 10
+
+    # Unique identifier
+    reference_id = models.UUIDField(
+        default=uuid.uuid4,
+        unique=True,
+        editable=False
+    )
+
+    # Relationship to blog post
+    post = models.ForeignKey(
+        BlogPost,
+        on_delete=models.CASCADE,
+        related_name='references',
+        help_text="The blog post this reference belongs to"
+    )
+
+    # Reference details
+    title = models.CharField(
+        max_length=255,
+        help_text="Title or description of the reference source"
+    )
+    url = models.URLField(
+        max_length=2048,
+        help_text="URL link to the reference source"
+    )
+
+    # Optional additional metadata
+    author = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Author of the referenced content (optional)"
+    )
+    publication_date = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Publication date of the reference (optional)"
+    )
+    accessed_date = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Date when the reference was accessed (optional)"
+    )
+    description = models.TextField(
+        blank=True,
+        help_text="Brief description or note about this reference (optional)"
+    )
+
+    # Ordering
+    order = models.PositiveIntegerField(
+        default=0,
+        help_text="Display order of the reference (0-9)"
+    )
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'blog_post_references'
+        verbose_name = 'Blog Post Reference'
+        verbose_name_plural = 'Blog Post References'
+        ordering = ['order', 'created_at']
+        indexes = [
+            models.Index(fields=['post', 'order']),
+        ]
+        # Ensure unique ordering per post
+        constraints = [
+            models.UniqueConstraint(
+                fields=['post', 'order'],
+                name='unique_reference_order_per_post'
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.title} - {self.post.title[:30]}"
+
+    def clean(self):
+        """
+        Validate that a post doesn't exceed the maximum number of references.
+        Also validates URL format for security.
+        """
+        from django.core.exceptions import ValidationError
+        from django.core.validators import URLValidator
+        import re
+
+        # Validate maximum references per post
+        if self.post_id:
+            existing_count = BlogPostReference.objects.filter(
+                post_id=self.post_id
+            ).exclude(pk=self.pk).count()
+
+            if existing_count >= self.MAX_REFERENCES_PER_POST:
+                raise ValidationError(
+                    f"A blog post cannot have more than {self.MAX_REFERENCES_PER_POST} references."
+                )
+
+        # Validate URL for security (no javascript: or data: URLs)
+        if self.url:
+            url_lower = self.url.lower().strip()
+            dangerous_protocols = ['javascript:', 'data:', 'vbscript:', 'file:']
+            for protocol in dangerous_protocols:
+                if url_lower.startswith(protocol):
+                    raise ValidationError({
+                        'url': f"URLs with '{protocol}' protocol are not allowed for security reasons."
+                    })
+
+            # Ensure URL starts with http:// or https://
+            if not re.match(r'^https?://', url_lower):
+                raise ValidationError({
+                    'url': "URL must start with 'http://' or 'https://'"
+                })
+
+    def save(self, *args, **kwargs):
+        # Run full_clean to ensure validations are applied
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+
 class BlogSubscription(models.Model):
     """
     Email subscriptions for blog updates/newsletter.

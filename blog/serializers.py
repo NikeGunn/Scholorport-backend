@@ -14,6 +14,7 @@ from .models import (
     BlogTag,
     NewsSource,
     BlogPost,
+    BlogPostReference,
     BlogImage,
     BlogComment,
     BlogSubscription
@@ -359,6 +360,128 @@ class BlogCommentCreateSerializer(serializers.ModelSerializer):
 
 
 # ============================================================
+# REFERENCE SERIALIZERS
+# ============================================================
+
+class BlogPostReferenceSerializer(serializers.ModelSerializer):
+    """Serializer for blog post references (read operations)."""
+
+    class Meta:
+        model = BlogPostReference
+        fields = [
+            'id', 'reference_id', 'title', 'url', 'author',
+            'publication_date', 'accessed_date', 'description',
+            'order', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'reference_id', 'created_at', 'updated_at']
+
+
+class BlogPostReferenceCreateUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for creating/updating blog post references.
+    Includes validation for security and maximum references limit.
+    """
+
+    class Meta:
+        model = BlogPostReference
+        fields = [
+            'title', 'url', 'author', 'publication_date',
+            'accessed_date', 'description', 'order'
+        ]
+        extra_kwargs = {
+            'author': {'required': False},
+            'publication_date': {'required': False},
+            'accessed_date': {'required': False},
+            'description': {'required': False},
+            'order': {'required': False},
+        }
+
+    def validate_url(self, value: str) -> str:
+        """
+        Validate URL for security concerns.
+        Prevents XSS and other URL-based attacks.
+        """
+        import re
+
+        if not value:
+            return value
+
+        url_lower = value.lower().strip()
+
+        # Block dangerous URL protocols
+        dangerous_protocols = ['javascript:', 'data:', 'vbscript:', 'file:']
+        for protocol in dangerous_protocols:
+            if url_lower.startswith(protocol):
+                raise serializers.ValidationError(
+                    f"URLs with '{protocol}' protocol are not allowed for security reasons."
+                )
+
+        # Ensure URL uses http or https
+        if not re.match(r'^https?://', url_lower):
+            raise serializers.ValidationError(
+                "URL must start with 'http://' or 'https://'"
+            )
+
+        return value
+
+    def validate(self, data):
+        """
+        Validate reference data including maximum references check.
+        """
+        # Get the post from context (passed during create)
+        post = self.context.get('post')
+
+        if post and not self.instance:
+            # Creating a new reference - check limit
+            existing_count = BlogPostReference.objects.filter(post=post).count()
+            if existing_count >= BlogPostReference.MAX_REFERENCES_PER_POST:
+                raise serializers.ValidationError({
+                    'non_field_errors': [
+                        f"A blog post cannot have more than {BlogPostReference.MAX_REFERENCES_PER_POST} references."
+                    ]
+                })
+
+        return data
+
+
+class BlogPostReferenceNestedSerializer(serializers.Serializer):
+    """
+    Nested serializer for creating references along with a blog post.
+    Used in BlogPostCreateSerializer for inline reference creation.
+    """
+    title = serializers.CharField(max_length=255)
+    url = serializers.URLField(max_length=2048)
+    author = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    publication_date = serializers.DateField(required=False, allow_null=True)
+    accessed_date = serializers.DateField(required=False, allow_null=True)
+    description = serializers.CharField(required=False, allow_blank=True)
+    order = serializers.IntegerField(required=False, min_value=0, max_value=9, default=0)
+
+    def validate_url(self, value: str) -> str:
+        """Validate URL for security."""
+        import re
+
+        if not value:
+            return value
+
+        url_lower = value.lower().strip()
+        dangerous_protocols = ['javascript:', 'data:', 'vbscript:', 'file:']
+
+        for protocol in dangerous_protocols:
+            if url_lower.startswith(protocol):
+                raise serializers.ValidationError(
+                    f"URLs with '{protocol}' protocol are not allowed for security reasons."
+                )
+
+        if not re.match(r'^https?://', url_lower):
+            raise serializers.ValidationError(
+                "URL must start with 'http://' or 'https://'"
+            )
+
+        return value
+
+
+# ============================================================
 # POST SERIALIZERS
 # ============================================================
 
@@ -417,10 +540,12 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
     category = BlogCategoryListSerializer(read_only=True)
     tags = BlogTagSerializer(many=True, read_only=True)
     source = NewsSourceDetailSerializer(read_only=True)
+    references = BlogPostReferenceSerializer(many=True, read_only=True)
     featured_image_url = serializers.SerializerMethodField()
     thumbnail_url = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
+    reference_count = serializers.SerializerMethodField()
     related_posts = BlogPostListSerializer(many=True, read_only=True)
     is_published = serializers.BooleanField(read_only=True)
 
@@ -431,6 +556,7 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
             'content', 'content_type', 'featured_image', 'featured_image_url',
             'featured_image_alt', 'thumbnail', 'thumbnail_url', 'video_url',
             'category', 'tags', 'source', 'source_url',
+            'references', 'reference_count',
             'author', 'status', 'published_at',
             'is_featured', 'is_pinned', 'allow_comments', 'is_published',
             'view_count', 'like_count', 'share_count', 'reading_time_minutes',
@@ -467,6 +593,11 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
     def get_comment_count(self, obj) -> int:
         return obj.comments.filter(status='approved').count()
 
+    @extend_schema_field(OpenApiTypes.INT)
+    def get_reference_count(self, obj) -> int:
+        """Return the count of references for this post."""
+        return obj.references.count()
+
 
 class BlogPostCreateSerializer(serializers.ModelSerializer):
     """Serializer for creating blog posts."""
@@ -482,6 +613,13 @@ class BlogPostCreateSerializer(serializers.ModelSerializer):
         write_only=True,
         help_text="List of existing tag IDs"
     )
+    references = serializers.ListField(
+        child=BlogPostReferenceNestedSerializer(),
+        required=False,
+        write_only=True,
+        max_length=BlogPostReference.MAX_REFERENCES_PER_POST,
+        help_text=f"List of references (optional, max {BlogPostReference.MAX_REFERENCES_PER_POST}). Each with title and url."
+    )
 
     class Meta:
         model = BlogPost
@@ -489,6 +627,7 @@ class BlogPostCreateSerializer(serializers.ModelSerializer):
             'title', 'slug', 'subtitle', 'excerpt', 'content', 'content_type',
             'featured_image', 'featured_image_alt', 'thumbnail', 'video_url',
             'category', 'tags', 'tag_ids', 'source', 'source_url',
+            'references',
             'status', 'published_at',
             'is_featured', 'is_pinned', 'allow_comments',
             'meta_title', 'meta_description', 'meta_keywords', 'canonical_url'
@@ -499,6 +638,25 @@ class BlogPostCreateSerializer(serializers.ModelSerializer):
             'content': {'required': True, 'error_messages': {'required': 'Content is required for blog post'}},
             'title': {'required': True, 'error_messages': {'required': 'Title is required for blog post'}}
         }
+
+    def validate_references(self, value):
+        """Validate references list."""
+        if not value:
+            return value
+
+        if len(value) > BlogPostReference.MAX_REFERENCES_PER_POST:
+            raise serializers.ValidationError(
+                f"Maximum {BlogPostReference.MAX_REFERENCES_PER_POST} references allowed per post."
+            )
+
+        # Check for duplicate orders
+        orders = [ref.get('order', 0) for ref in value]
+        if len(orders) != len(set(orders)):
+            # Auto-fix orders if duplicates found
+            for i, ref in enumerate(value):
+                ref['order'] = i
+
+        return value
 
     def validate(self, data):
         """Custom validation for blog posts."""
@@ -525,6 +683,7 @@ class BlogPostCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         tags_data = validated_data.pop('tags', [])
         tag_ids = validated_data.pop('tag_ids', [])
+        references_data = validated_data.pop('references', [])
 
         # Set author from request
         request = self.context.get('request')
@@ -547,6 +706,19 @@ class BlogPostCreateSerializer(serializers.ModelSerializer):
             existing_tags = BlogTag.objects.filter(id__in=tag_ids)
             post.tags.add(*existing_tags)
 
+        # Handle references (optional)
+        for i, ref_data in enumerate(references_data):
+            BlogPostReference.objects.create(
+                post=post,
+                title=ref_data['title'],
+                url=ref_data['url'],
+                author=ref_data.get('author', ''),
+                publication_date=ref_data.get('publication_date'),
+                accessed_date=ref_data.get('accessed_date'),
+                description=ref_data.get('description', ''),
+                order=ref_data.get('order', i)
+            )
+
         return post
 
 
@@ -562,6 +734,13 @@ class BlogPostUpdateSerializer(serializers.ModelSerializer):
         required=False,
         write_only=True
     )
+    references = serializers.ListField(
+        child=BlogPostReferenceNestedSerializer(),
+        required=False,
+        write_only=True,
+        max_length=BlogPostReference.MAX_REFERENCES_PER_POST,
+        help_text=f"List of references (optional, max {BlogPostReference.MAX_REFERENCES_PER_POST}). Replaces existing references."
+    )
 
     class Meta:
         model = BlogPost
@@ -569,10 +748,29 @@ class BlogPostUpdateSerializer(serializers.ModelSerializer):
             'title', 'slug', 'subtitle', 'excerpt', 'content', 'content_type',
             'featured_image', 'featured_image_alt', 'thumbnail', 'video_url',
             'category', 'tags', 'tag_ids', 'source', 'source_url',
+            'references',
             'status', 'published_at',
             'is_featured', 'is_pinned', 'allow_comments',
             'meta_title', 'meta_description', 'meta_keywords', 'canonical_url'
         ]
+
+    def validate_references(self, value):
+        """Validate references list."""
+        if value is None:
+            return value
+
+        if len(value) > BlogPostReference.MAX_REFERENCES_PER_POST:
+            raise serializers.ValidationError(
+                f"Maximum {BlogPostReference.MAX_REFERENCES_PER_POST} references allowed per post."
+            )
+
+        # Check for duplicate orders and auto-fix
+        orders = [ref.get('order', 0) for ref in value]
+        if len(orders) != len(set(orders)):
+            for i, ref in enumerate(value):
+                ref['order'] = i
+
+        return value
 
     def validate(self, data):
         """Custom validation for blog post updates."""
@@ -601,6 +799,7 @@ class BlogPostUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         tags_data = validated_data.pop('tags', None)
         tag_ids = validated_data.pop('tag_ids', None)
+        references_data = validated_data.pop('references', None)
 
         # Auto-publish if status changed to published
         if validated_data.get('status') == 'published' and not instance.published_at:
@@ -622,6 +821,24 @@ class BlogPostUpdateSerializer(serializers.ModelSerializer):
                 instance.tags.clear()
             existing_tags = BlogTag.objects.filter(id__in=tag_ids)
             instance.tags.add(*existing_tags)
+
+        # Update references if provided (replaces existing)
+        if references_data is not None:
+            # Delete existing references
+            instance.references.all().delete()
+
+            # Create new references
+            for i, ref_data in enumerate(references_data):
+                BlogPostReference.objects.create(
+                    post=instance,
+                    title=ref_data['title'],
+                    url=ref_data['url'],
+                    author=ref_data.get('author', ''),
+                    publication_date=ref_data.get('publication_date'),
+                    accessed_date=ref_data.get('accessed_date'),
+                    description=ref_data.get('description', ''),
+                    order=ref_data.get('order', i)
+                )
 
         return instance
 

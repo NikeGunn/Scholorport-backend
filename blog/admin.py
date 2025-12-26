@@ -12,6 +12,7 @@ from .models import (
     BlogTag,
     NewsSource,
     BlogPost,
+    BlogPostReference,
     BlogImage,
     BlogComment,
     BlogSubscription
@@ -129,6 +130,30 @@ class NewsSourceAdmin(admin.ModelAdmin):
     get_post_count.short_description = 'Posts'
 
 
+class BlogPostReferenceInline(admin.TabularInline):
+    """
+    Inline admin for managing blog post references.
+    Allows adding up to 10 references per post directly in the post admin.
+    """
+    model = BlogPostReference
+    extra = 1  # Show one empty form by default
+    max_num = BlogPostReference.MAX_REFERENCES_PER_POST
+    min_num = 0
+    fields = ['title', 'url', 'author', 'publication_date', 'description', 'order']
+    readonly_fields = []
+    ordering = ['order', 'created_at']
+    verbose_name = 'Reference'
+    verbose_name_plural = 'References (Optional - Max 10)'
+
+    classes = ['collapse']  # Collapsible by default
+
+    def get_extra(self, request, obj=None, **kwargs):
+        """Show 1 extra form for new posts, 0 for existing posts with references."""
+        if obj and obj.references.exists():
+            return 0
+        return 1
+
+
 class BlogCommentInline(admin.TabularInline):
     """Inline admin for post comments."""
     model = BlogComment
@@ -167,7 +192,7 @@ class BlogPostAdmin(admin.ModelAdmin):
     list_display = [
         'title', 'get_author', 'category', 'get_source_badge',
         'get_status_badge', 'is_featured', 'is_pinned', 'view_count',
-        'like_count', 'get_comment_count', 'published_at', 'created_at'
+        'like_count', 'get_comment_count', 'get_reference_count', 'published_at', 'created_at'
     ]
     list_filter = [
         PostStatusFilter, 'is_featured', 'is_pinned', 'content_type',
@@ -182,7 +207,7 @@ class BlogPostAdmin(admin.ModelAdmin):
     ]
     filter_horizontal = ['tags', 'related_posts']
     date_hierarchy = 'created_at'
-    inlines = [BlogCommentInline]
+    inlines = [BlogPostReferenceInline, BlogCommentInline]
     ordering = ['-created_at']
 
     fieldsets = (
@@ -266,6 +291,18 @@ class BlogPostAdmin(admin.ModelAdmin):
             return format_html('{} <span style="color:orange;">(+{})</span>', count, pending)
         return count
     get_comment_count.short_description = 'Comments'
+
+    def get_reference_count(self, obj):
+        """Display the number of references for a post."""
+        count = obj.references.count()
+        if count > 0:
+            return format_html(
+                '<span style="background-color:#9b59b6; color:white; padding:2px 6px; '
+                'border-radius:3px; font-size:11px;">{}</span>',
+                count
+            )
+        return '-'
+    get_reference_count.short_description = 'Refs'
 
     @admin.action(description='Publish selected posts')
     def publish_posts(self, request, queryset):
@@ -454,6 +491,72 @@ class BlogCommentAdmin(admin.ModelAdmin):
     def mark_spam(self, request, queryset):
         updated = queryset.update(status='spam')
         self.message_user(request, f'{updated} comment(s) marked as spam.')
+
+
+@admin.register(BlogPostReference)
+class BlogPostReferenceAdmin(admin.ModelAdmin):
+    """
+    Admin interface for blog post references.
+    Provides a standalone view for managing all references across posts.
+    """
+    list_display = [
+        'title', 'get_post_title', 'get_url_display', 'author',
+        'publication_date', 'order', 'created_at'
+    ]
+    list_filter = ['post__category', 'publication_date', 'created_at']
+    search_fields = ['title', 'url', 'author', 'description', 'post__title']
+    readonly_fields = ['reference_id', 'created_at', 'updated_at']
+    raw_id_fields = ['post']
+    ordering = ['post', 'order', 'created_at']
+    list_per_page = 25
+
+    fieldsets = (
+        ('Post Association', {
+            'fields': ('post',)
+        }),
+        ('Reference Details', {
+            'fields': ('title', 'url', 'author', 'description')
+        }),
+        ('Dates', {
+            'fields': ('publication_date', 'accessed_date'),
+            'classes': ('collapse',)
+        }),
+        ('Display', {
+            'fields': ('order',)
+        }),
+        ('System', {
+            'fields': ('reference_id', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+
+    def get_post_title(self, obj):
+        """Display truncated post title with link."""
+        title = obj.post.title[:40]
+        if len(obj.post.title) > 40:
+            title += '...'
+        return format_html(
+            '<a href="/admin/blog/blogpost/{}/change/">{}</a>',
+            obj.post.id, title
+        )
+    get_post_title.short_description = 'Post'
+    get_post_title.admin_order_field = 'post__title'
+
+    def get_url_display(self, obj):
+        """Display URL as clickable link with truncation."""
+        display_url = obj.url[:50]
+        if len(obj.url) > 50:
+            display_url += '...'
+        return format_html(
+            '<a href="{}" target="_blank" rel="noopener noreferrer" '
+            'style="color:#3498db;">{}</a>',
+            obj.url, display_url
+        )
+    get_url_display.short_description = 'URL'
+
+    def get_queryset(self, request):
+        """Optimize queries by selecting related post."""
+        return super().get_queryset(request).select_related('post')
 
 
 @admin.register(BlogSubscription)
