@@ -142,6 +142,9 @@ class University(models.Model):
     name_variations = models.JSONField(default=list)
     program_categories = models.JSONField(default=list)
     searchable_text = models.TextField(blank=True)
+    
+    # Official application URL
+    apply_url = models.URLField(max_length=500, blank=True, null=True, help_text="Official application page URL")
 
     created_at = models.DateTimeField(auto_now_add=True)
 

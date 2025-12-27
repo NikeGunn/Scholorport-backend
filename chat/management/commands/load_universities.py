@@ -87,6 +87,7 @@ class Command(BaseCommand):
                         'name_variations': uni_data.get('name_variations', []),
                         'program_categories': uni_data.get('program_categories', []),
                         'searchable_text': uni_data.get('searchable_text', ''),
+                        'apply_url': uni_data.get('apply_url', ''),
                     }
                 )
 
@@ -107,6 +108,7 @@ class Command(BaseCommand):
                     university.name_variations = uni_data.get('name_variations', university.name_variations)
                     university.program_categories = uni_data.get('program_categories', university.program_categories)
                     university.searchable_text = uni_data.get('searchable_text', university.searchable_text)
+                    university.apply_url = uni_data.get('apply_url', '') or university.apply_url or ''
                     university.save()
                     updated_count += 1
 

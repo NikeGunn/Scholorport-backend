@@ -97,6 +97,11 @@ class ConversationManager:
             return {'error': 'Conversation not found'}
 
         current_step = conversation.current_step
+        
+        # Validate input based on current step
+        validation_result = self._validate_input(user_input, current_step, conversation)
+        if validation_result:
+            return validation_result
 
         # Save user message
         user_message = ChatMessage.objects.create(
@@ -499,6 +504,178 @@ Format with clear structure and emojis.
             'data_saved': consent,
             'session_id': str(conversation.session_id)
         }
+
+    def _validate_input(self, user_input: str, step: int, conversation: ConversationSession) -> Optional[Dict]:
+        """
+        Validate user input based on current step and return respectful prompts for invalid input.
+        
+        Args:
+            user_input: Raw user input
+            step: Current conversation step
+            conversation: The conversation session
+            
+        Returns:
+            Dict with validation error response, or None if valid
+        """
+        user_input = user_input.strip()
+        
+        # Step 1: Name validation
+        if step == 1:
+            # Check for very short or nonsensical names
+            if len(user_input) < 2:
+                return {
+                    'bot_response': "I'd love to address you properly! Could you please share your name? Even just your first name works perfectly. 😊",
+                    'conversation_step': step,
+                    'session_id': str(conversation.session_id),
+                    'is_completed': False,
+                    'suggested_universities': None,
+                    'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                    'validation_error': True
+                }
+        
+        # Step 2: Education validation
+        elif step == 2:
+            education_keywords = ['school', 'high', 'bachelor', 'master', 'phd', 'diploma', 'degree', 
+                                  'bba', 'bsc', 'mba', 'msc', 'btech', 'bcom', 'ba', 'ma', 'engineering',
+                                  'computer', 'science', 'business', 'arts', 'medicine', 'law', 'graduate',
+                                  'undergraduate', '12th', '10th', 'college', 'university', '%', 'cgpa', 'gpa']
+            if not any(keyword in user_input.lower() for keyword in education_keywords) and len(user_input) < 3:
+                return {
+                    'bot_response': f"Thanks for sharing! To help you better, {conversation.processed_name or 'friend'}, could you tell me about your education background? For example: 'Bachelor's in Computer Science' or 'MBA' or 'High School Graduate'. 📚",
+                    'conversation_step': step,
+                    'session_id': str(conversation.session_id),
+                    'is_completed': False,
+                    'suggested_universities': None,
+                    'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                    'validation_error': True
+                }
+        
+        # Step 3: Test score validation (key validation step)
+        elif step == 3:
+            # Check for valid test score patterns
+            ielts_pattern = r'(?:ielts)?\s*[:]?\s*([0-9](?:\.[05])?)'
+            toefl_pattern = r'(?:toefl)?\s*[:]?\s*(\d{2,3})'
+            no_test_keywords = ['no', 'not', 'haven\'t', 'dont', 'don\'t', 'yet', 'none', 'planning', 'will']
+            
+            has_ielts = re.search(ielts_pattern, user_input.lower())
+            has_toefl = re.search(toefl_pattern, user_input.lower())
+            has_no_test = any(keyword in user_input.lower() for keyword in no_test_keywords)
+            
+            if not has_ielts and not has_toefl and not has_no_test:
+                # Check if it's just a number
+                just_number = re.match(r'^\s*(\d+\.?\d*)\s*$', user_input)
+                if just_number:
+                    score = float(just_number.group(1))
+                    if 0 <= score <= 9:
+                        # Likely IELTS score, accept it
+                        return None
+                    elif 30 <= score <= 120:
+                        # Likely TOEFL score, accept it
+                        return None
+                
+                return {
+                    'bot_response': f"I appreciate your response, {conversation.processed_name or 'friend'}! 😊 To recommend the best universities, I need to know your English proficiency test score. Could you please share one of the following:\n\n• **IELTS score** (e.g., 'IELTS 6.5' or 'IELTS 7.0')\n• **TOEFL score** (e.g., 'TOEFL 80' or 'TOEFL 100')\n• Or let me know if you haven't taken a test yet\n\nThis helps me find universities that match your qualifications! 🎓",
+                    'conversation_step': step,
+                    'session_id': str(conversation.session_id),
+                    'is_completed': False,
+                    'suggested_universities': None,
+                    'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                    'validation_error': True
+                }
+            
+            # Validate IELTS score range
+            if has_ielts:
+                score = float(has_ielts.group(1))
+                if score < 0 or score > 9:
+                    return {
+                        'bot_response': f"I noticed the IELTS score might be outside the typical range (0-9). {conversation.processed_name or 'Friend'}, IELTS scores usually range from 0 to 9, with half-point increments like 6.0, 6.5, 7.0. Could you please double-check your score? 🤔",
+                        'conversation_step': step,
+                        'session_id': str(conversation.session_id),
+                        'is_completed': False,
+                        'suggested_universities': None,
+                        'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                        'validation_error': True
+                    }
+            
+            # Validate TOEFL score range
+            if has_toefl:
+                score = int(has_toefl.group(1))
+                if score < 0 or score > 120:
+                    return {
+                        'bot_response': f"I noticed the TOEFL score might be outside the typical range. {conversation.processed_name or 'Friend'}, TOEFL iBT scores range from 0 to 120. Could you please confirm your score? 🤔",
+                        'conversation_step': step,
+                        'session_id': str(conversation.session_id),
+                        'is_completed': False,
+                        'suggested_universities': None,
+                        'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                        'validation_error': True
+                    }
+        
+        # Step 4: Budget validation
+        elif step == 4:
+            budget_pattern = r'(\d+(?:,\d+)*(?:\.\d+)?)|([\$£€])|\b(dollar|pound|euro|usd|gbp|eur|inr|rupee)\b|\b(thousand|k|lakh|lac)\b'
+            if not re.search(budget_pattern, user_input.lower()):
+                return {
+                    'bot_response': f"No worries, {conversation.processed_name or 'friend'}! 💰 To find universities within your budget, could you share your yearly budget in a format like:\n\n• '$20,000 USD' or '20000 dollars'\n• '£15,000 GBP' or '15000 pounds'\n• '€18,000 EUR' or '18000 euros'\n\nThis helps me recommend affordable options for you!",
+                    'conversation_step': step,
+                    'session_id': str(conversation.session_id),
+                    'is_completed': False,
+                    'suggested_universities': None,
+                    'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                    'validation_error': True
+                }
+        
+        # Step 5: Country validation
+        elif step == 5:
+            country_keywords = ['usa', 'uk', 'canada', 'australia', 'germany', 'france', 'netherlands',
+                              'ireland', 'new zealand', 'singapore', 'japan', 'south korea', 'china',
+                              'united states', 'america', 'britain', 'england', 'scotland', 'europe',
+                              'spain', 'italy', 'sweden', 'norway', 'denmark', 'switzerland', 'austria',
+                              'belgium', 'poland', 'czech', 'hungary', 'any', 'anywhere', 'open', 'flexible']
+            if not any(keyword in user_input.lower() for keyword in country_keywords) and len(user_input) < 3:
+                return {
+                    'bot_response': f"Almost there, {conversation.processed_name or 'friend'}! 🌍 Which country would you like to study in? Popular destinations include:\n\n• USA, UK, Canada, Australia\n• Germany, France, Netherlands\n• Singapore, Japan, South Korea\n\nOr you can say 'Open to anywhere' if you're flexible!",
+                    'conversation_step': step,
+                    'session_id': str(conversation.session_id),
+                    'is_completed': False,
+                    'suggested_universities': None,
+                    'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                    'validation_error': True
+                }
+        
+        # Step 6: Email validation
+        elif step == 6:
+            email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+            skip_keywords = ['skip', 'no', 'later', 'don\'t', 'dont', 'not now', 'na', 'n/a']
+            
+            if not re.match(email_pattern, user_input.strip()) and not any(kw in user_input.lower() for kw in skip_keywords):
+                return {
+                    'bot_response': f"I'd love to have our counselors reach out to help you, {conversation.processed_name or 'friend'}! 📧 Could you please provide a valid email address (e.g., yourname@email.com)?\n\nIf you prefer not to share, just type 'skip' to continue.",
+                    'conversation_step': step,
+                    'session_id': str(conversation.session_id),
+                    'is_completed': False,
+                    'suggested_universities': None,
+                    'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                    'validation_error': True
+                }
+        
+        # Step 7: Phone validation
+        elif step == 7:
+            phone_pattern = r'[\d\s\-\+\(\)]{7,}'
+            skip_keywords = ['skip', 'no', 'later', 'don\'t', 'dont', 'not now', 'na', 'n/a']
+            
+            if not re.search(phone_pattern, user_input) and not any(kw in user_input.lower() for kw in skip_keywords):
+                return {
+                    'bot_response': f"One last thing, {conversation.processed_name or 'friend'}! 📱 Could you share your phone number so our counselors can contact you? Please include your country code (e.g., +1 555 123 4567).\n\nIf you prefer not to share, just type 'skip' to continue.",
+                    'conversation_step': step,
+                    'session_id': str(conversation.session_id),
+                    'is_completed': False,
+                    'suggested_universities': None,
+                    'guided_suggestions': self.GUIDED_SUGGESTIONS.get(step, []),
+                    'validation_error': True
+                }
+        
+        return None  # Input is valid
 
     def handle_off_topic(self, user_input: str) -> str:
         """Handle off-topic questions with polite redirect"""

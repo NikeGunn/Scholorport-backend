@@ -373,29 +373,137 @@ def get_conversation_history(request, session_id):
 
 def _get_institutions_list(request):
     """
-    Helper function to get institutions list with filtering.
+    Helper function to get institutions list with hybrid filtering.
+    Supports searching by name, location, programs, region, ranking, and affordability.
     This is the core business logic used by both new and legacy endpoints.
     """
     try:
+        from django.db.models import Q
         institutions = University.objects.all()
 
-        # Apply filters
+        # Hybrid search - searches across multiple fields
+        search = request.GET.get('search')
+        if search:
+            search_terms = search.strip().split()
+            search_query = Q()
+            for term in search_terms:
+                term_query = (
+                    Q(university_name__icontains=term) |
+                    Q(country__icontains=term) |
+                    Q(city__icontains=term) |
+                    Q(region__icontains=term) |
+                    Q(affordability__icontains=term) |
+                    Q(notes__icontains=term) |
+                    Q(searchable_text__icontains=term)
+                )
+                search_query &= term_query
+            institutions = institutions.filter(search_query)
+            
+            # Also search in programs (JSONField)
+            program_matches = University.objects.none()
+            for term in search_terms:
+                program_matches = program_matches | University.objects.filter(programs__icontains=term)
+            institutions = institutions | program_matches
+            institutions = institutions.distinct()
+
+        # Filter by country
         country = request.GET.get('country')
         if country:
             institutions = institutions.filter(country__icontains=country)
 
-        search = request.GET.get('search')
-        if search:
-            institutions = institutions.filter(university_name__icontains=search)
+        # Filter by city
+        city = request.GET.get('city')
+        if city:
+            institutions = institutions.filter(city__icontains=city)
 
+        # Filter by region (Europe, Asia, North America, etc.)
+        region = request.GET.get('region')
+        if region:
+            institutions = institutions.filter(region__icontains=region)
+
+        # Filter by affordability
+        affordability = request.GET.get('affordability')
+        if affordability:
+            institutions = institutions.filter(affordability__icontains=affordability)
+
+        # Filter by program/field of study
+        program = request.GET.get('program')
+        if program:
+            institutions = institutions.filter(
+                Q(programs__icontains=program) |
+                Q(program_categories__icontains=program)
+            )
+
+        # Filter by IELTS requirement (max)
+        max_ielts = request.GET.get('max_ielts')
+        if max_ielts:
+            try:
+                institutions = institutions.filter(ielts_requirement__lte=float(max_ielts))
+            except ValueError:
+                pass
+
+        # Filter by TOEFL requirement (max)
+        max_toefl = request.GET.get('max_toefl')
+        if max_toefl:
+            try:
+                institutions = institutions.filter(toefl_requirement__lte=int(max_toefl))
+            except ValueError:
+                pass
+
+        # Filter by max tuition (attempts to parse numeric value)
         max_tuition = request.GET.get('max_tuition')
         if max_tuition:
-            # This is simplified - in reality you'd need more complex tuition parsing
-            institutions = institutions.filter(tuition__icontains=max_tuition)
+            try:
+                import re
+                max_amount = int(re.sub(r'[^\d]', '', max_tuition))
+                # Filter universities where extracted tuition is below max
+                filtered_ids = []
+                for uni in institutions:
+                    tuition_match = re.search(r'(\d+(?:,\d+)*)', uni.tuition.replace(',', ''))
+                    if tuition_match:
+                        tuition_amount = int(tuition_match.group(1))
+                        if tuition_amount <= max_amount:
+                            filtered_ids.append(uni.id)
+                institutions = institutions.filter(id__in=filtered_ids)
+            except (ValueError, AttributeError):
+                pass
 
-        # Limit results
+        # Filter by ranking (top N)
+        top_ranking = request.GET.get('top_ranking')
+        if top_ranking:
+            try:
+                import re
+                ranking_limit = int(top_ranking)
+                ranked_ids = []
+                for uni in institutions:
+                    ranking_match = re.search(r'^(\d+)', str(uni.ranking))
+                    if ranking_match:
+                        rank = int(ranking_match.group(1))
+                        if rank <= ranking_limit:
+                            ranked_ids.append(uni.id)
+                institutions = institutions.filter(id__in=ranked_ids)
+            except (ValueError, AttributeError):
+                pass
+
+        # Sort options
+        sort_by = request.GET.get('sort_by', 'name')
+        sort_order = request.GET.get('sort_order', 'asc')
+        order_prefix = '-' if sort_order == 'desc' else ''
+        
+        if sort_by == 'name':
+            institutions = institutions.order_by(f'{order_prefix}university_name')
+        elif sort_by == 'country':
+            institutions = institutions.order_by(f'{order_prefix}country', 'university_name')
+        elif sort_by == 'ranking':
+            institutions = institutions.order_by(f'{order_prefix}ranking')
+
+        # Get total count before pagination
+        total_count = institutions.count()
+
+        # Pagination
         limit = int(request.GET.get('limit', 50))
-        institutions = institutions[:limit]
+        offset = int(request.GET.get('offset', 0))
+        institutions = institutions[offset:offset + limit]
 
         # Format response
         institution_list = []
@@ -411,13 +519,19 @@ def _get_institutions_list(request):
                 'ielts_requirement': uni.ielts_requirement,
                 'toefl_requirement': uni.toefl_requirement,
                 'affordability': uni.affordability,
-                'region': uni.region
+                'region': uni.region,
+                'apply_url': getattr(uni, 'apply_url', None) or ''
             })
 
         return Response({
             'success': True,
             'institutions': institution_list,
-            'total_count': len(institution_list)
+            'total_count': total_count,
+            'pagination': {
+                'limit': limit,
+                'offset': offset,
+                'has_more': offset + limit < total_count
+            }
         }, status=status.HTTP_200_OK)
 
     except Exception as e:
@@ -687,7 +801,8 @@ def get_university_details_legacy(request, university_id):
                 'toefl_requirement': institution.toefl_requirement,
                 'affordability': institution.affordability,
                 'region': institution.region,
-                'notes': institution.notes
+                'notes': institution.notes,
+                'apply_url': getattr(institution, 'apply_url', None) or ''
             }
         }, status=status.HTTP_200_OK)
 

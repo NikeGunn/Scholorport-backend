@@ -505,7 +505,8 @@ class UniversitySelector:
                 'notes': uni.notes,
                 'affordability': uni.affordability,
                 'why_selected': why_selected,
-                'region': uni.region
+                'region': uni.region,
+                'apply_url': getattr(uni, 'apply_url', None) or ''
             })
 
         return response
