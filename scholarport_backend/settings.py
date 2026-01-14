@@ -1,33 +1,62 @@
 """
 Django settings for Scholarport Backend - University Search Chatbot
-
-This file contains all the configuration for our Django application.
-As a beginner, each setting is explained to help you understand what it does.
+Production-ready configuration with PostgreSQL and proper security settings.
 """
 
 from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Suppress Google Cloud ALTS warnings in development
+# Suppress Google Cloud ALTS warnings
 os.environ.setdefault('GRPC_VERBOSITY', 'ERROR')
 os.environ.setdefault('GLOG_minloglevel', '2')
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables from .env file
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# In production, this should be a long, random string
+# Detect environment
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
+IS_PRODUCTION = DJANGO_ENV == 'production'
+
+if IS_PRODUCTION:
+    print("Production mode active - Debug OFF, PostgreSQL database")
+else:
+    print("Development mode - Debug ON, SQLite database")
+
+# SECRET KEY - Must be set in production
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-neft+94-_5yu1nmh7wcfo#agm6^tp**k#%qf-(ep+ht_qzr^up')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG - Off in production
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-# Hosts that can access our application
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# ALLOWED HOSTS - Read from environment or use defaults
+allowed_hosts_str = os.getenv('ALLOWED_HOSTS', '')
+if allowed_hosts_str:
+    ALLOWED_HOSTS = [h.strip() for h in allowed_hosts_str.split(',') if h.strip()]
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Add common production hosts
+ALLOWED_HOSTS.extend(['chat.scholarport.co', 'api.scholarport.co', '65.1.127.116'])
+ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))  # Remove duplicates
+
+# CSRF Trusted Origins for HTTPS
+CSRF_TRUSTED_ORIGINS = [
+    'https://chat.scholarport.co',
+    'https://api.scholarport.co',
+    'http://65.1.127.116',
+    'http://localhost:3000',
+]
+
+# Security settings for production
+if IS_PRODUCTION:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
 # Application definition
@@ -84,16 +113,29 @@ TEMPLATES = [
 WSGI_APPLICATION = "scholarport_backend.wsgi.application"
 
 
-# Database
-# For development, we use SQLite (simple file-based database)
-# For production, you would use PostgreSQL
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Database Configuration
+if IS_PRODUCTION:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB', 'scholarport'),
+            'USER': os.getenv('POSTGRES_USER', 'scholarport_user'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
+            'HOST': os.getenv('POSTGRES_HOST', 'db'),
+            'PORT': os.getenv('POSTGRES_PORT', '5432'),
+            'CONN_MAX_AGE': 60,
+            'OPTIONS': {
+                'connect_timeout': 10,
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Django REST Framework configuration
 # This configures our API settings
@@ -152,13 +194,22 @@ No rate limiting is currently implemented.
     ],
 }
 
-# CORS settings for frontend integration
-# This allows our React frontend to communicate with our Django backend
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://127.0.0.1:5000',
-]
+# CORS settings
+cors_origins_str = os.getenv('CORS_ALLOWED_ORIGINS', '')
+if cors_origins_str:
+    CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins_str.split(',') if o.strip()]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+    ]
+
+CORS_ALLOWED_ORIGINS.extend([
+    'https://chat.scholarport.co',
+    'https://api.scholarport.co',
+    'http://65.1.127.116',
+])
+CORS_ALLOWED_ORIGINS = list(set(CORS_ALLOWED_ORIGINS))
 
 # Allow credentials in CORS requests
 CORS_ALLOW_CREDENTIALS = True
@@ -209,11 +260,38 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_URL = "static/"
+# Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Logging for production
+if IS_PRODUCTION:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '{levelname} {asctime} {module} {message}',
+                'style': '{',
+            },
+        },
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose',
+            },
+        },
+        'root': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    }
+
+print(f"Loaded {'production' if IS_PRODUCTION else 'development'} settings")
+print(f"Allowed hosts: {ALLOWED_HOSTS}")
