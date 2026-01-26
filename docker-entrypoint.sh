@@ -5,6 +5,11 @@ echo "🚀 Scholarport Backend Starting..."
 
 # Wait for PostgreSQL to be ready
 echo "⏳ Waiting for PostgreSQL..."
+# Use defaults if env vars not set
+: ${POSTGRES_HOST:=db}
+: ${POSTGRES_PORT:=5432}
+: ${POSTGRES_USER:=postgres}
+
 while ! pg_isready -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER > /dev/null 2>&1; do
     sleep 1
 done

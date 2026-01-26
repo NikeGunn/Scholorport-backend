@@ -57,6 +57,9 @@ urlpatterns = [
     # Admin API - React Admin Panel
     path("api/admin-panel/", include('admin_api.urls', namespace='admin_api')),
 
+    # Monitoring & Health Check endpoints
+    path("api/monitoring/", include('monitoring.urls', namespace='monitoring')),
+
     # API Documentation URLs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI - Interactive API Documentation

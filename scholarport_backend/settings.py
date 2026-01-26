@@ -58,6 +58,14 @@ if IS_PRODUCTION:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+    # CSRF settings for Cloudflare Flexible SSL + Nginx
+    CSRF_COOKIE_SECURE = False  # Set to False because nginx->backend is HTTP
+    CSRF_COOKIE_HTTPONLY = False  # Allow JS to read for SPA
+    CSRF_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SECURE = False  # Set to False because nginx->backend is HTTP
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    CSRF_USE_SESSIONS = False  # Use cookie-based CSRF tokens
+
 
 # Application definition
 # These are all the apps (modules) that our Django project uses
@@ -79,6 +87,7 @@ INSTALLED_APPS = [
 
     # Our custom apps
     "chat",                     # Main chatbot functionality
+    "monitoring",               # Slack notifications & health monitoring
 ]
 
 MIDDLEWARE = [
@@ -90,6 +99,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "monitoring.middleware.RequestMonitoringMiddleware",  # Slack alerts for errors
 ]
 
 ROOT_URLCONF = "scholarport_backend.urls"
@@ -141,7 +151,8 @@ else:
 # This configures our API settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # SessionAuthentication removed - enforces CSRF which breaks public APIs
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # Allow all for now - will secure later

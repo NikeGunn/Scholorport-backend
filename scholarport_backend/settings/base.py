@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "contact",
     "admin_api",
     "jobs",
+    "monitoring",  # Slack notifications & health monitoring
 ]
 
 MIDDLEWARE = [
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "monitoring.middleware.RequestMonitoringMiddleware",  # Slack alerts for errors
 ]
 
 ROOT_URLCONF = "scholarport_backend.urls"
@@ -73,7 +75,8 @@ WSGI_APPLICATION = "scholarport_backend.wsgi.application"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # SessionAuthentication removed - it enforces CSRF which breaks public APIs
+        # JWT is used for admin endpoints, AllowAny for public chat API
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',

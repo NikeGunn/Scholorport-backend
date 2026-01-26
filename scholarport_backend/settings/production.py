@@ -13,6 +13,7 @@ if not SECRET_KEY:
 
 # Allowed hosts - restrict to your domain
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if origin.strip()]
 
 # Database - PostgreSQL for production
 DATABASES = {
@@ -33,13 +34,15 @@ CORS_ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv('CORS_ALLOWED_ORI
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True  # Enable for development - disable after frontend is on proper domain
 
-# Security middleware - SSL disabled for initial deployment
-SECURE_SSL_REDIRECT = False  # Disabled - no SSL certificates yet
-SESSION_COOKIE_SECURE = False  # Disabled - no HTTPS
-CSRF_COOKIE_SECURE = False  # Disabled - no HTTPS
+# Security middleware - SSL disabled for initial deployment (Cloudflare Flexible SSL)
+SECURE_SSL_REDIRECT = False  # Disabled - Cloudflare handles SSL
+SESSION_COOKIE_SECURE = False  # Must be False - backend receives HTTP from Cloudflare
+CSRF_COOKIE_SECURE = False  # Must be False - backend receives HTTP from Cloudflare
+CSRF_COOKIE_HTTPONLY = False  # Allow JS to read for SPA
+CSRF_COOKIE_SAMESITE = 'Lax'
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # HSTS (HTTP Strict Transport Security) - Disabled until SSL is set up
 SECURE_HSTS_SECONDS = 0  # Disabled
