@@ -9,8 +9,11 @@ echo "⏳ Waiting for PostgreSQL..."
 : ${POSTGRES_HOST:=db}
 : ${POSTGRES_PORT:=5432}
 : ${POSTGRES_USER:=postgres}
+: ${POSTGRES_DB:=postgres}
 
-while ! pg_isready -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER > /dev/null 2>&1; do
+# -d must be explicit: pg_isready defaults -d to $POSTGRES_USER when omitted,
+# which probes a database that doesn't exist and spams FATAL logs on the db side.
+while ! pg_isready -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DB > /dev/null 2>&1; do
     sleep 1
 done
 echo "✅ PostgreSQL is ready!"

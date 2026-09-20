@@ -59,6 +59,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
 
 # Run entrypoint script
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
-# Simplified config: removed --preload which was causing startup issues
-# Using single worker to avoid memory issues on t2.micro
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "--timeout", "300", "--graceful-timeout", "120", "--worker-class", "sync", "--log-level", "info", "scholarport_backend.wsgi:application"]
+# New instance: 2 vCPU / 4GB RAM (up from t2.micro 1GB) — 3 workers safe now
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "--timeout", "300", "--graceful-timeout", "120", "--worker-class", "sync", "--log-level", "info", "scholarport_backend.wsgi:application"]
