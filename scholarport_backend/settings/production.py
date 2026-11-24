@@ -6,6 +6,7 @@ import logging
 
 # Security settings
 DEBUG = False
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 if not SECRET_KEY:

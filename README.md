@@ -22,6 +22,14 @@ cd ~/scholarport-backend
 ./server-commands.sh
 ```
 
+### Contact form email
+
+The contact API saves each inquiry in the admin inbox and emails it to `info@scholarport.co`. Replies go to the visitor's email address. Configure `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD` in the production **backend** environment. The defaults use `smtp.gmail.com` on port `587` with STARTTLS. For another SMTP provider, set `EMAIL_HOST`, `EMAIL_PORT`, and the provider's TLS or SSL settings. Set `DEFAULT_FROM_EMAIL` if the provider requires a verified sender address different from the login.
+
+Apply the contact migration with `python manage.py migrate` before serving traffic. If SMTP fails, the inquiry stays in the admin inbox and remains pending for email. Schedule `python manage.py retry_contact_emails` every five minutes in the backend environment. For the EC2 Docker deployment, run `docker exec scholarport_backend python manage.py retry_contact_emails` from the host scheduler. Each run processes up to 25 pending inquiries and exits with an error if an attempted delivery still fails.
+
+After deployment, submit a clearly labeled test inquiry on the website and confirm it appears in both the admin inbox and `info@scholarport.co`.
+
 📖 **Complete Guide:** [DEPLOYMENT-GUIDE.md](DEPLOYMENT-GUIDE.md)
 ⚡ **Quick Commands:** [COMMANDS.md](COMMANDS.md)
 🧹 **What's New:** [CLEAN-DEPLOYMENT.md](CLEAN-DEPLOYMENT.md)

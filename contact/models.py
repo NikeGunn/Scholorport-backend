@@ -51,6 +51,7 @@ class ContactSubmission(models.Model):
         blank=True,
         help_text="Internal notes from admin"
     )
+    email_notification_pending = models.BooleanField(default=False)
 
     # Metadata
     ip_address = models.GenericIPAddressField(null=True, blank=True)

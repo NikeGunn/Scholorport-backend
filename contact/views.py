@@ -4,6 +4,7 @@ Contact App Views
 API endpoints for contact form submissions.
 Public endpoint for form submission, admin endpoints for management.
 """
+from django.db import transaction
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser
@@ -12,6 +13,7 @@ from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse, OpenApiExample
 
 from .models import ContactSubmission
+from .notifications import deliver_contact_email
 from .serializers import (
     ContactSubmissionCreateSerializer,
     ContactSubmissionResponseSerializer,
@@ -81,8 +83,10 @@ def submit_contact_form(request):
         # Save submission
         submission = serializer.save(
             ip_address=ip_address,
-            user_agent=user_agent
+            user_agent=user_agent,
+            email_notification_pending=True,
         )
+        transaction.on_commit(lambda: deliver_contact_email(submission.pk), robust=True)
 
         response_serializer = ContactSubmissionResponseSerializer(submission)
 

@@ -11,6 +11,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Load environment variables
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
+# Outbound contact email. The authenticated mailbox is the default sender.
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'false').lower() == 'true'
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', str(not EMAIL_USE_SSL)).lower() == 'true'
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '465' if EMAIL_USE_SSL else '587'))
+EMAIL_TIMEOUT = 5
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') or EMAIL_HOST_USER
+
 # Secret key - MUST be overridden in production
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-changeme-in-production')
 
