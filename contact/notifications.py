@@ -9,7 +9,7 @@ from .models import ContactSubmission
 
 
 logger = logging.getLogger(__name__)
-CONTACT_INBOX = 'info@scholarport.co'
+
 
 
 @transaction.atomic
@@ -37,7 +37,7 @@ def deliver_contact_email(submission_id: UUID) -> bool:
             submission.message,
         ]),
         from_email=settings.DEFAULT_FROM_EMAIL,
-        to=[CONTACT_INBOX],
+        to=[settings.CONTACT_INBOX],
         reply_to=[submission.email],
     )
 
