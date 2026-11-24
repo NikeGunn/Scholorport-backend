@@ -20,6 +20,7 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', str(not EMAIL_USE_SSL)).lower() == 't
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '465' if EMAIL_USE_SSL else '587'))
 EMAIL_TIMEOUT = 5
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') or EMAIL_HOST_USER
+CONTACT_INBOX = os.getenv('CONTACT_INBOX') or 'info@scholarport.co'
 
 # Secret key - MUST be overridden in production
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-changeme-in-production')

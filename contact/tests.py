@@ -14,6 +14,7 @@ from .models import ContactSubmission
 @override_settings(
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     DEFAULT_FROM_EMAIL='website@example.com',
+    CONTACT_INBOX='contact@example.com',
 )
 class ContactEmailTests(APITestCase):
     def setUp(self):
@@ -35,7 +36,7 @@ class ContactEmailTests(APITestCase):
         self.assertFalse(submission.email_notification_pending)
         self.assertEqual(len(mail.outbox), 1)
         notification = mail.outbox[0]
-        self.assertEqual(notification.to, ['info@scholarport.co'])
+        self.assertEqual(notification.to, ['contact@example.com'])
         self.assertEqual(notification.from_email, 'website@example.com')
         self.assertEqual(notification.reply_to, [self.inquiry['email']])
         self.assertIn('University', notification.subject)
